@@ -18,9 +18,9 @@ Building a project that contains the following elements:
 
 **Scrabble Board**
 
-![Scrabble Board Diagram]
+###### **Scrabble Board Diagram:**
 
-<img src="https://github.com/yuvalzadik/Scrabble_Game/blob/main/Images/board.jpeg" width="360" height="360" alt=""/>
+<img src="https://github.com/yuvalzadik/Scrabble_Game/blob/main/Images/board.jpeg" width="420" height="420" alt=""/>
 
 The board will be made as a 15 x 15 array of Cell objects.  
 It will show bonuses that the cells have. (e.g., starting center, double word, double letter, triple word, triple letter)
