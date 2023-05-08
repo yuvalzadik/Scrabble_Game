@@ -59,7 +59,7 @@ To save on I/O operations and ensure fast data retrieval from the dictionary, we
 3. There is an option for the user to challenge the dictionary and check if it made a mistake and the word is actually not found through
    search based I/O method  . If the user was wrong, he will lose points and if he was right he will receive a bonus.
 
-4. 
+
 5. **Game rules and details:**
 
 1. Each player draws a tile from the bag to determine the order of the players.
