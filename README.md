@@ -35,6 +35,7 @@ Characters are used to check if tiles played on board are legit words, and point
 **Scrabble Bag**
 
 Contains 98 tiles:
+
 1 point:   E ×12, A ×9, I ×9, O ×8, N ×6, R ×6, T ×6, L ×4, S ×4, U ×4  
 2 points:  D ×4, G ×3  
 3 points:  B ×2, C ×2, M ×2, P ×2  
@@ -49,8 +50,17 @@ During the game it allows players to randomly draw tiles, and the amount of rema
 
 **Dictionary**
 
+Our dictionary will be represented by books, which are given as text files. 
+To save on I/O operations and ensure fast data retrieval from the dictionary, we will use several filters:
+1. Cache Manager: will keep in memory the answers to the most common queries.  
+   The cash will use through LRU & LFU methods, and the search will be made in o(1) time.
+2. Bloom filter - an efficient and cost-effective algorithm that tells with absolute certainty whether 
+   a word is not exist in the dictionary, and in high probability it is there.
+3. There is an option for the user to challenge the dictionary and check if it made a mistake and the word is actually not found through
+   search based I/O method  . If the user was wrong, he will lose points and if he was right he will receive a bonus.
 
-**Game rules and details:**
+4. 
+5. **Game rules and details:**
 
 1. Each player draws a tile from the bag to determine the order of the players.
    The order will be determined according to the letters drawn from the smallest to the largest.
