@@ -18,14 +18,14 @@ Building a project that contains the following elements:
 
 **Scrabble Board**
 
-![Scrabble Board Diagram](https://github.com/yuvalzadik/Scrabble_Game/blob/main/Images/board.jpeg?raw=true)
+![Scrabble Board Diagram]<img src="https://github.com/yuvalzadik/Scrabble_Game/blob/main/Images/board.jpeg" width="180" height="180"/>
 The board will be made as a 15 x 15 array of Cell objects.  
 It will show bonuses that the cells have. (e.g., starting center, double word, double letter, triple word, triple letter)
 
 
 **Scrabble Tile**
 
-Tiles are going to hold a character and coresponding points.
+Tiles are going to hold a character and corresponding points.
 Characters are used to check if tiles played on board are legit words, and points will be added from all tiles played to form the new word in addition to any newer words completed with the initial wordplay.
 
 
