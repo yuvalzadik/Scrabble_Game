@@ -12,7 +12,8 @@ Building a project that contains the following elements:
 - Implementation of different algorithms.
 - Parallel programming using threads.
 - Building a desktop application with a GUI.
-
+  <br />
+  <br />
 
 
 
