@@ -14,11 +14,7 @@ Building a project that contains the following elements:
 - Building a desktop application with a GUI.
   <br />
   <br />
-
-
-
-
-
+  <br />
 
 **Scrabble Board**
 
@@ -29,17 +25,18 @@ Building a project that contains the following elements:
 The board will be made as a 15 x 15 array of Cell objects.  
 It will show bonuses that the cells have. (e.g., starting center, double word, double letter, triple word, triple letter)
 
+<br />
 
 **Scrabble Tile**
 
 Tiles are going to hold a character and corresponding points.
 Characters are used to check if tiles played on board are legit words, and points will be added from all tiles played to form the new word in addition to any newer words completed with the initial wordplay.
 
-
+<br />
 **Scrabble Bag**
 
 Contains 98 tiles:
-
+<br />
 1 point:   E ×12, A ×9, I ×9, O ×8, N ×6, R ×6, T ×6, L ×4, S ×4, U ×4  
 2 points:  D ×4, G ×3  
 3 points:  B ×2, C ×2, M ×2, P ×2  
@@ -50,7 +47,7 @@ Contains 98 tiles:
 
 The bag will be responsible for containing tile items identical to the list above in terms of quantity and property.
 During the game it allows players to randomly draw tiles, and the amount of remaining tiles will be updated each turn.
-
+<br />
 
 **Dictionary**
 
@@ -64,7 +61,7 @@ To save on I/O operations and ensure fast data retrieval from the dictionary, we
    and the word is actually not in it, using an I/O based search. 
    If the player was wrong he will lose points and if he was right he will get a bonus.
 
-
+<br />
 **Game rules and details:**
 
 1. Each player draws a tile from the bag to determine the order of the players.
@@ -87,7 +84,7 @@ To save on I/O operations and ensure fast data retrieval from the dictionary, we
 
 
 
-
+<br />
 
 
 ###### Demonstration:
