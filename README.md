@@ -16,6 +16,9 @@ Building a project that contains the following elements:
 
 
 
+
+
+
 **Scrabble Board**
 
 ###### **Scrabble Board Diagram:**
@@ -61,7 +64,7 @@ To save on I/O operations and ensure fast data retrieval from the dictionary, we
    If the player was wrong he will lose points and if he was right he will get a bonus.
 
 
-5. **Game rules and details:**
+**Game rules and details:**
 
 1. Each player draws a tile from the bag to determine the order of the players.
    The order will be determined according to the letters drawn from the smallest to the largest.
@@ -81,7 +84,8 @@ To save on I/O operations and ensure fast data retrieval from the dictionary, we
 
 
 
-###### **Algorithm**
+
+
 
 
 
