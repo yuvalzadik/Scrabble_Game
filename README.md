@@ -33,6 +33,7 @@ Tiles are going to hold a character and corresponding points.
 Characters are used to check if tiles played on board are legit words, and points will be added from all tiles played to form the new word in addition to any newer words completed with the initial wordplay.
 
 <br />
+
 **Scrabble Bag**
 
 Contains 98 tiles:
@@ -62,6 +63,7 @@ To save on I/O operations and ensure fast data retrieval from the dictionary, we
    If the player was wrong he will lose points and if he was right he will get a bonus.
 
 <br />
+
 **Game rules and details:**
 
 1. Each player draws a tile from the bag to determine the order of the players.
