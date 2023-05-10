@@ -82,11 +82,17 @@ To save on I/O operations and ensure fast data retrieval from the dictionary, we
             - Combines one of the existing tiles on the game board.
             - Does not produce other illegal words on the board
 
-
-
-
-
 <br />
+<br />
+
+## Strategy
+
+To ensure that the project is managed correctly and completed in the required time, we have taken the following actions:
+
+1. Using Jira to organize in advance all the required tasks and division of work between the team.
+2. We will divide the project into three main milestones and the tasks in Jira will be done according to them.
+3. We will perform tests to check the correctness and efficiency of the code while writing it, so that we do not encounter unexpected problems at the end.
+
 
 
 ###### Demonstration:
