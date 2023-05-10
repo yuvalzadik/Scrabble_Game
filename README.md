@@ -85,7 +85,7 @@ To save on I/O operations and ensure fast data retrieval from the dictionary, we
 <br />
 <br />
 
-## Strategy
+**Strategy:**
 
 To ensure that the project is managed correctly and completed in the required time, we have taken the following actions:
 
