@@ -56,8 +56,9 @@ To save on I/O operations and ensure fast data retrieval from the dictionary, we
    The cash will use through LRU & LFU methods, and the search will be made in o(1) time.
 2. Bloom filter - an efficient and cost-effective algorithm that tells with absolute certainty whether 
    a word is not exist in the dictionary, and in high probability it is there.
-3. There is an option for the user to challenge the dictionary and check if it made a mistake and the word is actually not found through
-   search based I/O method  . If the user was wrong, he will lose points and if he was right he will receive a bonus.
+3. There is an option for the player to challenge the dictionary and check if it made a mistake
+   and the word is actually not in it, using an I/O based search. 
+   If the player was wrong he will lose points and if he was right he will get a bonus.
 
 
 5. **Game rules and details:**
