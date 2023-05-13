@@ -1,9 +1,9 @@
 package test;
 
-import model.BookScrabbleHandler;
-import model.ClientHandler;
-import model.DictionaryManager;
-import model.MyServer;
+import scrabble_game.BookScrabbleHandler;
+import scrabble_game.ClientHandler;
+import scrabble_game.DictionaryManager;
+import scrabble_game.MyServer;
 
 import java.io.*;
 import java.net.Socket;

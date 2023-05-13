@@ -1,4 +1,4 @@
-package model;
+package scrabble_game;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

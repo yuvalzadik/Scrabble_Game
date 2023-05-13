@@ -1,9 +1,9 @@
 package test;
 
-import model.Board;
-import model.Tile;
-import model.Tile.Bag;
-import model.Word;
+import scrabble_game.Board;
+import scrabble_game.Tile;
+import scrabble_game.Tile.Bag;
+import scrabble_game.Word;
 
 public class MainTrain_original {
 	

@@ -1,6 +1,7 @@
-package model;
+package scrabble_game;
+import java.io.*;
 import java.util.Objects;
-public class Tile {
+public class Tile implements Serializable{
     public final char letter ;
     public final int score ;
     private Tile(char letter, int score) {
@@ -20,7 +21,7 @@ public class Tile {
         return Objects.hash(letter, score);
     }
 
-    public static class Bag {
+    public static class Bag implements Serializable{
         private int[] letter_amount;
         public final int[] max_letter_amount;
         private Tile[] letters_and_value;
@@ -92,5 +93,46 @@ public class Tile {
             }
             return  _instance;
         }
+
+
     }
+    static public byte[] serialize(Tile tile){
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = null;
+        try {
+            out = new ObjectOutputStream(bos);
+            out.writeObject(tile);
+            out.flush();
+            return bos.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex) {
+                // ignore close exception
+            }
+        }
+    }
+
+    static public Tile deserialize(byte[] bytes){
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        ObjectInput in = null;
+        try {
+            in = new ObjectInputStream(bis);
+            return (Tile) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                // ignore close exception
+            }
+        }
+    }
+
+
 }

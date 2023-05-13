@@ -1,6 +1,6 @@
 package test;
 
-import model.*;
+import scrabble_game.*;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;

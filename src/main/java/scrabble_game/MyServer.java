@@ -1,4 +1,4 @@
-package model;
+package scrabble_game;
 
 import java.io.IOException;
 import java.net.ServerSocket;

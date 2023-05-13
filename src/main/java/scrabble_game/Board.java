@@ -1,9 +1,10 @@
-package model;
+package scrabble_game;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Board {
+public class Board implements Serializable {
     private static Board b = null;
     public Tile[][] tiles_board;
     private int[][] bonus;
@@ -337,4 +338,43 @@ public class Board {
                 return Total_score;
         }
     }
+
+    static public byte[] serialize(Board board){
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = null;
+        try {
+            out = new ObjectOutputStream(bos);
+            out.writeObject(board);
+            out.flush();
+            return bos.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex) {
+                // ignore close exception
+            }
+        }
+    }
+
+    static public Board deserialize(byte[] bytes){
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        ObjectInput in = null;
+        try {
+            in = new ObjectInputStream(bis);
+            return (Board) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                // ignore close exception
+            }
+        }
+    }
+
 }
