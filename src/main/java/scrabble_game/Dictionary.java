@@ -1,4 +1,4 @@
-package model;
+package scrabble_game;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

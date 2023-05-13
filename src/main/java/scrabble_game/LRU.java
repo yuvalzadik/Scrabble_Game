@@ -1,4 +1,4 @@
-package model;
+package scrabble_game;
 import java.util.LinkedHashSet;
 
 public class LRU implements CacheReplacementPolicy {

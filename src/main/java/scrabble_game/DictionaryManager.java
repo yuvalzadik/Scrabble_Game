@@ -1,4 +1,4 @@
-package model;
+package scrabble_game;
 import java.util.HashMap;
 
 public class DictionaryManager {
