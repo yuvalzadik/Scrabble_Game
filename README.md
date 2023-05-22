@@ -97,7 +97,7 @@ To ensure that the project is managed correctly and completed in the required ti
 
 <br />
 <br />
-<img src="https://github.com/yuvalzadik/Scrabble_Game/blob/main/Images/Roadmap.png" width="420" height="420" alt=""/>
+<img src="https://github.com/yuvalzadik/Scrabble_Game/blob/main/Images/Roadmap.png" width="800" height="400" alt=""/>
 
 <br />
 
