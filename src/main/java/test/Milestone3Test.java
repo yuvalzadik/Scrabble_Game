@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-public class MainTrain {
+public class Milestone3Test {
 	
 	public static class ClientHandler1 implements ClientHandler {
 		PrintWriter out;
@@ -44,7 +44,7 @@ public class MainTrain {
 		outToServer.flush();
 		String response=in.next();
 		if(response==null || !response.equals(rev)) 
-			System.out.println("problem getting the right response from your server, cannot continue the model (-100)");
+			System.out.println("problem getting the right response from your server, cannot continue the model ");
 		in.close();
 		outToServer.println(text);
 		outToServer.close();
@@ -61,7 +61,7 @@ public class MainTrain {
 		try {
 			client1(port);
 		}catch(Exception e) {
-			System.out.println("some exception was thrown while testing your server, cannot continue the model (-100)");
+			System.out.println("some exception was thrown while testing your server, cannot continue the model");
 			ok=false;
 		}
 		s.close();
@@ -69,7 +69,7 @@ public class MainTrain {
 		try {Thread.sleep(2000);} catch (InterruptedException e) {}
 		
 		if (Thread.activeCount()!=c) {
-			System.out.println("you have a thread open after calling close method (-100)");
+			System.out.println("you have a thread open after calling close method ");
 			ok=false;
 		}
 		return ok;
@@ -102,20 +102,20 @@ public class MainTrain {
 		DictionaryManager dm=DictionaryManager.get();
 		
 		if(!dm.query("t1.txt","t2.txt",t2[4]))
-			System.out.println("problem for Dictionary Manager query (-5)");
+			System.out.println("problem for Dictionary Manager query ");
 		if(!dm.query("t1.txt","t2.txt",t1[9]))
-			System.out.println("problem for Dictionary Manager query (-5)");
+			System.out.println("problem for Dictionary Manager query ");
 		if(dm.query("t1.txt","t3.txt","2"+t3[2]))
-			System.out.println("problem for Dictionary Manager query (-5)");
+			System.out.println("problem for Dictionary Manager query");
 		if(dm.query("t2.txt","t3.txt","3"+t2[5]))
-			System.out.println("problem for Dictionary Manager query (-5)");
+			System.out.println("problem for Dictionary Manager query ");
 		if(!dm.challenge("t1.txt","t2.txt","t3.txt",t3[2]))
-			System.out.println("problem for Dictionary Manager challenge (-5)");
+			System.out.println("problem for Dictionary Manager challenge ");
 		if(dm.challenge("t2.txt","t3.txt","t1.txt","3"+t2[5]))
-			System.out.println("problem for Dictionary Manager challenge (-5)");
+			System.out.println("problem for Dictionary Manager challenge");
 		
 		if(dm.getSize()!=3)
-			System.out.println("wrong size for the Dictionary Manager (-10)");
+			System.out.println("wrong size for the Dictionary Manager ");
 		
 	}
 	
@@ -128,12 +128,12 @@ public class MainTrain {
 			out.flush();
 			String res=in.next();
 			if((result && !res.equals("true")) || (!result && !res.equals("false")))
-				System.out.println("problem getting the right answer from the server (-10)");
+				System.out.println("problem getting the right answer from the server ");
 			in.close();
 			out.close();
 			server.close();
 		} catch (IOException e) {
-			System.out.println("your code ran into an IOException (-10)");
+			System.out.println("your code ran into an IOException ");
 		}
 	}
 
@@ -158,7 +158,6 @@ public class MainTrain {
 		if(testServer()) {
 			testDM();
 			testBSCH();
-			System.out.println("yuva");
 		}
 		System.out.println("done");
 	}
