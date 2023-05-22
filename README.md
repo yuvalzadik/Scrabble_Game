@@ -93,7 +93,15 @@ To ensure that the project is managed correctly and completed in the required ti
 2. We will divide the project into three main milestones and the tasks in Jira will be done according to them.
 3. We will perform tests to check the correctness and efficiency of the code while writing it, so that we do not encounter unexpected problems at the end.
 
+**GANTT CHART:**
 
+<br />
+<br />
+<img src="https://github.com/yuvalzadik/Scrabble_Game/blob/main/Images/Roadmap.png" width="420" height="420" alt=""/>
+
+<br />
+
+###### **[Jira URL](https://scrabble-ptm2.atlassian.net/jira/software/projects/SCRAB/boards/1/roadmap)**
 
 ###### Demonstration:
 ###### **[Demo](will be added later)**
