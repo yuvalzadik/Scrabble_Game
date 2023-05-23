@@ -117,6 +117,10 @@ public class Board implements Serializable {
         // if it is the first word of the game and one of the tiles not on the star position it's not legal
         return notfirstword && near_tile;
     }
+
+    /*
+    TODO - Query ServerSide using this function
+     */
     public static boolean dictionaryLegal(Word word){
         return true;
     }

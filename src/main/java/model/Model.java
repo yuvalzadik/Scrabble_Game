@@ -1,7 +1,6 @@
 package model;
 
 import scrabble_game.Board;
-import scrabble_game.BookScrabbleHandler;
 import scrabble_game.MyServer;
 import scrabble_game.Tile;
 
@@ -77,7 +76,7 @@ public class Model extends Observable {
     }
 
     public boolean challenge(String word, int row, int col, boolean vertical) {
-        String challengeWordQuery =  GameCommandsFactory.getTryPlaceWordCommandString(playerId, word, row, col, vertical);
+        String challengeWordQuery =  GameCommandsFactory.getChallengeCommandString(playerId, word, row, col, vertical);
         String res = runCommand(challengeWordQuery);
         return Boolean.parseBoolean(res);
     }
@@ -102,5 +101,10 @@ public class Model extends Observable {
             bytes[i] = Byte.parseByte(byteValues[i].trim());
         }
         return Tile.deserialize(bytes);
+    }
+
+    public void setGameDictionaries(String... dictionaries){
+        String getSetGameDictionariesString = GameCommandsFactory.getSetGameDictionariesString(playerId, dictionaries);
+        runCommand(getSetGameDictionariesString);
     }
 }

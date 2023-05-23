@@ -15,6 +15,7 @@ public class HostMain {
         scrabbleModel.startGame();
         scrabbleModel.tryPlaceWord("Bla", 1,2,true);
         scrabbleModel.getBoard();
+        scrabbleModel.setGameDictionaries("dictionary1", "dictionary2");
         System.out.println(scrabbleModel.getRand().letter);
     }
 }

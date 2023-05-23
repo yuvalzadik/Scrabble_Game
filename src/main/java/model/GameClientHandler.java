@@ -67,6 +67,16 @@ public class GameClientHandler implements ClientHandler {
             case GetBoard: // return board
                 byte[] boardBytes = Board.serialize(Board.getBoard());
                 return Arrays.toString(boardBytes);
+            case SetGameDictionaries: //set dictionaries at game manager
+                ArrayList<String> dictionaries = new ArrayList<>();
+                String[] inputArr = input.split(",");
+                int i=2; //skip id and command
+                while(!inputArr[i].equals("endDictionaries")){
+                    dictionaries.add(inputArr[i]);
+                    i++;
+                }
+                gameManager.setGameDictionaries(dictionaries);
+                return "true";
         }
         return "false";
     }

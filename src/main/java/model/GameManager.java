@@ -4,6 +4,8 @@ import scrabble_game.Board;
 import scrabble_game.DictionaryManager;
 import scrabble_game.Tile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class GameManager {
@@ -14,10 +16,12 @@ public class GameManager {
 
     boolean gameStarted;
     HashMap<Integer, Player> players;
+    ArrayList<String> dictionaries;
 
     public GameManager(){
         this.gameStarted = false;
         this.players = new HashMap<>();
+        this.dictionaries = null;
     }
 
     public int addPlayer(Player player){
@@ -37,4 +41,7 @@ public class GameManager {
         players.get(playerId).addScore(score);
     }
 
+    public void setGameDictionaries(ArrayList<String> dictionaries) {
+        this.dictionaries = new ArrayList<>(dictionaries);
+    }
 }
