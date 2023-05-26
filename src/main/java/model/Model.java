@@ -31,6 +31,7 @@ public class Model extends Observable {
         }
     }
 
+
     // TODO: Change below code after adding thread, also remove prints
     private String runCommand(String commandString) {
         try {
@@ -107,4 +108,6 @@ public class Model extends Observable {
         String getSetGameDictionariesString = GameCommandsFactory.getSetGameDictionariesString(playerId, dictionaries);
         runCommand(getSetGameDictionariesString);
     }
+
+
 }

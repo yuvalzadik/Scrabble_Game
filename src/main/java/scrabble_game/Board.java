@@ -1,5 +1,8 @@
 package scrabble_game;
 
+import model.BookScrabbleCommunication;
+import model.GameManager;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +11,8 @@ public class Board implements Serializable {
     private static Board b = null;
     public Tile[][] tiles_board;
     private int[][] bonus;
+
+    BookScrabbleCommunication BScommunication = BookScrabbleCommunication.get_instance();
 
     //public Object[][] Board_matrix;
     private Board() {
@@ -121,8 +126,16 @@ public class Board implements Serializable {
     /*
     TODO - Query ServerSide using this function
      */
-    public static boolean dictionaryLegal(Word word){
-        return true;
+    public boolean dictionaryLegal(Word word){
+        GameManager gameManger = GameManager.get_instance();
+        StringBuilder sb = new StringBuilder();
+        StringBuilder wordString = new StringBuilder();
+        for(Tile tile : word.getTiles()){
+            wordString.append(tile.letter);
+        }
+        sb.append("Q,").append(gameManger.getDictionaries()).append(",").append(wordString);
+        String resBSH = BScommunication.runChallengeOrQuery(sb.toString());
+        return Boolean.parseBoolean(resBSH);
     }
 
     private static  int  check_boundaries_up (int row, int col){

@@ -12,17 +12,26 @@ public class GameManager {
     static public int MAX_PLAYERS = 4;
     public Board board = Board.getBoard();
     public Tile.Bag bag = Tile.Bag.getBag();
-    public DictionaryManager dm = DictionaryManager.get();
+    public DictionaryManager dm = DictionaryManager.get(); // TODO: delete
 
     boolean gameStarted;
     HashMap<Integer, Player> players;
     ArrayList<String> dictionaries;
 
-    public GameManager(){
+    private static GameManager _instance = null;
+
+    private GameManager(){
         this.gameStarted = false;
         this.players = new HashMap<>();
         this.dictionaries = null;
     }
+    public static GameManager get_instance() {
+        if (_instance == null) {
+            _instance = new GameManager();
+        }
+        return _instance;
+    }
+
 
     public int addPlayer(Player player){
         if (!gameStarted && players.size() < MAX_PLAYERS) {
@@ -43,5 +52,9 @@ public class GameManager {
 
     public void setGameDictionaries(ArrayList<String> dictionaries) {
         this.dictionaries = new ArrayList<>(dictionaries);
+    }
+
+    public String getDictionaries() {
+        return String.join(",", dictionaries);
     }
 }
