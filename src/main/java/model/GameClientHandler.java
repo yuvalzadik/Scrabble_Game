@@ -19,7 +19,7 @@ public class GameClientHandler implements ClientHandler {
 
 
     public GameClientHandler() {
-        this.gameManager = GameManager.get_instance();
+        this.gameManager = new GameManager();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class GameClientHandler implements ClientHandler {
                     return "true";
                 break;
             case Challenge:
-                String inString = (input.split(",")[1]).toString() + "," + gameManager.getDictionaries() +  "," + (input.split(",")[2]).toString();
+                String inString = (input.split(",")[1]).toString() + "," + BScommunication.getDictionaries() +  "," + (input.split(",")[2]).toString();
                 String resBSH = BScommunication.runChallengeOrQuery(inString);
 
                 if (resBSH.equals("true")){
@@ -87,7 +87,7 @@ public class GameClientHandler implements ClientHandler {
                     dictionaries.add(inputArr[i]);
                     i++;
                 }
-                gameManager.setGameDictionaries(dictionaries);
+                BScommunication.setGameDictionaries(dictionaries);
                 return "true";
         }
         return "false";

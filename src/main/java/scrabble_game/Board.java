@@ -12,8 +12,6 @@ public class Board implements Serializable {
     public Tile[][] tiles_board;
     private int[][] bonus;
 
-    BookScrabbleCommunication BScommunication = BookScrabbleCommunication.get_instance();
-
     //public Object[][] Board_matrix;
     private Board() {
         this.tiles_board = new Tile[15][15];
@@ -127,13 +125,13 @@ public class Board implements Serializable {
     TODO - Query ServerSide using this function
      */
     public boolean dictionaryLegal(Word word){
-        GameManager gameManger = GameManager.get_instance();
+        BookScrabbleCommunication BScommunication = BookScrabbleCommunication.get_instance();
         StringBuilder sb = new StringBuilder();
         StringBuilder wordString = new StringBuilder();
         for(Tile tile : word.getTiles()){
             wordString.append(tile.letter);
         }
-        sb.append("Q,").append(gameManger.getDictionaries()).append(",").append(wordString);
+        sb.append("Q,").append(BScommunication.getDictionaries()).append(",").append(wordString);
         String resBSH = BScommunication.runChallengeOrQuery(sb.toString());
         return Boolean.parseBoolean(resBSH);
     }

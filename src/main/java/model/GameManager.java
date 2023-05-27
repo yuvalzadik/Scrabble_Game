@@ -18,18 +18,10 @@ public class GameManager {
     HashMap<Integer, Player> players;
     ArrayList<String> dictionaries;
 
-    private static GameManager _instance = null;
-
-    private GameManager(){
+    public GameManager(){
         this.gameStarted = false;
         this.players = new HashMap<>();
         this.dictionaries = null;
-    }
-    public static GameManager get_instance() {
-        if (_instance == null) {
-            _instance = new GameManager();
-        }
-        return _instance;
     }
 
 

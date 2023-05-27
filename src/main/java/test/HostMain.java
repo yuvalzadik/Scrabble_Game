@@ -23,12 +23,12 @@ public class HostMain {
 
         scrabbleModel.startGame();
 
-        //scrabbleModel.getBoard();
+        scrabbleModel.getBoard();
         scrabbleModel.tryPlaceWord("AND", 7,7,true);
 
 
 
-       scrabbleModel.challenge("andy", 2,3,true);
+       scrabbleModel.challenge("AND", 2,3,true);
 
         System.out.println(scrabbleModel.getRand().letter);
     }

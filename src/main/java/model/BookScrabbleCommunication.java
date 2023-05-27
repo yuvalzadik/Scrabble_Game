@@ -1,8 +1,12 @@
 package model;
 
+import scrabble_game.DictionaryManager;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class BookScrabbleCommunication {
@@ -12,6 +16,9 @@ public class BookScrabbleCommunication {
     final int BookScrabblePort= 5842;
 
     private static BookScrabbleCommunication _instance = null;
+
+    ArrayList<String> dictionaries;
+
 
     private BookScrabbleCommunication() {}
 
@@ -40,6 +47,14 @@ public class BookScrabbleCommunication {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void setGameDictionaries(ArrayList<String> dictionaries) {
+        this.dictionaries = new ArrayList<>(dictionaries);
+    }
+
+    public String getDictionaries() {
+        return String.join(",", dictionaries);
     }
 }
 
