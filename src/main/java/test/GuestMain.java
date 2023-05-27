@@ -12,6 +12,6 @@ public class GuestMain {
         int port = 1234;
         Model scrabbleModel = new Model(GameMode.Guest, ip, port);
 
-        scrabbleModel.joinGame("Afek");
+        scrabbleModel.joinGame("Afekk");
     }
 }
