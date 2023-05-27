@@ -18,7 +18,6 @@ public class Model extends Observable {
     Socket fg;
     PrintWriter out2fg;
     Scanner fgin;
-
     MyServer gameServer;
     int playerId;
 

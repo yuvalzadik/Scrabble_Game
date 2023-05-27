@@ -40,7 +40,6 @@ public class BookScrabbleCommunication {
             in.close();
             out.close();
             server.close();
-            System.out.println("the- " + inString.substring(0,1)+ " " + resBSH);
             return resBSH;
 
         } catch (IOException e){

@@ -19,7 +19,7 @@ public class GameClientHandler implements ClientHandler {
 
 
     public GameClientHandler() {
-        this.gameManager = new GameManager();
+        this.gameManager = GameManager.get_instance();
     }
 
     @Override
