@@ -1,7 +1,6 @@
 package model;
 
 import scrabble_game.Board;
-import scrabble_game.BookScrabbleHandler;
 import scrabble_game.MyServer;
 import scrabble_game.Tile;
 
@@ -19,7 +18,6 @@ public class Model extends Observable {
     Socket fg;
     PrintWriter out2fg;
     Scanner fgin;
-
     MyServer gameServer;
     int playerId;
 
@@ -31,6 +29,7 @@ public class Model extends Observable {
             gameServer.start();
         }
     }
+
 
     // TODO: Change below code after adding thread, also remove prints
     private String runCommand(String commandString) {
@@ -77,7 +76,7 @@ public class Model extends Observable {
     }
 
     public boolean challenge(String word, int row, int col, boolean vertical) {
-        String challengeWordQuery =  GameCommandsFactory.getTryPlaceWordCommandString(playerId, word, row, col, vertical);
+        String challengeWordQuery =  GameCommandsFactory.getChallengeCommandString(playerId, word, row, col, vertical);
         String res = runCommand(challengeWordQuery);
         return Boolean.parseBoolean(res);
     }
@@ -103,4 +102,11 @@ public class Model extends Observable {
         }
         return Tile.deserialize(bytes);
     }
+
+    public void setGameDictionaries(String... dictionaries){
+        String getSetGameDictionariesString = GameCommandsFactory.getSetGameDictionariesString(playerId, dictionaries);
+        runCommand(getSetGameDictionariesString);
+    }
+
+
 }

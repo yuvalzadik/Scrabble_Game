@@ -1,5 +1,8 @@
 package scrabble_game;
 
+import model.BookScrabbleCommunication;
+import model.GameManager;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,11 +85,12 @@ public class Board implements Serializable {
             // if we want to put tile on occupied spot we have to check it is the same one
             if (b.tiles_board[row][col]!= null){
                 if (word.getTiles()[i]!= null) {
-                //if (b.tiles_board[row][col] != word.getTiles()[i]) {
-                    return false;
-                }
-                else {
-                    near_tile = true;
+                    if (b.tiles_board[row][col] != word.getTiles()[i]) {
+                        return false;
+                    }
+                    else {
+                        near_tile = true;
+                    }
                 }
             }
             //check if the new word is near existing tile
@@ -117,8 +121,20 @@ public class Board implements Serializable {
         // if it is the first word of the game and one of the tiles not on the star position it's not legal
         return notfirstword && near_tile;
     }
-    public static boolean dictionaryLegal(Word word){
-        return true;
+
+    /*
+    TODO - Query ServerSide using this function
+     */
+    public boolean dictionaryLegal(Word word){
+        BookScrabbleCommunication BScommunication = BookScrabbleCommunication.get_instance();
+        StringBuilder sb = new StringBuilder();
+        StringBuilder wordString = new StringBuilder();
+        for(Tile tile : word.getTiles()){
+            wordString.append(tile.letter);
+        }
+        sb.append("Q,").append(BScommunication.getDictionaries()).append(",").append(wordString);
+        String resBSH = BScommunication.runChallengeOrQuery(sb.toString());
+        return Boolean.parseBoolean(resBSH);
     }
 
     private static  int  check_boundaries_up (int row, int col){
@@ -375,6 +391,21 @@ public class Board implements Serializable {
                 // ignore close exception
             }
         }
+    }
+
+    public static void printBoard(Board board){
+        Tile[][] currentTiles = board.getTiles();
+        for(int row=0; row < 15; row++){
+            for (int col=0; col < 15; col++){
+                if(currentTiles[row][col] != null)
+                    System.out.print(currentTiles[row][col].letter+ " ");
+                else
+                    System.out.print("- ");
+            }
+            System.out.println("");
+        }
+
+
     }
 
 }

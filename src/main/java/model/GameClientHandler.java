@@ -3,19 +3,23 @@ package model;
 import scrabble_game.*;
 
 import java.io.*;
+import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class GameClientHandler implements ClientHandler {
     PrintWriter out;
     BufferedReader in;
     GameManager gameManager;
 
+    BookScrabbleCommunication BScommunication = BookScrabbleCommunication.get_instance();
+
 
     public GameClientHandler() {
-        this.gameManager = new GameManager();
+        this.gameManager = GameManager.get_instance();
     }
 
     @Override
@@ -54,19 +58,37 @@ public class GameClientHandler implements ClientHandler {
                     return "true";
                 break;
             case Challenge:
-                if (this.gameManager.dm.challenge(input.split(",")[2])) {
+                String inString = (input.split(",")[1]).toString() + "," + BScommunication.getDictionaries() +  "," + (input.split(",")[2]).toString();
+                String resBSH = BScommunication.runChallengeOrQuery(inString);
+
+                if (resBSH.equals("true")){
                     int score1 = this.gameManager.board.tryPlaceWord(buildWordFromInput(input));
                     gameManager.addScore(playerId, score1);
                     if (score1 > 0)
                         return "true";
                 }
-                break;
+                else{
+                    gameManager.addScore(playerId, -10);
+                    return "false";
+                }
+
+//                break;
             case GetRandTile: // return rand tile
                 byte[] bagBytes = Tile.serialize(Tile.Bag.getBag().getRand());
                 return Arrays.toString(bagBytes);
             case GetBoard: // return board
                 byte[] boardBytes = Board.serialize(Board.getBoard());
                 return Arrays.toString(boardBytes);
+            case SetGameDictionaries: //set dictionaries at game manager
+                ArrayList<String> dictionaries = new ArrayList<>();
+                String[] inputArr = input.split(",");
+                int i=2; //skip id and command
+                while(!inputArr[i].equals("endDictionaries")){
+                    dictionaries.add(inputArr[i]);
+                    i++;
+                }
+                BScommunication.setGameDictionaries(dictionaries);
+                return "true";
         }
         return "false";
     }

@@ -6,5 +6,7 @@ public enum GameCommand {
     TryPlaceWord,
     Challenge,
     GetBoard,
-    GetRandTile
+    GetRandTile,
+    SetGameDictionaries,
+
 }

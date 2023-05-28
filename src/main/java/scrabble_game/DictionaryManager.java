@@ -11,7 +11,7 @@ public class DictionaryManager {
         Dictionary dict;
         for (int i = 0; i < args.length - 1; i++) {
             if (!(Books.containsKey(args[i]))) {
-                dict = new Dictionary(args[i]);
+                dict = new Dictionary("src/main/resources/Dictionaries/"+args[i]);
                 Books.put(args[i], dict);
             } else {
                 dict = Books.get(args[i]);

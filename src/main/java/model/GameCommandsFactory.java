@@ -11,6 +11,7 @@ public class GameCommandsFactory {
         put(GameCommand.Challenge, 'C');
         put(GameCommand.GetBoard, 'B');
         put(GameCommand.GetRandTile, 'T');
+        put(GameCommand.SetGameDictionaries, 'D');
     }};
 
     static public GameCommand getCommandEnumFromChar(char ch){
@@ -45,4 +46,16 @@ public class GameCommandsFactory {
     static public String getGetRandTileString(int playerId) {
         return playerId + "," + commandToChar.get(GameCommand.GetRandTile);
     }
+
+    static public String getSetGameDictionariesString(int playerId, String[] dictionaries) {
+        String setGameDictionariesString = playerId + "," + commandToChar.get(GameCommand.SetGameDictionaries) + ",";
+        int i;
+        for (i=0; i< dictionaries.length; i++){
+            setGameDictionariesString += dictionaries[i];
+            setGameDictionariesString += ",";
+        }
+        setGameDictionariesString += "endDictionaries";
+        return setGameDictionariesString;
+    }
+
 }
