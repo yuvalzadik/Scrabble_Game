@@ -49,7 +49,8 @@ public class MyServer {
             }
         }
     }
+
     public void close(){
-        stop= true;
+        stop = true;
     }
 }

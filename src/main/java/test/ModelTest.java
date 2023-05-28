@@ -34,10 +34,6 @@ public class ModelTest {
             System.out.println("problem with start game");
 
 
-        //check getting stage board
-        Board resGetBoard = scrabbleModel.getBoard();
-        if (!(resGetBoard == gameManager.board))
-            System.out.println("problem with getting the board");
 
 
         //Start Book Scrabble Server
@@ -46,21 +42,32 @@ public class ModelTest {
 
 
         //check place dictionaries
-        String checkString = "yuv.txt,s2.txt";
-        scrabbleModel.setGameDictionaries("yuv.txt","s2.txt");
+        String checkString = "alice_in_wonderland.txt,Frank Herbert - Dune.txt";
+        scrabbleModel.setGameDictionaries("alice_in_wonderland.txt","Frank Herbert - Dune.txt");
         BookScrabbleCommunication BSCommunication = BookScrabbleCommunication.get_instance();
         String dictionariesBSC = BSCommunication.getDictionaries();
-        if(dictionariesBSC.compareTo(checkString) != 0)
+        if(dictionariesBSC.compareTo(checkString) != 0) {
             System.out.println("problem with set dictionaries");
+        }
 
 
         //check trying place word on the board
-        if(!scrabbleModel.tryPlaceWord("AND", 7,7,true))
+        if(!scrabbleModel.tryPlaceWord("IN", 7,7,false)) {
             System.out.println("problem with try place word");
+        }
+
+        //check getting stage board ->
+        // print the board saved in game manager and print the board we got from client  request
+        Board boardDirect = Board.getBoard();
+        Board resGetBoard = scrabbleModel.getBoard();
+        System.out.println("this is the board direct - ");
+        Board.printBoard(boardDirect);
+        System.out.println("this is the board from GetBoard command - ");
+        Board.printBoard(resGetBoard);
 
 
         //check challenge the server
-        if(!scrabbleModel.challenge("NAL", 8,7,false))
+        if(!scrabbleModel.challenge("INUN", 7,7,true))
             System.out.println("problem with challenge");
 
 

@@ -85,11 +85,12 @@ public class Board implements Serializable {
             // if we want to put tile on occupied spot we have to check it is the same one
             if (b.tiles_board[row][col]!= null){
                 if (word.getTiles()[i]!= null) {
-                //if (b.tiles_board[row][col] != word.getTiles()[i]) {
-                    return false;
-                }
-                else {
-                    near_tile = true;
+                    if (b.tiles_board[row][col] != word.getTiles()[i]) {
+                        return false;
+                    }
+                    else {
+                        near_tile = true;
+                    }
                 }
             }
             //check if the new word is near existing tile
@@ -390,6 +391,21 @@ public class Board implements Serializable {
                 // ignore close exception
             }
         }
+    }
+
+    public static void printBoard(Board board){
+        Tile[][] currentTiles = board.getTiles();
+        for(int row=0; row < 15; row++){
+            for (int col=0; col < 15; col++){
+                if(currentTiles[row][col] != null)
+                    System.out.print(currentTiles[row][col].letter+ " ");
+                else
+                    System.out.print("- ");
+            }
+            System.out.println("");
+        }
+
+
     }
 
 }
