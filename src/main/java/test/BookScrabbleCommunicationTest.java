@@ -10,17 +10,17 @@ public class BookScrabbleCommunicationTest {
 
     public static void main(String[] args){
         //Start the  Server
-        MyServer bookScrabbleServer = new MyServer(5842, new BookScrabbleHandler());
+        MyServer bookScrabbleServer = new MyServer(6789, new BookScrabbleHandler());
         bookScrabbleServer.start();
 
         BookScrabbleCommunication BSCommunication = BookScrabbleCommunication.get_instance();
 
 
         //set the dictionaries using function setGameDictionaries
-        String checkString = "yuv.txt,s2.txt";
+        String checkString = "alice_in_wonderland.txt,Frank Herbert - Dune.txt";
         ArrayList<String> dictionaries = new ArrayList<>();
-        dictionaries.add("yuv.txt");
-        dictionaries.add("s2.txt");
+        dictionaries.add("alice_in_wonderland.txt");
+        dictionaries.add("Frank Herbert - Dune.txt");
         BSCommunication.setGameDictionaries(dictionaries);
         String dictionariesBSC = BSCommunication.getDictionaries(); //check get dictionaries function
         if(dictionariesBSC.compareTo(checkString) != 0)
@@ -29,14 +29,14 @@ public class BookScrabbleCommunicationTest {
 
         //check function runChallengeOrQuery
         //challenge
-        if(!Boolean.parseBoolean(BSCommunication.runChallengeOrQuery("C,yuv.txt,s2.txt,NAL")))
+        if(!Boolean.parseBoolean(BSCommunication.runChallengeOrQuery("C,alice_in_wonderland.txt,Frank Herbert - Dune.txt,NAL")))
             System.out.println("problem with function runChallengeOrQuery");
 
         //query
-        if(!Boolean.parseBoolean(BSCommunication.runChallengeOrQuery("Q,yuv.txt,s2.txt,NAL")))
+        if(!Boolean.parseBoolean(BSCommunication.runChallengeOrQuery("Q,alice_in_wonderland.txt,Frank Herbert - Dune.txt,NAL")))
             System.out.println("problem with function runChallengeOrQuery");
 
-
+        System.out.println("success!");
     }
 
 
