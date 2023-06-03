@@ -13,7 +13,7 @@ public class BookScrabbleCommunication {
 
     final String BookScrabbleIP= "localhost";
 
-    final int BookScrabblePort= 5842;
+    final int BookScrabblePort= 6789;
 
     private static BookScrabbleCommunication _instance = null;
 
