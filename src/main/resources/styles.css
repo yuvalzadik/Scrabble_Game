@@ -1,0 +1,131 @@
+/* styles.css */
+
+/* Apply styling to the tiles box */
+.tile-box {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 5px;
+}
+
+.tile-letters-box {
+    -fx-spacing: 5;
+}
+
+.button-box {
+    -fx-spacing: 10;
+}
+
+/* Apply styling to the labels */
+.label {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Apply styling to the scene */
+.root {
+    -fx-background-color: #f2f2f2;
+}
+
+.tile-letters-box .tile-button {
+    /* custom styles for the A-G buttons */
+    -fx-font-size: 20px;
+    -fx-min-width: 35px;
+    -fx-min-height: 35px;
+    -fx-background-color: #FFCD37; /*yellow*/
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding:3px;
+}
+
+.tile-letters-box .icon-button:hover,
+.button-box .button:hover, .tile-letters-box .tile-button:hover {
+    -fx-border-color: #000000;
+    -fx-border-radius:2px;
+}
+.tile-letters-box .icon-button {
+    /* custom styles for the refresh and shuffle buttons */
+     -fx-border-radius: 10px;
+     -fx-padding:0;
+     -fx-cursor: hand;
+     -fx-min-width: 35px;
+     -fx-min-height: 35px;
+     -fx-background-color: transparent;
+     -fx-graphic-text-gap: 0;
+}
+
+
+.button-box .button {
+    -fx-font-size: 15px;
+    -fx-min-width: 40px;
+    -fx-min-height: 20px;
+    -fx-background-color: #E1E1E1;
+}
+
+/* Design left tab for the users card */
+.left-tabs {
+    -fx-background-color: #f2f2f2; /*all left section background*/
+    -fx-padding: 10;
+    -fx-spacing: 5px;
+}
+
+.left-tabs .tab {
+    -fx-stroke: #888888;
+    -fx-min-width: 50px;
+    -fx-min-height: 30px;
+
+}
+
+.left-tabs .label {
+    -fx-font-size: 14px;
+    -fx-padding:0px;
+    -fx-margin:0px;
+    -fx-font-weight: bold;
+}
+
+.left-tabs .number-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding:0px;
+    -fx-margin:0px;
+}
+
+.left-tabs .larger-tab {
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/*!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.left-tabs {
+    -fx-background-color: #F5F5F5;
+}
+
+
+.tile-letters-box {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-spacing: 5px;
+}
+
+.tile-button {
+    -fx-font-size: 14px;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.button-box {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+    -fx-bottom-margin: 20px;
+}

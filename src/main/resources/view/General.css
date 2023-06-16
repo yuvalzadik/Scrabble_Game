@@ -1,0 +1,50 @@
+.root {
+    -fx-background-image: url("../../../src/main/resources/images/HomePage.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-opacity: .7;
+}
+
+Button{
+    -fx-background-color: #ffffff9e;
+    -fx-text-fill: black;
+    -fx-font-size: 19px;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+    -fx-alignment: center;
+    -fx-margin:20px;
+
+}
+Button:hover{
+    -fx-background-color: #ffffffc4;
+    -fx-cursor: hand;
+}
+.info-btn{
+    -fx-pref-width: 150px;
+    -fx-pref-height: 37px;
+    -fx-font-size: 15px;
+}
+
+.container {
+    -fx-background-color:#ffffffba;
+    -fx-alignment: center;
+}
+.container-N {
+    -fx-background-color:#ffffffd1;
+}
+#BackButton, #ExitButton{
+             -fx-background-color: transparent;
+             -fx-padding: 0px;
+             -fx-border-style: none;
+             -fx-border-width: 0;
+             -fx-pref-width: 30px;
+             -fx-pref-height: 30px;
+}

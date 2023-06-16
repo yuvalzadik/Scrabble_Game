@@ -1,0 +1,13 @@
+.step-header {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 3px 0;
+}
+
+.step-description {
+    -fx-font-size: 14px;
+   -fx-padding: 3px 10px;
+
+}
+
+

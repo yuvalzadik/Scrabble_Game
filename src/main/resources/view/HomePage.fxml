@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import java.net.URL?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.MainWindowController">
+
+    <VBox alignment="CENTER" spacing="20" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER" spacing="20">
+            <Button fx:id="createGameButton" mnemonicParsing="false" onAction="#loadHostForm" styleClass="test"
+                    text="Create new game"/>
+            <Button fx:id="joinGameButton" mnemonicParsing="false" onAction="#loadGuestForm" text="Join a game"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="20">
+            <Button fx:id="tutorialButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#StartTutorial"
+                    text="Tutorial" styleClass="info-btn"/>
+            <Button fx:id="exitButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Exit" text="Exit"
+                    styleClass="info-btn"/>
+        </HBox>
+    </VBox>
+
+    <stylesheets>
+        <URL value="@HomePage.css"/>
+        <URL value="@General.css"/>
+    </stylesheets>
+</AnchorPane>
+
+
+
+
