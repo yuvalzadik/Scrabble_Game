@@ -1,0 +1,37 @@
+VBox {
+    -fx-spacing: 20;
+}
+
+Label {
+    -fx-font-size: 18px;
+}
+
+.input-field {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 30px;
+    -fx-font-size: 14px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-bottom-margin:0px;
+}
+.error-sent{
+    -fx-spacing: 5;
+    -fx-alignment: center;
+}
+#nameLabelError,
+#portLabelError,
+#ipLabelError{
+    -fx-font-size: 14px;
+    -fx-top-margin:0;
+    -fx-font-weight: bold;
+    -fx-margin: 0 0 0 10; /* Adjust the left margin to your preference */
+    -fx-text-fill:red;
+}
+
+
+
+
+
+
+
+

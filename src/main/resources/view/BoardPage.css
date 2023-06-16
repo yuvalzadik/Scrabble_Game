@@ -1,0 +1,122 @@
+.Game-Board{
+    -fx-background-color:#fffffff0;
+    -fx-min-width: 675px;
+    -fx-min-height: 657px;
+}
+
+.center-cell ,.DoubleWord-cell{
+    -fx-background-color: #e3a9bc /*pink*/;
+    -fx-font-size: 16px;
+
+}
+.Normal-cell {
+-fx-font-size: 16px;
+}
+.TripleWord-cell{
+    -fx-background-color: #f44336 /*red*/;
+    -fx-font-size: 16px;
+}
+
+.TripleLetter-cell{
+    -fx-background-color: #3f51b5 /*blue*/;
+    -fx-font-size: 16px;
+}
+
+.DoubleLetter-cell{
+    -fx-background-color: lightblue;
+    -fx-font-size: 16px;
+}
+
+.PlayerCard{
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+     -fx-stroke: #888888;
+     -fx-max-width: 180px;
+     -fx-pref-height: 50px;
+     -fx-background-color: linear-gradient(to bottom, #C5E0DC 0%, #C5E0DC 50%, white 50%, white 100%);
+     -fx-margin-bottom: 25px;
+
+}
+
+.ExitButton:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #ccc;
+}
+
+.PlayerCardText {
+    -fx-font-size: 14px;
+    -fx-padding:0px;
+    -fx-margin:0px;
+    -fx-font-weight: bold;
+}
+
+
+.option-btn{
+   -fx-background-color: #ffffff9e;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 5px;
+    -fx-padding: 1px;
+    -fx-alignment: center;
+    -fx-margin:20px;
+   -fx-pref-width: 100px;
+    -fx-pref-height: 40px;
+    -fx-font-size: 14px;
+
+}
+.option-btn:hover{
+    -fx-background-color: #ffffffc4;
+    -fx-cursor: hand;
+}
+.TileContainer{
+    -fx-margin: 30px;
+     -fx-pref-width: 50px;
+     -fx-pref-height: 50px;
+     -fx-border-width: 1px;
+     -fx-border-color:black;
+     -fx-background-color: #FFCD37; /*yellow*/
+     -fx-text-fill: #FFFFFF;
+     -fx-border-radius: 10px;
+     -fx-background-radius:10px;
+     -fx-font-weight: bold;
+     -fx-cursor: hand;
+     -fx-spacing: 5;
+     -fx-padding:1px;
+     -fx-alignment: center;
+
+}
+
+.TileText {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.TileScore {
+    -fx-font-size: 10px;
+    -fx-alignment: bottom-right;
+}
+
+.icon-button .graphic-container {
+    -fx-padding: 0;
+    -fx-alignment: center;
+}
+
+.icon-button .graphic-container > .graphic {
+    -fx-alignment: CENTER;
+    -fx-padding: 0;
+}
+#ShuffleButton,#RefreshButton{
+            -fx-background-color: transparent;
+             -fx-padding: 0px;
+             -fx-border-style: none;
+             -fx-border-width: 0;
+             -fx-pref-width: 30px;
+             -fx-pref-height: 30px;
+             -fx-alignment: center;
+}
