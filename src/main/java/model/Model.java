@@ -18,38 +18,68 @@ public class Model extends Observable {
     Socket fg;
     PrintWriter out2fg;
     Scanner fgin;
-    MyServer gameServer;
+    HostServer gameServer;
+
+    static int currentId = 0;
     int playerId;
 
-    public Model(GameMode mode, String ip, int port) {
-        this.ip = ip;
-        this.port = port;
+    public Model(GameMode mode, String ip, int port, String name) {
+        //this.ip = ip;
+        //this.port = port;
         if (mode.equals(GameMode.Host)) {
-            gameServer = new MyServer(port, new GameClientHandler());
+            gameServer = new HostServer(port, new GameClientHandler()); //TODO - Change to hostServer
             gameServer.start();
         }
+        try {
+            fg = new Socket(ip, port);
+            out2fg = new PrintWriter(fg.getOutputStream(), true);
+            fgin = new Scanner(fg.getInputStream());
+            out2fg.println(name);
+            currentId++;
+            this.playerId = currentId;
+            listenToHost();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void listenToHost(){
+        new Thread(() -> {
+            while(fg.isConnected()){
+                if(fgin.hasNext()){
+                    String messageFromHost = fgin.next();
+                    switch(messageFromHost){ //action according to server response
+                        case "hey" -> System.out.println("Received message from host!" + this.playerId);
+//                      TODO: handle end game- log out succeeded, handle try place word- boardLegal/ wordLegal,
+//                       handle challenge- word not found, , its your turn
+                        //TODO: each time broadcast message
+
+
+                    }
+                }
+            }
+        }).start();
     }
 
 
     // TODO: Change below code after adding thread, also remove prints
     private String runCommand(String commandString) {
-        try {
-            fg = new Socket(ip, port);
-            out2fg = new PrintWriter(fg.getOutputStream());
-            fgin = new Scanner(fg.getInputStream());
+//        try {
+//            fg = new Socket(ip, port);
+//            out2fg = new PrintWriter(fg.getOutputStream());
+//            fgin = new Scanner(fg.getInputStream());
 
             out2fg.println(commandString);
-            out2fg.flush();
-            String res = fgin.nextLine();
+            String res = fgin.next();
             System.out.println("Recieved from server: \n" + res);
-            fgin.close();
-            out2fg.close();
-            fg.close();
+//            fgin.close();
+//            out2fg.close();
+//            fg.close();
 
             return res;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
     }
 
@@ -63,10 +93,15 @@ public class Model extends Observable {
         return false;
     }
 
-    public boolean startGame() {
-        String startGameString = GameCommandsFactory.getStartGameCommandString(playerId);
-        String res = runCommand(startGameString);
-        return Boolean.parseBoolean(res);
+//    public boolean startGame() {
+//        String startGameString = GameCommandsFactory.getStartGameCommandString(playerId);
+//        String res = runCommand(startGameString);
+//        return Boolean.parseBoolean(res);
+//    }
+
+    public void startGame(){
+        gameServer.startGame();
+        GameManager.get_instance().startGame();
     }
 
     public boolean tryPlaceWord(String word, int row, int col, boolean vertical) {

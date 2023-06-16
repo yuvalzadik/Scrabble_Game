@@ -2,14 +2,12 @@ package scrabble_game;
 import java.io.*;
 
 public class BookScrabbleHandler implements ClientHandler {
-    BufferedReader in;
-    PrintWriter out;
     DictionaryManager dm=DictionaryManager.get();
 
     @Override
     public void handleClient(InputStream inFromclient, OutputStream outToClient) {
         try {
-            in = new BufferedReader(new InputStreamReader(inFromclient));
+            BufferedReader in = new BufferedReader(new InputStreamReader(inFromclient));
             boolean isexsit = false ;
             String line = in.readLine();
             String first_string = line.split(",")[0];
@@ -20,14 +18,15 @@ public class BookScrabbleHandler implements ClientHandler {
             } else if (first_string.equals("C")) {
               isexsit =   dm.challenge(newLine);
             }
-            out = new PrintWriter(outToClient, true);
+            PrintWriter out = new PrintWriter(outToClient, true);
             if (isexsit){
                 out.println("true\n");
             }
             else {
                 out.println("false\n");
             }
-
+            in.close();
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,12 +34,6 @@ public class BookScrabbleHandler implements ClientHandler {
 
     @Override
     public void close() {
-        try {
-            in.close();
-            out.close();
-        }
-        catch (IOException e){
-           e.printStackTrace();
-        }
+
     }
 }

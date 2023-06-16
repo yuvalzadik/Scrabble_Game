@@ -30,7 +30,7 @@ public class GameClientHandlerTest {
         //check connect as a host & Start Game Client Server from the model
         String ip = "localhost";
         int port = 1234;
-        Model scrabbleModel = new Model(GameMode.Host, ip, port);
+        Model scrabbleModel = new Model(GameMode.Host, ip, port, "Tamar");
         if (scrabbleModel == null)
             System.out.println("problem with creating the model");
 
