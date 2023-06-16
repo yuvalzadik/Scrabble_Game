@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 
 public class MyServer {
-    int port;
+    protected int port;
     boolean stop;
     ClientHandler ch;
 
@@ -20,7 +20,7 @@ public class MyServer {
         new Thread(this::startServer).start();
     }
 
-    private void startServer() {
+    protected void startServer() {
         ServerSocket serversocket = null;
         try {
             serversocket = new ServerSocket(port);

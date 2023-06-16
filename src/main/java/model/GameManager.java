@@ -14,7 +14,6 @@ public class GameManager {
     public Tile.Bag bag = Tile.Bag.getBag();
     public boolean gameStarted;
     HashMap<Integer, Player> players;
-
     private static GameManager _instance = null;
 
     public GameManager(){
@@ -32,7 +31,7 @@ public class GameManager {
 
     public int addPlayer(Player player){
         if (!gameStarted && players.size() < MAX_PLAYERS) {
-            int newPlayerId = players.size();
+            int newPlayerId = players.size()+1;
             this.players.put(newPlayerId, player);
             return newPlayerId;
         }
@@ -46,5 +45,10 @@ public class GameManager {
     public void addScore(int playerId, int score){
         players.get(playerId).addScore(score);
     }
+
+    public HashMap<Integer, Player> getPlayers() {
+        return players;
+    }
+
 
 }
