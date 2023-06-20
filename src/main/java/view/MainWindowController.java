@@ -17,6 +17,9 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.GameMode;
+import model.Model;
+import view.data.ViewShareData;
 
 import java.io.IOException;
 import java.util.*;
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
 
 
 public class MainWindowController {
+    ViewShareData viewShareData;
     private VBox draggedTile; // Currently dragged tile
     private StackPane targetSquare; // Target square for dropping the tile
     public static String[] players = {"Guest", "Guest", "Guest", "Guest"};
@@ -145,6 +149,9 @@ public class MainWindowController {
 
         if (allValid) {
             players[0]=nameField.getText();
+            ipField = new TextField();
+            ipField.setText("localhost");
+            connectToServer(GameMode.Host);
             loadBoard(event);
         }
     }
@@ -177,8 +184,20 @@ public class MainWindowController {
                     players[i]=nameField.getText();
                     break;
                 }
+            connectToServer(GameMode.Guest);
             loadBoard(event);
         }
+    }
+
+    public void connectToServer(GameMode gameMode){
+        Model newModel = new Model(gameMode, ipField.getText(), Integer.parseInt(portField.getText()), nameField.getText());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        viewShareData.getViewModel().setModel(newModel);
+        System.out.println("Created new model -> " + gameMode);
     }
 
     @FXML
@@ -232,6 +251,7 @@ public class MainWindowController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName + ".fxml"));
         Parent root = loader.load();
         MainWindowController controller = loader.getController();
+        controller.setViewShareData(viewShareData);
 
         Scene scene = null;
         if (Objects.equals(sceneName, "BoardPage")) {
@@ -263,7 +283,7 @@ public class MainWindowController {
     }
 
     public boolean validIp(String ip) {
-        return ip.matches("(\\b25[0-5]|\\b2[0-4][0-9]|\\b[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}");
+        return ip.matches("(\\b25[0-5]|\\b2[0-4][0-9]|\\b[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}") || ip.matches("localhost");
     }
 
     public boolean validName(String name) {
@@ -357,6 +377,10 @@ public class MainWindowController {
         }
 
         event.consume();
+    }
+
+    public void setViewShareData(ViewShareData viewShareData){
+        this.viewShareData = viewShareData;
     }
 
 }

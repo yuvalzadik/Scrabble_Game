@@ -49,16 +49,33 @@ public class Model extends Observable {
                 if(fgin.hasNext()){
                     String messageFromHost = fgin.next();
                     switch(messageFromHost){ //action according to server response
-                        case "hey" -> System.out.println("Received message from host!" + this.playerId);
+//                        case "playTurn"-> playTurn();
+                        //challenge
+                        case "challengeSucceeded"-> System.out.println("trueMeyuhad");
+                        case "challengeFailed"-> System.out.println("trueMeyuhad");
+
+                        //tryPlaceWord
+                        case "wordInsertSuccessfully"-> System.out.println("falseMeyuhad");
+                        case "boardNotLegal"-> System.out.println("boardNotLegal");
+                        case "wordNotInDictionary"-> System.out.println("boardNotLegal");
+
 //                      TODO: handle end game- log out succeeded, handle try place word- boardLegal/ wordLegal,
 //                       handle challenge- word not found, , its your turn
                         //TODO: each time broadcast message
-
-
                     }
                 }
             }
         }).start();
+    }
+
+    private void playTurn() {
+        //String word, int row, int col, boolean vertical
+        tryPlaceWord("NAL", 7,7,true);
+        //System.out.println("this is the answer from play turn - "+ tryPlaceWord("NAL", 7,7,true));
+    }
+
+    private  void wordInsertSuccessfully(){
+
     }
 
 
@@ -68,19 +85,18 @@ public class Model extends Observable {
 //            fg = new Socket(ip, port);
 //            out2fg = new PrintWriter(fg.getOutputStream());
 //            fgin = new Scanner(fg.getInputStream());
-
             out2fg.println(commandString);
-            String res = fgin.next();
-            System.out.println("Recieved from server: \n" + res);
+//            String res = fgin.next();
+//            System.out.println("Recieved from server: " + res);
 //            fgin.close();
 //            out2fg.close();
 //            fg.close();
 
-            return res;
+            //return res;
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-
+        return "";
     }
 
     public boolean joinGame(String name) {
@@ -100,14 +116,13 @@ public class Model extends Observable {
 //    }
 
     public void startGame(){
-        gameServer.startGame();
         GameManager.get_instance().startGame();
+        gameServer.startGame();
     }
 
-    public boolean tryPlaceWord(String word, int row, int col, boolean vertical) {
+    public void tryPlaceWord(String word, int row, int col, boolean vertical) {
         String tryPlaceWordQuery = GameCommandsFactory.getTryPlaceWordCommandString(playerId, word, row, col, vertical);
-        String res = runCommand(tryPlaceWordQuery);
-        return Boolean.parseBoolean(res);
+        runCommand(tryPlaceWordQuery);
     }
 
     public boolean challenge(String word, int row, int col, boolean vertical) {

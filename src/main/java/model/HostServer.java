@@ -8,15 +8,14 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class HostServer extends MyServer {
 
     Map<Integer, Socket> socketMap;
     ServerSocket serverSocket;
     boolean gameIsRunning;
+    Timer timer;
 
     public HostServer(int port, ClientHandler ch) {
         super(port, ch);
@@ -33,21 +32,20 @@ public class HostServer extends MyServer {
             while(!gameIsRunning){
                 try{
                     Socket newSocket = serverSocket.accept();
-                    Scanner fromPlayer = new Scanner(newSocket.getInputStream());
-                    String playerName = fromPlayer.next();
-                    socketMap.put(socketMap.size()+1, newSocket);
-                    int playerId = GameManager.get_instance().addPlayer(new Player(playerName));
-                    System.out.println("First loop");
+                    if(socketMap.size() < 4){
+                        Scanner fromPlayer = new Scanner(newSocket.getInputStream());
+                        String playerName = fromPlayer.next();
+                        socketMap.put(socketMap.size()+1, newSocket);
+                        System.out.println(playerName + " Connected");
+                        GameManager.get_instance().addPlayer(new Player(playerName));
+                    }
                 }
                 catch (SocketTimeoutException ignored) {}
             }
 
-            while(gameIsRunning){
-                System.out.println("Second loop");
-                for(Socket s : socketMap.values()){
-                    PrintWriter test = new PrintWriter(s.getOutputStream(), true);
-                    test.println("hey");
-                }
+            if(gameIsRunning){
+                this.timer = new Timer();
+                timer.scheduleAtFixedRate(new ManageTurn(),5000,15000); //after the test will be 5000 and 60,000
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -61,5 +59,25 @@ public class HostServer extends MyServer {
 
     public boolean getServerStatus(){
         return this.gameIsRunning;
+    }
+
+    public class ManageTurn extends TimerTask{
+
+        @Override
+        public void run() {
+            new Thread (()-> {
+                GameManager gameManager = GameManager.get_instance();
+                gameManager.turnManager.nextTurn();
+                int turn = gameManager.turnManager.getCurrentTurn();
+                System.out.println("Player number " + turn + " is playing!");
+
+                try {
+                    ch.handleClient(socketMap.get(turn).getInputStream(), socketMap.get(turn).getOutputStream());
+                    //the client finish its turn before timer is over
+                    this.cancel();
+                    timer.scheduleAtFixedRate(new ManageTurn(), 5000, 15000); //after the test will be 5000 and 60,000
+                } catch (IOException ignored) {}
+            }).start();
+            }
     }
 }

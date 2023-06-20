@@ -320,7 +320,7 @@ public class Board implements Serializable {
             return 0;
         }
         else if (!(dictionaryLegal(word))) {
-            return -10;
+            return -1;
         }
         else {
             boolean firstword = b.tiles_board[7][7] ==null;

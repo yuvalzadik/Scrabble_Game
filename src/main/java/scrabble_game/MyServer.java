@@ -8,7 +8,7 @@ import java.net.SocketTimeoutException;
 public class MyServer {
     protected int port;
     boolean stop;
-    ClientHandler ch;
+    protected ClientHandler ch;
 
     public MyServer(int port, ClientHandler ch) {
         this.port = port;
