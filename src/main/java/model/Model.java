@@ -1,5 +1,8 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import scrabble_game.Board;
 import scrabble_game.MyServer;
 import scrabble_game.Tile;
@@ -22,6 +25,8 @@ public class Model extends Observable {
 
     static int currentId = 0;
     int playerId;
+    private StringProperty messageFromHost = new SimpleStringProperty();;
+
 
     public Model(GameMode mode, String ip, int port, String name) {
         //this.ip = ip;
@@ -49,13 +54,13 @@ public class Model extends Observable {
                 if(fgin.hasNext()){
                     String messageFromHost = fgin.next();
                     switch(messageFromHost){ //action according to server response
-//                        case "playTurn"-> playTurn();
+                        case "playTurn"-> playTurn();
                         //challenge
                         case "challengeSucceeded"-> System.out.println("trueMeyuhad");
                         case "challengeFailed"-> System.out.println("trueMeyuhad");
 
                         //tryPlaceWord
-                        case "wordInsertSuccessfully"-> System.out.println("falseMeyuhad");
+                        case "wordInsertSuccessfully"-> wordInsertSuccessfully();
                         case "boardNotLegal"-> System.out.println("boardNotLegal");
                         case "wordNotInDictionary"-> System.out.println("boardNotLegal");
 
@@ -71,11 +76,12 @@ public class Model extends Observable {
     private void playTurn() {
         //String word, int row, int col, boolean vertical
         tryPlaceWord("NAL", 7,7,true);
-        //System.out.println("this is the answer from play turn - "+ tryPlaceWord("NAL", 7,7,true));
+//        System.out.println("this is the answer from play turn - "+ tryPlaceWord("NAL", 7,7,true));
     }
 
     private  void wordInsertSuccessfully(){
-
+        messageFromHost.setValue("wordInsertSuccessfully");
+        System.out.println("work insert successfully");
     }
 
 
@@ -159,4 +165,7 @@ public class Model extends Observable {
     }
 
 
+    public StringProperty getMessageFromHost() {
+        return messageFromHost;
+    }
 }

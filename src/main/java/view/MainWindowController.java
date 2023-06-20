@@ -2,6 +2,8 @@ package view;
 
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,6 +60,28 @@ public class MainWindowController {
 
     @FXML
     private HBox tileContainerHBox;
+    StringProperty playerAction;
+
+    StringProperty messageFromHost;
+
+    public void initializeHostAction(){
+        messageFromHost = new SimpleStringProperty();
+        messageFromHost.bind(viewShareData.getViewModel().getModel().getMessageFromHost());
+        viewShareData.getViewModel().getModel().getMessageFromHost().addListener(((observable, oldAction, newAction) -> {
+            handleHostAction(newAction);
+        }));
+    }
+
+    public void handleHostAction(String action){
+        Platform.runLater(() -> {
+            switch(action){
+                case "wordInsertSuccessfully" -> {
+                    System.out.println("yay!!!!!");
+                    //update board for all clients
+                }
+            }
+        });
+    }
 
     @FXML
     public void Submit(ActionEvent event) throws IOException {

@@ -35,7 +35,7 @@ public class GameClientHandler implements ClientHandler {
          */
         in = new BufferedReader(new InputStreamReader(inFromclient));
         out = new PrintWriter(new OutputStreamWriter(outToClient), true);
-//        out.println("playTurn");
+        out.println("playTurn");
         int playerId = gameManager.turnManager.getCurrentTurn();
         stillPlaying = true;
 

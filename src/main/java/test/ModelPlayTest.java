@@ -23,6 +23,7 @@ public class ModelPlayTest {
         dictionaries.add("Frank Herbert - Dune.txt");
         BookScrabbleCommunication.get_instance().setGameDictionaries(dictionaries);
         modelHost.startGame();
+        modelHost.tryPlaceWord("NAL", 7,7,false);
 
 
 
