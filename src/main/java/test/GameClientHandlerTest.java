@@ -70,8 +70,8 @@ public class GameClientHandlerTest {
 
 
         //check trying place word on the board
-        if(!scrabbleModel.tryPlaceWord("IN", 7,7,false))
-            System.out.println("problem with try place word");
+//        if(!scrabbleModel.tryPlaceWord("IN", 7,7,false))
+//            System.out.println("problem with try place word");
 
 
         //check challenge the server

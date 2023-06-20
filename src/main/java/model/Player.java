@@ -9,12 +9,12 @@ public class Player {
     private int score;
     private final String name;
 
-    private List<Tile> playertiles ;
+    private List<Tile> playerTiles ;
 
     public Player(String name){
         this.name = name;
         this.score = 0;
-        playertiles = new ArrayList<>();
+        playerTiles = new ArrayList<>();
     }
 
     public String getName() {
@@ -27,11 +27,11 @@ public class Player {
     public void addScore(int score){ this.score += score;}
 
     public List<Tile> getTiles() {
-        return playertiles;
+        return playerTiles;
     }
 
     public void setTiles(List<Tile> tiles){
-        this.playertiles = tiles;
+        this.playerTiles = tiles;
     }
 
 }

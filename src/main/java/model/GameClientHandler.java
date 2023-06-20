@@ -16,24 +16,39 @@ public class GameClientHandler implements ClientHandler {
     GameManager gameManager;
 
     BookScrabbleCommunication BScommunication = BookScrabbleCommunication.get_instance();
+    boolean stillPlaying;
+
 
 
     public GameClientHandler() {
         this.gameManager = GameManager.get_instance();
+        this.stillPlaying = true;
     }
 
     @Override
     public void handleClient(InputStream inFromclient, OutputStream outToClient) {
-        try {
-            in = new BufferedReader(new InputStreamReader(inFromclient));
-            String line = in.readLine();
-            String res = handleInput(line);
-            out = new PrintWriter(outToClient, true);
-            out.println(res + "\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        /*
+        init inFromClient and outToClient
+        loop with two break points - when the turn is not ours or when the player succeeded task:
+                         playedId locally - currentPlayer
+                         boolean stillPlaying
+         */
+        in = new BufferedReader(new InputStreamReader(inFromclient));
+        out = new PrintWriter(new OutputStreamWriter(outToClient), true);
+//        out.println("playTurn");
+        int playerId = gameManager.turnManager.getCurrentTurn();
+        stillPlaying = true;
 
+        while(playerId == gameManager.turnManager.getCurrentTurn() && stillPlaying){
+
+            try {
+                if(in.ready()){
+                    String line = in.readLine();
+                    String res = handleInput(line);
+                    out.println(res); //reach to listen to host
+                    if(res.equals("true")) stillPlaying = false;
+                }} catch (IOException ignored){}
+        }
     }
 
     private String handleInput(String input) {
@@ -41,38 +56,46 @@ public class GameClientHandler implements ClientHandler {
         GameCommand command = GameCommandsFactory.getCommandEnumFromChar(input.split(",")[1].charAt(0));
         System.out.println("Server received command:" + command.name() + " from player:" + playerId);
         switch (command) {
-            case JoinGame: // add new player
-                Player newPlayer = new Player(input.split(",")[2]);
-                int newPlayerId = this.gameManager.addPlayer(newPlayer);
-                return String.valueOf(newPlayerId);
             case StartGame: // host start game
-                if (playerId == 0) {
+                if (playerId == 1) {
                     this.gameManager.startGame();
                     return "true";
                 }
                 break;
             case TryPlaceWord: // try place word
                 int score = this.gameManager.board.tryPlaceWord(buildWordFromInput(input));
-                gameManager.addScore(playerId, score);
-                if (score > 0)
-                    return "true";
+                if(score == 0){ //board not legal
+                    return "boardNotLegal";
+                }
+                else if(score == -1){ //dictionary not legal
+                    return "wordNotInDictionary";
+                }
+                else if(score > 0) {//succeeded
+
+                    gameManager.addScore(playerId, score);
+                    stillPlaying = false;
+                    return "wordInsertSuccessfully";
+                }
                 break;
+
             case Challenge:
                 String inString = (input.split(",")[1]).toString() + "," + BScommunication.getDictionaries() +  "," + (input.split(",")[2]).toString();
                 String resBSH = BScommunication.runChallengeOrQuery(inString);
 
                 if (resBSH.equals("true")){
                     int score1 = this.gameManager.board.tryPlaceWord(buildWordFromInput(input));
-                    gameManager.addScore(playerId, score1);
-                    if (score1 > 0)
-                        return "true";
-                }
-                else{
-                    gameManager.addScore(playerId, -10);
-                    return "false";
+                    if (score1 > 0) {
+                        gameManager.addScore(playerId, score1);
+                        stillPlaying = false;
+                        return "challengeSucceeded";
+                    }
                 }
 
-//                break;
+                //if not succeeded
+                gameManager.addScore(playerId, -10);
+                stillPlaying = false;
+                return "challengeFailed";
+
             case GetRandTile: // return rand tile
                 byte[] bagBytes = Tile.serialize(Tile.Bag.getBag().getRand());
                 return Arrays.toString(bagBytes);
@@ -93,6 +116,11 @@ public class GameClientHandler implements ClientHandler {
         return "false";
     }
 
+    /**
+     * TODO: chnge this function that will remove from the player tile array and not from the game bag
+     * @param input
+     * @return
+     */
     private Word buildWordFromInput(String input) {
         String word = input.split(",")[2];
         int col = Integer.parseInt(input.split(",")[3]);
