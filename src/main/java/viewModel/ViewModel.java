@@ -21,21 +21,21 @@ public class ViewModel {
     StringProperty playerAction;
     StringProperty lastWord;
 
-    Label firstTileLetter;
-    Label secondTileLetter;
-    Label thirdTileLetter;
-    Label fourthTileLetter;
-    Label fifthTileLetter;
-    Label sixTileLetter;
-    Label sevenTileLetter;
+    public Label firstTileLetter;
+    public Label secondTileLetter;
+    public Label thirdTileLetter;
+    public Label fourthTileLetter;
+    public Label fifthTileLetter;
+    public Label sixTileLetter;
+    public Label sevenTileLetter;
 
-    Label firstTileScore;
-    Label secondTileScore;
-    Label thirdTileScore;
-    Label fourthTileScore;
-    Label fifthTileScore;
-    Label sixTileScore;
-    Label sevenTileScore;
+    public Label firstTileScore;
+    public Label secondTileScore;
+    public Label thirdTileScore;
+    public Label fourthTileScore;
+    public Label fifthTileScore;
+    public Label sixTileScore;
+    public Label sevenTileScore;
 
     List<Label> tileLetters;
     List<Label> tileScores;
@@ -69,6 +69,22 @@ public class ViewModel {
         fifthTileScore = new Label();
         sixTileScore = new Label();
         sevenTileScore = new Label();
+
+        tileLetters.add(firstTileLetter);
+        tileLetters.add(secondTileLetter);
+        tileLetters.add(thirdTileLetter);
+        tileLetters.add(fourthTileLetter);
+        tileLetters.add(fifthTileLetter);
+        tileLetters.add(sixTileLetter);
+        tileLetters.add(sevenTileLetter);
+
+        tileScores.add(firstTileScore);
+        tileScores.add(secondTileScore);
+        tileScores.add(thirdTileScore);
+        tileScores.add(fourthTileScore);
+        tileScores.add(fifthTileScore);
+        tileScores.add(sixTileScore);
+        tileScores.add(sevenTileScore);
     }
 
     public StringProperty getMessageFromHost() {

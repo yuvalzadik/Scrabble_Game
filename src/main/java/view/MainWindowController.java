@@ -136,7 +136,21 @@ public class MainWindowController {
     }
 
     public void bindTilesProperties(){
-        viewShareData.getViewModel().
+        firstTileLetter.textProperty().bind(viewShareData.getViewModel().firstTileLetter.textProperty());
+        secondTileLetter.textProperty().bind(viewShareData.getViewModel().secondTileLetter.textProperty());
+        thirdTileLetter.textProperty().bind(viewShareData.getViewModel().thirdTileLetter.textProperty());
+        fourthTileLetter.textProperty().bind(viewShareData.getViewModel().fourthTileLetter.textProperty());
+        fifthTileLetter.textProperty().bind(viewShareData.getViewModel().fifthTileLetter.textProperty());
+        sixTileLetter.textProperty().bind(viewShareData.getViewModel().sixTileLetter.textProperty());
+        sevenTileLetter.textProperty().bind(viewShareData.getViewModel().sevenTileLetter.textProperty());
+
+        firstTileScore.textProperty().bind(viewShareData.getViewModel().firstTileScore.textProperty());
+        secondTileScore.textProperty().bind(viewShareData.getViewModel().secondTileScore.textProperty());
+        thirdTileScore.textProperty().bind(viewShareData.getViewModel().thirdTileScore.textProperty());
+        fourthTileScore.textProperty().bind(viewShareData.getViewModel().fourthTileScore.textProperty());
+        fifthTileScore.textProperty().bind(viewShareData.getViewModel().fifthTileScore.textProperty());
+        sixTileScore.textProperty().bind(viewShareData.getViewModel().sixTileScore.textProperty());
+        sevenTileScore.textProperty().bind(viewShareData.getViewModel().sevenTileScore.textProperty());
     }
 
     public void initializeHostAction(){
