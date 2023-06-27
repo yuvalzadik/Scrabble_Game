@@ -67,7 +67,6 @@ public class GameClientHandler implements ClientHandler {
                     return "dictionaryNotLegal";
                 }
                 else if(score > 0) {//succeeded
-
                     gameManager.addScore(playerId, score);
                     stillPlaying = false;
                     return "wordInsertSuccessfully";

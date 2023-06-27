@@ -11,9 +11,7 @@ import java.util.Observer;
 public class ViewShareData implements Observer {
     ViewModel viewModel;
     GameManagerReceiver gameManagerReceiver;
-
     MyServer bookScrabbleServer;
-    GameManager gameManager;
     String hostIp;
     String playerName;
     int hostPort;
@@ -44,22 +42,6 @@ public class ViewShareData implements Observer {
 
     public void setBookScrabbleServer(MyServer bookScrabbleServer) {
         this.bookScrabbleServer = bookScrabbleServer;
-    }
-
-    public MyServer getBookScrabbleServer() {
-        return bookScrabbleServer;
-    }
-
-    public GameManagerReceiver getGameManagerReceiver() {
-        return gameManagerReceiver;
-    }
-
-    public GameManager getGameManager() {
-        return gameManager;
-    }
-
-    public void setGameManager(GameManager gameManager) {
-        this.gameManager = gameManager;
     }
 
     public void setHostIp(String hostIp) {

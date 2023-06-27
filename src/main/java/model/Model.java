@@ -36,7 +36,7 @@ public class Model extends Observable {
         gameManager = null;
         if (mode.equals(GameMode.Host)) {
             gameManager = GameManager.get_instance();
-            gameServer = new HostServer(port, new GameClientHandler()); //TODO - Change to hostServer
+            gameServer = new HostServer(port, new GameClientHandler());
             gameServer.start();
         }
         try {
@@ -120,12 +120,6 @@ public class Model extends Observable {
         return false;
     }
 
-//    public boolean startGame() {
-//        String startGameString = GameCommandsFactory.getStartGameCommandString(playerId);
-//        String res = runCommand(startGameString);
-//        return Boolean.parseBoolean(res);
-//    }
-
     public void tryPlaceWord(String word, int row, int col, boolean vertical) {
         System.out.println("Model -> tryPlaceWord");
         String tryPlaceWordQuery = GameCommandsFactory.getTryPlaceWordCommandString(playerId, word, row, col, vertical);
@@ -173,10 +167,12 @@ public class Model extends Observable {
         runCommand(getSetGameDictionariesString);
     }
 
-
-
+    public int getPlayerId() {
+        return playerId;
+    }
 
     public StringProperty getMessageFromHost() {
+        messageFromHost = new SimpleStringProperty();
         return messageFromHost;
     }
 }

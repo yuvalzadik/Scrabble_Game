@@ -13,13 +13,13 @@ public class TurnManager implements Serializable {
 
     public TurnManager(){
         turns = new ArrayList<>();
-        currentTurnIndex = -1;
     }
 
-    public void setTurns(Map<Integer, Player> playes){
-        turns = playes.keySet().stream().sorted(
-                (p1,p2)->playes.get(p2).getTiles().get(0).score - playes.get(p1).getTiles().get(0).score)
+    public void setTurns(Map<Integer, Player> players){
+        turns = players.keySet().stream().sorted(
+                (p1,p2)->players.get(p2).getTiles().get(0).score - players.get(p1).getTiles().get(0).score)
                 .collect(Collectors.toCollection(ArrayList::new));
+        currentTurnIndex = -1;
     }
 
     public int getCurrentTurn() {

@@ -35,8 +35,8 @@ public class GameManager implements Serializable {
 
     public void startGame(){
         this.gameStarted = true;
-        for(int id: players.keySet()){
-            addTile(id);
+        for(Integer playerId : players.keySet()){
+            fillHand(playerId);
         }
         turnManager.setTurns(players);
     }
@@ -52,6 +52,10 @@ public class GameManager implements Serializable {
     public void addTile(int id){
         if(players.get(id).getTiles().size() < 7)
             players.get(id).getTiles().add(bag.getRand());
+    }
+
+    public void fillHand(int id){
+        while(players.get(id).getTiles().size() < 7) addTile(id);
     }
 
 }

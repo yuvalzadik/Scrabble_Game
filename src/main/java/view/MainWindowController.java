@@ -20,6 +20,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.BookScrabbleCommunication;
+import model.GameManager;
 import model.GameMode;
 import model.Model;
 import scrabble_game.BookScrabbleHandler;
@@ -136,21 +137,21 @@ public class MainWindowController {
     }
 
     public void bindTilesProperties(){
-        firstTileLetter.textProperty().bind(viewShareData.getViewModel().firstTileLetter.textProperty());
-        secondTileLetter.textProperty().bind(viewShareData.getViewModel().secondTileLetter.textProperty());
-        thirdTileLetter.textProperty().bind(viewShareData.getViewModel().thirdTileLetter.textProperty());
-        fourthTileLetter.textProperty().bind(viewShareData.getViewModel().fourthTileLetter.textProperty());
-        fifthTileLetter.textProperty().bind(viewShareData.getViewModel().fifthTileLetter.textProperty());
-        sixTileLetter.textProperty().bind(viewShareData.getViewModel().sixTileLetter.textProperty());
-        sevenTileLetter.textProperty().bind(viewShareData.getViewModel().sevenTileLetter.textProperty());
+        firstTileLetter.textProperty().bind(viewShareData.getViewModel().firstTileLetter);
+        secondTileLetter.textProperty().bind(viewShareData.getViewModel().secondTileLetter);
+        thirdTileLetter.textProperty().bind(viewShareData.getViewModel().thirdTileLetter);
+        fourthTileLetter.textProperty().bind(viewShareData.getViewModel().fourthTileLetter);
+        fifthTileLetter.textProperty().bind(viewShareData.getViewModel().fifthTileLetter);
+        sixTileLetter.textProperty().bind(viewShareData.getViewModel().sixTileLetter);
+        sevenTileLetter.textProperty().bind(viewShareData.getViewModel().sevenTileLetter);
 
-        firstTileScore.textProperty().bind(viewShareData.getViewModel().firstTileScore.textProperty());
-        secondTileScore.textProperty().bind(viewShareData.getViewModel().secondTileScore.textProperty());
-        thirdTileScore.textProperty().bind(viewShareData.getViewModel().thirdTileScore.textProperty());
-        fourthTileScore.textProperty().bind(viewShareData.getViewModel().fourthTileScore.textProperty());
-        fifthTileScore.textProperty().bind(viewShareData.getViewModel().fifthTileScore.textProperty());
-        sixTileScore.textProperty().bind(viewShareData.getViewModel().sixTileScore.textProperty());
-        sevenTileScore.textProperty().bind(viewShareData.getViewModel().sevenTileScore.textProperty());
+        firstTileScore.textProperty().bind(viewShareData.getViewModel().firstTileScore);
+        secondTileScore.textProperty().bind(viewShareData.getViewModel().secondTileScore);
+        thirdTileScore.textProperty().bind(viewShareData.getViewModel().thirdTileScore);
+        fourthTileScore.textProperty().bind(viewShareData.getViewModel().fourthTileScore);
+        fifthTileScore.textProperty().bind(viewShareData.getViewModel().fifthTileScore);
+        sixTileScore.textProperty().bind(viewShareData.getViewModel().sixTileScore);
+        sevenTileScore.textProperty().bind(viewShareData.getViewModel().sevenTileScore);
     }
 
     public void initializeHostAction(){
@@ -295,7 +296,7 @@ public class MainWindowController {
             viewShareData.setHostPort(Integer.parseInt(portField.getText()));
             connectToServer(GameMode.Host);
             viewShareData.setHost(true);
-            viewShareData.setGameManager(viewShareData.getViewModel().getModel().getGameManager());
+            viewShareData.getViewModel().setGameManager(GameManager.get_instance());
             connectOrLaunchBookScrabbleCommunication();
             loadBoard(event);
         }
@@ -367,15 +368,23 @@ public class MainWindowController {
         initializePlayerAction();
         System.out.println("Created new model -> " + gameMode);
     }
-
+    @FXML
     public void startGame(){
-        viewShareData.getGameManager().turnManager.setTurns(viewShareData.getGameManager().getPlayers());
+        //viewShareData.getViewModel().getGameManager().turnManager.setTurns(viewShareData.getViewModel().getGameManager().getPlayers());
+        Socket server = null;
         try{
-            Socket server = new Socket(viewShareData.getHostIp(), viewShareData.getHostPort());
+            server = new Socket(viewShareData.getHostIp(), viewShareData.getHostPort());
             PrintWriter printWriter = new PrintWriter(server.getOutputStream(),true);
             printWriter.println("startGame");
             server.close();
         } catch (IOException ignored){}
+        finally {
+            if(server != null && server.isConnected()){
+                try {
+                    server.close();
+                } catch (IOException ignored) {}
+            }
+        }
     }
 
     @FXML
@@ -437,6 +446,7 @@ public class MainWindowController {
             controller.squareClickHandler();
             controller.initializePlayerAction();
             controller.initializeHostAction();
+            controller.bindTilesProperties();
             stage.setScene(scene);
             stage.setFullScreen(true);
         } else {

@@ -1,12 +1,15 @@
 package viewModel;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import model.GameManager;
 import model.Model;
+import model.Player;
 import scrabble_game.Board;
+import scrabble_game.Tile;
 import view.MainWindowController;
 
 import java.net.Socket;
@@ -21,24 +24,24 @@ public class ViewModel {
     StringProperty playerAction;
     StringProperty lastWord;
 
-    public Label firstTileLetter;
-    public Label secondTileLetter;
-    public Label thirdTileLetter;
-    public Label fourthTileLetter;
-    public Label fifthTileLetter;
-    public Label sixTileLetter;
-    public Label sevenTileLetter;
+    public SimpleStringProperty firstTileLetter;
+    public SimpleStringProperty secondTileLetter;
+    public SimpleStringProperty thirdTileLetter;
+    public SimpleStringProperty fourthTileLetter;
+    public SimpleStringProperty fifthTileLetter;
+    public SimpleStringProperty sixTileLetter;
+    public SimpleStringProperty sevenTileLetter;
 
-    public Label firstTileScore;
-    public Label secondTileScore;
-    public Label thirdTileScore;
-    public Label fourthTileScore;
-    public Label fifthTileScore;
-    public Label sixTileScore;
-    public Label sevenTileScore;
+    public StringProperty firstTileScore;
+    public StringProperty secondTileScore;
+    public StringProperty thirdTileScore;
+    public StringProperty fourthTileScore;
+    public StringProperty fifthTileScore;
+    public StringProperty sixTileScore;
+    public StringProperty sevenTileScore;
 
-    List<Label> tileLetters;
-    List<Label> tileScores;
+    List<StringProperty> tileLetters;
+    List<StringProperty> tileScores;
 
     public ViewModel(){
         model = null;
@@ -54,21 +57,21 @@ public class ViewModel {
     }
 
     public void initializeTileProperty(){
-        firstTileLetter = new Label();
-        secondTileLetter = new Label();
-        thirdTileLetter = new Label();
-        fourthTileLetter = new Label();
-        fifthTileLetter = new Label();
-        sixTileLetter = new Label();
-        sevenTileLetter = new Label();
+        firstTileLetter = new SimpleStringProperty();
+        secondTileLetter = new SimpleStringProperty();
+        thirdTileLetter = new SimpleStringProperty();
+        fourthTileLetter = new SimpleStringProperty();
+        fifthTileLetter = new SimpleStringProperty();
+        sixTileLetter = new SimpleStringProperty();
+        sevenTileLetter = new SimpleStringProperty();
 
-        firstTileScore = new Label();
-        secondTileScore = new Label();
-        thirdTileScore = new Label();
-        fourthTileScore = new Label();
-        fifthTileScore = new Label();
-        sixTileScore = new Label();
-        sevenTileScore = new Label();
+        firstTileScore = new SimpleStringProperty();
+        secondTileScore = new SimpleStringProperty();
+        thirdTileScore = new SimpleStringProperty();
+        fourthTileScore = new SimpleStringProperty();
+        fifthTileScore = new SimpleStringProperty();
+        sixTileScore = new SimpleStringProperty();
+        sevenTileScore = new SimpleStringProperty();
 
         tileLetters.add(firstTileLetter);
         tileLetters.add(secondTileLetter);
@@ -96,6 +99,7 @@ public class ViewModel {
     }
 
     public void initializeHostAction(){
+        messageFromHost = new SimpleStringProperty();
         messageFromHost.bind(model.getMessageFromHost());
         model.getMessageFromHost().addListener(((observable, oldAction, newAction) -> {
             manageHostMessage(newAction);
@@ -104,8 +108,36 @@ public class ViewModel {
 
     public void manageHostMessage(String newAction){
         switch(newAction){
-            case "wordInsertSuccessfully" -> Board.printBoard(model.getBoard());
+            case "wordInsertSuccessfully" -> System.out.println("Your turn has ended!");
+            case "updateView" -> updateView();
             default -> System.out.println("default");
+        }
+    }
+
+    private void updateView() {
+        Platform.runLater(() -> {
+            updateTiles();
+            updateButtons();
+            updatePlayers();
+            updateBoard();
+        });
+    }
+
+    private void updateBoard() {
+    }
+
+    private void updatePlayers() {
+    }
+
+    private void updateButtons() {
+    }
+
+    private void updateTiles() {
+        Player player = model.getGameManager().getPlayers().get(model.getPlayerId());
+        List<Tile> tiles = player.getTiles();
+        for(int i = 0; i < player.getTiles().size(); i++){
+            tileScores.get(i).setValue(String.valueOf(tiles.get(i).score));
+            tileLetters.get(i).setValue(String.valueOf(tiles.get(i).letter));
         }
     }
 
@@ -126,8 +158,8 @@ public class ViewModel {
     }
 
     public void setGameManager(GameManager gameManager) {
-        System.out.println("Checking updated gameManager(ViewModel) -> Current players online: " + gameManager.getPlayers().keySet().size());
         model.setGameManager(gameManager);
+        updateView();
     }
 
     public GameManager getGameManager() {

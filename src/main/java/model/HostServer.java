@@ -1,5 +1,6 @@
 package model;
 
+import scrabble_game.Board;
 import scrabble_game.ClientHandler;
 import scrabble_game.MyServer;
 
@@ -57,12 +58,13 @@ public class HostServer extends MyServer {
                 catch (SocketTimeoutException ignored) {}
             }
 
-            if(gameIsRunning){
+            while(gameIsRunning){
                 if(timerTask == null || timer == null){
+                    System.out.println("Starting new task");
                     this.timer = new Timer();
                     this.timerTask = new ManageTurn();
                     GameManager.get_instance().turnManager.nextTurn();
-                    timer.schedule(timerTask,2000,60000); //after the test will be 5000 and 60,000
+                    timer.schedule(timerTask,1000,60000); //after the test will be 5000 and 60,000
                 }
             }
         } catch (IOException e) {
@@ -85,6 +87,8 @@ public class HostServer extends MyServer {
     }
 
     public void startGame(){
+        GameManager gameManager = GameManager.get_instance();
+        gameManager.startGame();
         this.gameIsRunning = true;
     }
 
@@ -93,17 +97,17 @@ public class HostServer extends MyServer {
     }
 
     public class ManageTurn extends TimerTask{
-
         @Override
         public void run() {
             new Thread (()-> {
+                updateGuestsModel();
                 GameManager gameManager = GameManager.get_instance();
                 int turn = gameManager.turnManager.getCurrentTurn();
                 System.out.println("Player number " + turn + " is playing!");
-
                 try {
                     ch.handleClient(socketMap.get(turn).getInputStream(), socketMap.get(turn).getOutputStream());
                     this.cancel();
+                    timer = null;
                     resetCurrentTask();
                 } catch (IOException ignored) {}
             }).start();
