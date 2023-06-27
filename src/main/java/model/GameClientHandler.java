@@ -3,12 +3,8 @@ package model;
 import scrabble_game.*;
 
 import java.io.*;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class GameClientHandler implements ClientHandler {
     PrintWriter out;
@@ -38,11 +34,11 @@ public class GameClientHandler implements ClientHandler {
         out.println("playTurn");
         int playerId = gameManager.turnManager.getCurrentTurn();
         stillPlaying = true;
-
+        System.out.println("Current player -> " + gameManager.turnManager.getCurrentTurn() + " playerID -> " + playerId);
         while(playerId == gameManager.turnManager.getCurrentTurn() && stillPlaying){
-
             try {
                 if(in.ready()){
+                    System.out.println("after in.ready");
                     String line = in.readLine();
                     String res = handleInput(line);
                     out.println(res); //reach to listen to host
@@ -63,12 +59,12 @@ public class GameClientHandler implements ClientHandler {
                 }
                 break;
             case TryPlaceWord: // try place word
-                int score = this.gameManager.board.tryPlaceWord(buildWordFromInput(input));
+                int score = this.gameManager.board.tryPlaceWord(buildWordFromPlayer(input));
                 if(score == 0){ //board not legal
                     return "boardNotLegal";
                 }
                 else if(score == -1){ //dictionary not legal
-                    return "wordNotInDictionary";
+                    return "dictionaryNotLegal";
                 }
                 else if(score > 0) {//succeeded
 
@@ -83,7 +79,7 @@ public class GameClientHandler implements ClientHandler {
                 String resBSH = BScommunication.runChallengeOrQuery(inString);
 
                 if (resBSH.equals("true")){
-                    int score1 = this.gameManager.board.tryPlaceWord(buildWordFromInput(input));
+                    int score1 = this.gameManager.board.tryPlaceWord(buildWordFromPlayer(input));
                     if (score1 > 0) {
                         gameManager.addScore(playerId, score1);
                         stillPlaying = false;
@@ -121,15 +117,18 @@ public class GameClientHandler implements ClientHandler {
      * @param input
      * @return
      */
-    private Word buildWordFromInput(String input) {
-        String word = input.split(",")[2];
-        int col = Integer.parseInt(input.split(",")[3]);
-        int row = Integer.parseInt(input.split(",")[4]);
-        boolean vertical = Boolean.parseBoolean(input.split(",")[5]);
+    private Word buildWordFromPlayer(String input) {
+        String[] splittedStr = input.split(",");
+        String word = splittedStr[2];
+        int col = Integer.parseInt(splittedStr[3]);
+        int row = Integer.parseInt(splittedStr[4]);
+        boolean vertical = Boolean.parseBoolean(splittedStr[5]);
 
         Tile[] wordTiles = new Tile[word.length()];
+        Player player = gameManager.getPlayers().get(Integer.parseInt(splittedStr[0]));
         for (int i = 0; i < wordTiles.length; i++) {
-            wordTiles[i] = Tile.Bag.getBag().getTile(word.charAt(i));
+            if(word.charAt(i) == '_') wordTiles[i] = null;
+            else wordTiles[i] = player.getTile(word.charAt(i));
         }
 
         return new Word(wordTiles, row, col, vertical);

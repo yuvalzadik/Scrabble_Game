@@ -12,6 +12,7 @@ public class TurnManager implements Serializable {
     List<Integer> turns;
 
     public TurnManager(){
+        turns = new ArrayList<>();
         currentTurnIndex = -1;
     }
 

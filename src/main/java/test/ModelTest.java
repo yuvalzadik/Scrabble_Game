@@ -53,7 +53,7 @@ public class ModelTest {
 
         System.out.println("Players connected(Should be 2) -> result : " + gameManager.getPlayers().size());
 
-        scrabbleModel.startGame();
+        //scrabbleModel.startGame();
 
         //Start Book Scrabble Server
         MyServer bookScrabbleServer = new MyServer(5842, new BookScrabbleHandler());

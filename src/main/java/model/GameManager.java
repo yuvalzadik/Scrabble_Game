@@ -1,12 +1,9 @@
 package model;
 
 import scrabble_game.Board;
-import scrabble_game.DictionaryManager;
 import scrabble_game.Tile;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class GameManager implements Serializable {
@@ -17,7 +14,7 @@ public class GameManager implements Serializable {
     private static GameManager _instance = null;
     public TurnManager turnManager;
 
-    public GameManager(){
+    private GameManager(){
         this.gameStarted = false;
         this.players = new HashMap<>();
         this.turnManager = new TurnManager();

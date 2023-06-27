@@ -23,6 +23,8 @@ public class Model extends Observable {
     Scanner fgin;
     HostServer gameServer;
 
+    GameManager gameManager;
+
     static int currentId = 0;
     int playerId;
     private StringProperty messageFromHost = new SimpleStringProperty();;
@@ -31,7 +33,9 @@ public class Model extends Observable {
     public Model(GameMode mode, String ip, int port, String name) {
         //this.ip = ip;
         //this.port = port;
+        gameManager = null;
         if (mode.equals(GameMode.Host)) {
+            gameManager = GameManager.get_instance();
             gameServer = new HostServer(port, new GameClientHandler()); //TODO - Change to hostServer
             gameServer.start();
         }
@@ -62,7 +66,7 @@ public class Model extends Observable {
                         //tryPlaceWord
                         case "wordInsertSuccessfully"-> wordInsertSuccessfully();
                         case "boardNotLegal"-> System.out.println("boardNotLegal");
-                        case "wordNotInDictionary"-> System.out.println("boardNotLegal");
+                        case "dictionaryNotLegal"-> System.out.println("dictionaryNotLegal");
 
 //                      TODO: handle end game- log out succeeded, handle try place word- boardLegal/ wordLegal,
 //                       handle challenge- word not found, , its your turn
@@ -74,9 +78,9 @@ public class Model extends Observable {
     }
 
     private void playTurn() {
-        //String word, int row, int col, boolean vertical
-        tryPlaceWord("NAL", 7,7,true);
-//        System.out.println("this is the answer from play turn - "+ tryPlaceWord("NAL", 7,7,true));
+        /*
+        Show buttons for current player.
+         */
     }
 
     private  void wordInsertSuccessfully(){
@@ -91,7 +95,8 @@ public class Model extends Observable {
 //            fg = new Socket(ip, port);
 //            out2fg = new PrintWriter(fg.getOutputStream());
 //            fgin = new Scanner(fg.getInputStream());
-            out2fg.println(commandString);
+        System.out.println("runCommand");
+        out2fg.println(commandString);
 //            String res = fgin.next();
 //            System.out.println("Recieved from server: " + res);
 //            fgin.close();
@@ -121,12 +126,8 @@ public class Model extends Observable {
 //        return Boolean.parseBoolean(res);
 //    }
 
-    public void startGame(){
-        GameManager.get_instance().startGame();
-        gameServer.startGame();
-    }
-
     public void tryPlaceWord(String word, int row, int col, boolean vertical) {
+        System.out.println("Model -> tryPlaceWord");
         String tryPlaceWordQuery = GameCommandsFactory.getTryPlaceWordCommandString(playerId, word, row, col, vertical);
         runCommand(tryPlaceWordQuery);
     }
@@ -148,6 +149,14 @@ public class Model extends Observable {
         return Board.deserialize(bytes);
     }
 
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
+    public void setGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
+
     public Tile getRand() {
         String getBagString = GameCommandsFactory.getGetRandTileString(playerId);
         String res = runCommand(getBagString);
@@ -163,6 +172,8 @@ public class Model extends Observable {
         String getSetGameDictionariesString = GameCommandsFactory.getSetGameDictionariesString(playerId, dictionaries);
         runCommand(getSetGameDictionariesString);
     }
+
+
 
 
     public StringProperty getMessageFromHost() {

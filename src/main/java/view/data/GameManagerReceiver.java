@@ -1,27 +1,28 @@
 package view.data;
 
-import model.Model;
+import model.GameManager;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.Observable;
 
-public class ModelReceiver extends Observable implements Serializable {
+public class GameManagerReceiver extends Observable implements Serializable {
     MySocket server;
     private final BufferedInputStream inFromServer;
-    Model updatedModel;
-    public ModelReceiver(String ip, int port){
+    GameManager updatedGameManager;
+    public GameManagerReceiver(String ip, int port){
         try {
             server = new MySocket(new Socket(ip, port));
             inFromServer = new BufferedInputStream(server.getPlayerSocket().getInputStream());
-            updatedModel = null;
-            listenForModelUpdates();
+            updatedGameManager = null;
+            listenForGameManagerUpdates();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void setUpdatedModel(Model newModel){
-        this.updatedModel = newModel;
+    public void setUpdatedGameManager(GameManager newModel){
+        this.updatedGameManager = newModel;
         setChanged();
         notifyObservers();
     }
@@ -30,17 +31,17 @@ public class ModelReceiver extends Observable implements Serializable {
         return server;
     }
 
-    public Model getUpdatedModel() {
-        return updatedModel;
+    public GameManager getUpdatedGameManager() {
+        return updatedGameManager;
     }
 
-    private void listenForModelUpdates(){
+    private void listenForGameManagerUpdates(){
         new Thread(() -> {
             while (!server.getPlayerSocket().isClosed()) {
                 try {
-                    Model newModel = (Model) new ObjectInputStream(inFromServer).readObject();
+                    GameManager newModel = (GameManager) new ObjectInputStream(inFromServer).readObject();
                     System.out.println("Received model update");
-                    setUpdatedModel(newModel);
+                    setUpdatedGameManager(newModel);
                 } catch (IOException | ClassNotFoundException ignored) {}
             }
         }).start();

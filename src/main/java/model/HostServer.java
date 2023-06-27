@@ -4,6 +4,7 @@ import scrabble_game.ClientHandler;
 import scrabble_game.MyServer;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,15 +14,19 @@ import java.util.*;
 public class HostServer extends MyServer {
 
     Map<Integer, Socket> socketMap;
+    Map<Integer, Socket> modelReceivers;
     ServerSocket serverSocket;
     boolean gameIsRunning;
     Timer timer;
+    TimerTask timerTask;
 
     public HostServer(int port, ClientHandler ch) {
         super(port, ch);
         this.serverSocket = null;
         socketMap = new HashMap<>();
+        modelReceivers = new HashMap<>();
         gameIsRunning = false;
+        timerTask = null;
     }
 
     @Override
@@ -32,25 +37,51 @@ public class HostServer extends MyServer {
             while(!gameIsRunning){
                 try{
                     Socket newSocket = serverSocket.accept();
-                    if(socketMap.size() < 4){
-                        Scanner fromPlayer = new Scanner(newSocket.getInputStream());
-                        String playerName = fromPlayer.next();
-                        socketMap.put(socketMap.size()+1, newSocket);
+                    Scanner fromPlayer = new Scanner(newSocket.getInputStream());
+                    String playerName = fromPlayer.next();
+                    if(playerName.equals("startGame")){
+                        startGame();
+                        newSocket.close();
+                    }
+                    else if(socketMap.size() < 4) {
+                        socketMap.put(socketMap.size() + 1, newSocket);
                         System.out.println(playerName + " Connected");
                         GameManager.get_instance().addPlayer(new Player(playerName));
+                        System.out.println("before accept");
+                        Socket clientModelReceiver = serverSocket.accept();
+                        System.out.println("clientModelReceiver (hostServer)");
+                        modelReceivers.put(socketMap.size(), clientModelReceiver);
+                        updateGuestsModel();
                     }
                 }
                 catch (SocketTimeoutException ignored) {}
             }
 
             if(gameIsRunning){
-                this.timer = new Timer();
-                timer.scheduleAtFixedRate(new ManageTurn(),5000,15000); //after the test will be 5000 and 60,000
+                if(timerTask == null || timer == null){
+                    this.timer = new Timer();
+                    this.timerTask = new ManageTurn();
+                    GameManager.get_instance().turnManager.nextTurn();
+                    timer.schedule(timerTask,2000,60000); //after the test will be 5000 and 60,000
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private void updateGuestsModel() {
+        new Thread(() -> {
+            for(Socket s : modelReceivers.values()){
+                try{
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(s.getOutputStream());
+                    objectOutputStream.writeObject(GameManager.get_instance());
+                } catch (IOException e) {
+                    System.out.println("Model is probably not serializable!");
+                }
+            }
+        }).start();
     }
 
     public void startGame(){
@@ -67,17 +98,27 @@ public class HostServer extends MyServer {
         public void run() {
             new Thread (()-> {
                 GameManager gameManager = GameManager.get_instance();
-                gameManager.turnManager.nextTurn();
                 int turn = gameManager.turnManager.getCurrentTurn();
                 System.out.println("Player number " + turn + " is playing!");
 
                 try {
                     ch.handleClient(socketMap.get(turn).getInputStream(), socketMap.get(turn).getOutputStream());
-                    //the client finish its turn before timer is over
                     this.cancel();
-                    timer.scheduleAtFixedRate(new ManageTurn(), 5000, 15000); //after the test will be 5000 and 60,000
+                    resetCurrentTask();
                 } catch (IOException ignored) {}
             }).start();
-            }
+        }
+    }
+
+    private void resetCurrentTask(){
+        timerTask = null;
+    }
+
+    @Override
+    public void close() {
+        timer.cancel();
+        resetCurrentTask();
+        //TODO - close everything.
+        super.close();
     }
 }
