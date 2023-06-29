@@ -6,6 +6,7 @@ import model.GameManager;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Board implements Serializable {
     private static Board b = null;
@@ -82,36 +83,39 @@ public class Board implements Serializable {
             }
             // check if the word contains or near existing tile.( just if it is not the first word)
             else {
-            // if we want to put tile on occupied spot we have to check it is the same one
-            if (b.tiles_board[row][col]!= null){
-                if (word.getTiles()[i]!= null) {
-                    if (b.tiles_board[row][col] != word.getTiles()[i]) {
-                        return false;
+                System.out.println("Checking Row: " + row + ", Col: "+ col);
+                // if we want to put tile on occupied spot we have to check it is the same one
+                if (b.tiles_board[row][col]!= null){
+                    Board.printBoard(this);
+                    System.out.println("tile is already placed in this spot -> Trying to place letter over : " + b.tiles_board[row][col].letter);
+                    if (word.getTiles()[i]!= null) {
+                        if (b.tiles_board[row][col] != word.getTiles()[i]) {
+                            return false;
+                        }
+                        else {
+                            near_tile = true;
+                        }
                     }
-                    else {
-                        near_tile = true;
+                }
+                //check if the new word is near existing tile
+                else {
+                    if (row != 0) {
+                        if (b.tiles_board[row - 1][col] != null)
+                            near_tile = true;
+                    }
+                    if (row != 14) {
+                        if (b.tiles_board[row + 1][col] != null)
+                            near_tile = true;
+                    }
+                    if (col != 0) {
+                        if (b.tiles_board[row][col - 1] != null)
+                            near_tile = true;
+                    }
+                    if (col != 14) {
+                        if (b.tiles_board[row][col + 1] != null)
+                            near_tile = true;
                     }
                 }
-            }
-            //check if the new word is near existing tile
-            else {
-                if (row != 0) {
-                    if (b.tiles_board[row - 1][col] != null)
-                        near_tile = true;
-                }
-                if (row != 14) {
-                    if (b.tiles_board[row + 1][col] != null)
-                        near_tile = true;
-                }
-                if (col != 0) {
-                    if (b.tiles_board[row][col - 1] != null)
-                        near_tile = true;
-                }
-                if (col != 14) {
-                    if (b.tiles_board[row][col + 1] != null)
-                        near_tile = true;
-                }
-            }
             }
             if (word.isVertical())
                 row += 1;
@@ -319,40 +323,42 @@ public class Board implements Serializable {
         if (!(boardLegal(word))) {
             return 0;
         }
-        else if (!(dictionaryLegal(word))) {
-            return -1;
+
+        List<Word> allWords = getWords(word);
+
+        for(Word w : allWords){
+            if(!dictionaryLegal(w)) return -1;
         }
-        else {
-            boolean firstword = b.tiles_board[7][7] ==null;
-            ArrayList<Word> Total_words = getWords(word);
-            /*int count = 0;
-            for (Word word1: Total_words){
-                System.out.println(word1);
-                count++;
-            }
-            System.out.println("words count");
-            System.out.println(count);*/
-            //insert word
-            int row = word.getRow();
-            int col = word.getCol();
-            for (Tile tile :word.getTiles()) {
-                if (b.tiles_board[row][col]== null)
-                    b.tiles_board[row][col] = tile;
-                if (word.isVertical())
-                    row +=1;
-                else
-                    col+=1;
-            }
-            // calculate score
-            int Total_score = 0;
-            for (Word w :Total_words) {
-                Total_score +=getScore(w);
-            }
-            if (firstword)
-                return (Total_score * 2);
+
+        boolean firstword = b.tiles_board[7][7] ==null;
+        ArrayList<Word> Total_words = getWords(word);
+        /*int count = 0;
+        for (Word word1: Total_words){
+            System.out.println(word1);
+            count++;
+        }
+        System.out.println("words count");
+        System.out.println(count);*/
+        //insert word
+        int row = word.getRow();
+        int col = word.getCol();
+        for (Tile tile :word.getTiles()) {
+            if (b.tiles_board[row][col]== null)
+                b.tiles_board[row][col] = tile;
+            if (word.isVertical())
+                row +=1;
             else
-                return Total_score;
+                col+=1;
         }
+        // calculate score
+        int Total_score = 0;
+        for (Word w :Total_words) {
+            Total_score +=getScore(w);
+        }
+        if (firstword)
+            return (Total_score * 2);
+        else
+            return Total_score;
     }
 
     static public byte[] serialize(Board board){

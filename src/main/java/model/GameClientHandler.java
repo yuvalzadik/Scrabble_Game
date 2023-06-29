@@ -5,6 +5,7 @@ import scrabble_game.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class GameClientHandler implements ClientHandler {
     PrintWriter out;
@@ -23,12 +24,6 @@ public class GameClientHandler implements ClientHandler {
 
     @Override
     public void handleClient(InputStream inFromclient, OutputStream outToClient) {
-        /*
-        init inFromClient and outToClient
-        loop with two break points - when the turn is not ours or when the player succeeded task:
-                         playedId locally - currentPlayer
-                         boolean stillPlaying
-         */
         in = new BufferedReader(new InputStreamReader(inFromclient));
         out = new PrintWriter(new OutputStreamWriter(outToClient), true);
         out.println("playTurn");
@@ -38,7 +33,6 @@ public class GameClientHandler implements ClientHandler {
         while(playerId == gameManager.turnManager.getCurrentTurn() && stillPlaying){
             try {
                 if(in.ready()){
-                    System.out.println("after in.ready");
                     String line = in.readLine();
                     String res = handleInput(line);
                     out.println(res); //reach to listen to host
@@ -49,6 +43,10 @@ public class GameClientHandler implements ClientHandler {
 
     private String handleInput(String input) {
         int playerId = Integer.parseInt(input.split(",")[0]);
+        Board.printBoard(gameManager.board);
+        System.out.println("tile in [7][7] -> " + gameManager.board.getTiles()[7][7]);
+        System.out.println("tile in [7][8] -> " + gameManager.board.getTiles()[7][8]);
+        System.out.println("tile in [8][7] -> " + gameManager.board.getTiles()[8][7]);
         GameCommand command = GameCommandsFactory.getCommandEnumFromChar(input.split(",")[1].charAt(0));
         System.out.println("Server received command:" + command.name() + " from player:" + playerId);
         switch (command) {
@@ -119,9 +117,10 @@ public class GameClientHandler implements ClientHandler {
     private Word buildWordFromPlayer(String input) {
         String[] splittedStr = input.split(",");
         String word = splittedStr[2];
-        int col = Integer.parseInt(splittedStr[3]);
-        int row = Integer.parseInt(splittedStr[4]);
+        int row = Integer.parseInt(splittedStr[3]);
+        int col = Integer.parseInt(splittedStr[4]);
         boolean vertical = Boolean.parseBoolean(splittedStr[5]);
+        System.out.println("Vertical? -> " + vertical);
 
         Tile[] wordTiles = new Tile[word.length()];
         Player player = gameManager.getPlayers().get(Integer.parseInt(splittedStr[0]));

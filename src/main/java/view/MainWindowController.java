@@ -2,6 +2,7 @@ package view;
 
 
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -31,7 +32,6 @@ import view.data.ViewShareData;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.*;
 
 
@@ -45,16 +45,25 @@ public class MainWindowController {
 
     private VBox draggedTile; // Currently dragged tile
     private StackPane targetSquare; // Target square for dropping the tile
-    public static String[] players = {"Guest", "Guest", "Guest", "Guest"};
-    @FXML
-    private Label player0Label;
-    @FXML
-    private Label player1Label;
-    @FXML
-    private Label player2Label;
+    //public static String[] players = {"Guest", "Guest", "Guest", "Guest"};
 
     @FXML
-    private Label player3Label;
+    private Label firstPlayerName;
+    @FXML
+    private Label secondPlayerName;
+    @FXML
+    private Label thirdPlayerName;
+    @FXML
+    private Label fourthPlayerName;
+
+    @FXML
+    private Label firstPlayerScore;
+    @FXML
+    private Label secondPlayerScore;
+    @FXML
+    private Label thirdPlayerScore;
+    @FXML
+    private Label fourthPlayerScore;
 
     @FXML
     private Label nameLabelError;
@@ -105,7 +114,7 @@ public class MainWindowController {
     private Label sevenTileScore;
 
 
-
+    StringProperty cellLabel;
     StringProperty playerAction;
     StringProperty lastWord;
     Map<String, String> placedTiles;
@@ -113,12 +122,28 @@ public class MainWindowController {
     public MainWindowController(){
         lastWord = new SimpleStringProperty();
         playerAction = new SimpleStringProperty();
-        placedTiles = new HashMap<String, String>();
+        placedTiles = new HashMap<>();
 
-        initializeTileProperty();
+        initializeTileProperties();
+        initializeNameProperties();
+        initializeScoreProperties();
     }
 
-    public void initializeTileProperty(){
+    private void initializeScoreProperties() {
+        firstPlayerScore = new Label();
+        secondPlayerScore = new Label();
+        thirdPlayerScore = new Label();
+        fourthPlayerScore = new Label();
+    }
+
+    private void initializeNameProperties() {
+        firstPlayerName = new Label();
+        secondPlayerName = new Label();
+        thirdPlayerName= new Label();
+        fourthPlayerName = new Label();
+    }
+
+    public void initializeTileProperties(){
         firstTileLetter = new Label();
         secondTileLetter = new Label();
         thirdTileLetter = new Label();
@@ -134,6 +159,54 @@ public class MainWindowController {
         fifthTileScore = new Label();
         sixTileScore = new Label();
         sevenTileScore = new Label();
+    }
+
+    public void initializeBoardAction(){
+        cellLabel = new SimpleStringProperty();
+        ObjectProperty<String> newCellLabel = viewShareData.getViewModel().getCellLabel();
+        cellLabel.bind(newCellLabel);
+        newCellLabel.addListener(((observable, oldLabel, newLabel) -> updateBoardCellLabel(newLabel)));
+    }
+
+    private void updateBoardCellLabel(String newLabel) {
+        String[] splitted = newLabel.split(",");
+        StackPane square = (StackPane) boardGridPane.getChildren().get(Integer.parseInt(splitted[0]));
+        Label squareLabel = (Label) square.getChildren().get(0);
+
+        if(splitted[1].equals("default")){
+            if (square.getStyleClass().contains("TripleWord-cell")) {
+                squareLabel.setText("TP");
+            }
+            else if (square.getStyleClass().contains("DoubleWord-cell")) {
+                squareLabel.setText("DW");
+            }
+            else if (square.getStyleClass().contains("DoubleLetter-cell")) {
+                squareLabel.setText("DL");
+            }
+            else if (square.getStyleClass().contains("TripleLetter-cell")) {
+                squareLabel.setText("TL");
+            }
+            else if (square.getStyleClass().contains("Normal-cell")) {
+                squareLabel.setText("");
+            }
+            else if (square.getStyleClass().contains("center-cell")) {
+                squareLabel.setText("SP");
+            }
+            else squareLabel.setText("");
+        }
+        else squareLabel.setText(splitted[1]);
+    }
+
+    public void bindPlayerProperties(){
+        firstPlayerName.textProperty().bind(viewShareData.getViewModel().firstPlayerName);
+        secondPlayerName.textProperty().bind(viewShareData.getViewModel().secondPlayerName);
+        thirdPlayerName.textProperty().bind(viewShareData.getViewModel().thirdPlayerName);
+        fourthPlayerName.textProperty().bind(viewShareData.getViewModel().fourthPlayerName);
+
+        firstPlayerScore.textProperty().bind(viewShareData.getViewModel().firstPlayerScore);
+        secondPlayerScore.textProperty().bind(viewShareData.getViewModel().secondPlayerScore);
+        thirdPlayerScore.textProperty().bind(viewShareData.getViewModel().thirdPlayerScore);
+        fourthPlayerScore.textProperty().bind(viewShareData.getViewModel().fourthPlayerScore);
     }
 
     public void bindTilesProperties(){
@@ -167,7 +240,7 @@ public class MainWindowController {
     public void Submit(ActionEvent event) throws IOException {
         buildWord();
         System.out.println("From Submit(View)" + lastWord);
-        playerAction.set("Submit");
+        playerAction.set("Submit," + lastWord);
     }
 
     private void buildWord() {
@@ -202,8 +275,9 @@ public class MainWindowController {
         }
 
         playerWord = stringBuilder.toString();
-
+        placedTiles.clear();
         lastWord.setValue(playerWord+","+startRow+","+startCol+","+vertical);
+        playerWord = "";
     }
 
     @FXML
@@ -268,11 +342,6 @@ public class MainWindowController {
     }
 
     @FXML
-    public void StartGame(ActionEvent event) throws IOException {
-        loadScene(event, "HomePage");
-    }
-
-    @FXML
     public void StartAsHost(ActionEvent event) throws IOException {
         boolean allValid = true;
         if (!validName(nameField.getText())) {
@@ -289,7 +358,6 @@ public class MainWindowController {
         }
 
         if (allValid) {
-            players[0]=nameField.getText();
             ipField = new TextField();
             ipField.setText("localhost");
             viewShareData.setHostIp("localhost");
@@ -341,11 +409,6 @@ public class MainWindowController {
         }
 
         if (allValid) {
-            for(int i=0;i<4;i++)
-                if(players[i] == "Guest"){
-                    players[i]=nameField.getText();
-                    break;
-                }
             connectToServer(GameMode.Guest);
             viewShareData.setHost(false);
             loadBoard(event);
@@ -447,6 +510,8 @@ public class MainWindowController {
             controller.initializePlayerAction();
             controller.initializeHostAction();
             controller.bindTilesProperties();
+            controller.bindPlayerProperties();
+            controller.initializeBoardAction();
             stage.setScene(scene);
             stage.setFullScreen(true);
         } else {
@@ -459,15 +524,6 @@ public class MainWindowController {
         }
 
         stage.show();
-        if(Objects.equals(sceneName, "BoardPage"))
-            controller.updatePlayerNames(players);
-    }
-    @FXML
-    public void updatePlayerNames(String[] playerNames){
-        player0Label.setText(playerNames[0]);
-        player1Label.setText(playerNames[1]);
-        player2Label.setText(playerNames[2]);
-        player3Label.setText(playerNames[3]);
     }
     public boolean validPort(String port) {
         return port.matches("(1000[1-9]|100[1-9]\\d|10[1-9]\\d{2}|1[1-9]\\d{3}|19999)");

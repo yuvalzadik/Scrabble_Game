@@ -24,8 +24,6 @@ public class Model extends Observable {
     HostServer gameServer;
 
     GameManager gameManager;
-
-    static int currentId = 0;
     int playerId;
     private StringProperty messageFromHost = new SimpleStringProperty();;
 
@@ -44,8 +42,8 @@ public class Model extends Observable {
             out2fg = new PrintWriter(fg.getOutputStream(), true);
             fgin = new Scanner(fg.getInputStream());
             out2fg.println(name);
-            currentId++;
-            this.playerId = currentId;
+            String givenId = fgin.next();
+            this.playerId = Integer.parseInt(givenId);
             listenToHost();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -81,11 +79,12 @@ public class Model extends Observable {
         /*
         Show buttons for current player.
          */
+        messageFromHost.setValue("playTurn");
     }
 
     private  void wordInsertSuccessfully(){
         messageFromHost.setValue("wordInsertSuccessfully");
-        System.out.println("work insert successfully");
+        System.out.println("word insert successfully");
     }
 
 
@@ -121,7 +120,6 @@ public class Model extends Observable {
     }
 
     public void tryPlaceWord(String word, int row, int col, boolean vertical) {
-        System.out.println("Model -> tryPlaceWord");
         String tryPlaceWordQuery = GameCommandsFactory.getTryPlaceWordCommandString(playerId, word, row, col, vertical);
         runCommand(tryPlaceWordQuery);
     }

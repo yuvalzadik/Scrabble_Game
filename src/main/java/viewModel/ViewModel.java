@@ -1,18 +1,16 @@
 package viewModel;
 
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import model.GameManager;
 import model.Model;
 import model.Player;
 import scrabble_game.Board;
 import scrabble_game.Tile;
-import view.MainWindowController;
 
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +21,16 @@ public class ViewModel {
     StringProperty messageFromHost;
     StringProperty playerAction;
     StringProperty lastWord;
+
+    public SimpleStringProperty firstPlayerName;
+    public SimpleStringProperty secondPlayerName;
+    public SimpleStringProperty thirdPlayerName;
+    public SimpleStringProperty fourthPlayerName;
+
+    public SimpleStringProperty firstPlayerScore;
+    public SimpleStringProperty secondPlayerScore;
+    public SimpleStringProperty thirdPlayerScore;
+    public SimpleStringProperty fourthPlayerScore;
 
     public SimpleStringProperty firstTileLetter;
     public SimpleStringProperty secondTileLetter;
@@ -40,8 +48,13 @@ public class ViewModel {
     public StringProperty sixTileScore;
     public StringProperty sevenTileScore;
 
+    public ObjectProperty<String> cellLabel;
+
     List<StringProperty> tileLetters;
     List<StringProperty> tileScores;
+
+    List<StringProperty> playersNames;
+    List<StringProperty> playersScores;
 
     public ViewModel(){
         model = null;
@@ -53,7 +66,31 @@ public class ViewModel {
         lastWord = new SimpleStringProperty();
         tileLetters = new ArrayList<>();
         tileScores = new ArrayList<>();
+        playersNames = new ArrayList<>();
+        playersScores = new ArrayList<>();
         initializeTileProperty();
+        initializePlayerProperties();
+    }
+
+    private void initializePlayerProperties() {
+        firstPlayerName = new SimpleStringProperty();
+        secondPlayerName = new SimpleStringProperty();
+        thirdPlayerName = new SimpleStringProperty();
+        fourthPlayerName = new SimpleStringProperty();
+        firstPlayerScore = new SimpleStringProperty();
+        secondPlayerScore = new SimpleStringProperty();
+        thirdPlayerScore = new SimpleStringProperty();
+        fourthPlayerScore = new SimpleStringProperty();
+
+        playersNames.add(firstPlayerName);
+        playersNames.add(secondPlayerName);
+        playersNames.add(thirdPlayerName);
+        playersNames.add(fourthPlayerName);
+
+        playersScores.add(firstPlayerScore);
+        playersScores.add(secondPlayerScore);
+        playersScores.add(thirdPlayerScore);
+        playersScores.add(fourthPlayerScore);
     }
 
     public void initializeTileProperty(){
@@ -110,8 +147,18 @@ public class ViewModel {
         switch(newAction){
             case "wordInsertSuccessfully" -> System.out.println("Your turn has ended!");
             case "updateView" -> updateView();
+            case "playTurn" -> playTurn();
             default -> System.out.println("default");
         }
+    }
+
+    private void playTurn() {
+        updateButtons();
+        resetWordParameters();
+    }
+
+    private void resetWordParameters() {
+
     }
 
     private void updateView() {
@@ -121,12 +168,33 @@ public class ViewModel {
             updatePlayers();
             updateBoard();
         });
+        Board.printBoard(model.getGameManager().board);
     }
 
     private void updateBoard() {
+        int current = 0;
+        Tile[][] gameBoard = getGameManager().board.getTiles();
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if(gameBoard[i][j] != null) cellLabel.set(current + "," + gameBoard[i][j].letter);
+                else cellLabel.set(current + "," + "default");
+                current++;
+            }
+        }
     }
 
     private void updatePlayers() {
+        ArrayList<Player> playersList = new ArrayList<>(model.getGameManager().getPlayers().values());
+        for(int i = 0; i < playersNames.size(); i++){
+            if(i < playersList.size()){
+                playersNames.get(i).setValue(playersList.get(i).getName());
+                playersScores.get(i).setValue("" + playersList.get(i).getScore());
+            }
+            else{
+                playersNames.get(i).setValue("");
+                playersScores.get(i).setValue("");
+            }
+        }
     }
 
     private void updateButtons() {
@@ -142,7 +210,8 @@ public class ViewModel {
     }
 
     public void managePlayerAction(String newAction){
-        switch(newAction){
+        String[] splitted = newAction.split(",");
+        switch(splitted[0]){
             case "Submit" -> {
                 System.out.println("managePlayerAction -> Submit");
                 tryPlaceWord();
@@ -177,5 +246,10 @@ public class ViewModel {
 
     public Model getModel() {
         return model;
+    }
+
+    public ObjectProperty<String> getCellLabel() {
+        cellLabel = new SimpleObjectProperty<>();
+        return cellLabel;
     }
 }

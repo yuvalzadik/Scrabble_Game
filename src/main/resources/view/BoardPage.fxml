@@ -21,24 +21,24 @@
             <VBox alignment="TOP_LEFT" spacing="10">
                 <VBox alignment="TOP_LEFT" spacing="15">
                     <HBox styleClass="PlayerCard">
-                        <Label fx:id="player0Label" styleClass="PlayerCardText" text="Romi" />
+                        <Label fx:id="firstPlayerName" styleClass="PlayerCardText" text="Romi" />
                         <Region HBox.hgrow="SOMETIMES" />
-                        <Label styleClass="PlayerCardText" text="Score: 0" />
+                        <Label fx:id="firstPlayerScore" styleClass="PlayerCardText" text="Score: 0" />
                     </HBox>
                     <HBox styleClass="PlayerCard">
-                        <Label fx:id="player1Label" styleClass="PlayerCardText" text="Tamar" />
+                        <Label fx:id="secondPlayerName" styleClass="PlayerCardText" text="Tamar" />
                         <Region HBox.hgrow="SOMETIMES" />
-                        <Label styleClass="PlayerCardText" text="Score: 0" />
+                        <Label fx:id="secondPlayerScore" styleClass="PlayerCardText" text="Score: 0" />
                     </HBox>
                     <HBox styleClass="PlayerCard">
-                        <Label fx:id="player2Label" styleClass="PlayerCardText" text="Yuval" />
+                        <Label fx:id="thirdPlayerName" styleClass="PlayerCardText" text="Yuval" />
                         <Region HBox.hgrow="SOMETIMES" />
-                        <Label styleClass="PlayerCardText" text="Score: 0" />
+                        <Label fx:id="thirdPlayerScore" styleClass="PlayerCardText" text="Score: 0" />
                     </HBox>
                     <HBox styleClass="PlayerCard">
-                        <Label fx:id="player3Label" styleClass="PlayerCardText" text="Nofar" />
+                        <Label fx:id="fourthPlayerName" styleClass="PlayerCardText" text="Nofar" />
                         <Region HBox.hgrow="SOMETIMES" />
-                        <Label styleClass="PlayerCardText" text="Score: 0" />
+                        <Label fx:id="fourthPlayerScore" styleClass="PlayerCardText" text="Score: 0" />
                     </HBox>
                 </VBox>
 
@@ -136,161 +136,17 @@
                         <RowConstraints minHeight="40" prefHeight="40" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="40" prefHeight="40" vgrow="SOMETIMES" />
                     </rowConstraints>
-                    <StackPane styleClass="center-cell" GridPane.columnIndex="7" GridPane.rowIndex="7">
-                        <Label styleClass="center-cell-text" text="StartPoint" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="7" GridPane.rowIndex="0">
-                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
-                    </StackPane>
                     <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="0" GridPane.rowIndex="0">
                         <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="14" GridPane.rowIndex="0">
-                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="14" GridPane.rowIndex="7">
-                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="14" GridPane.rowIndex="14">
-                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="7" GridPane.rowIndex="14">
-                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="0" GridPane.rowIndex="7">
-                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="0" GridPane.rowIndex="14">
-                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="4" GridPane.rowIndex="4">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="10" GridPane.rowIndex="10">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="11" GridPane.rowIndex="11">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="12" GridPane.rowIndex="12">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="13" GridPane.rowIndex="13">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="1" GridPane.rowIndex="13">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="2" GridPane.rowIndex="12">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="3" GridPane.rowIndex="11">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="4" GridPane.rowIndex="10">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="10" GridPane.rowIndex="4">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="11" GridPane.rowIndex="3">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="12" GridPane.rowIndex="2">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="13" GridPane.rowIndex="1">
-                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="3" GridPane.rowIndex="0">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="11" GridPane.rowIndex="0">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="3" GridPane.rowIndex="14">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="11" GridPane.rowIndex="14">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="0" GridPane.rowIndex="11">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="14" GridPane.rowIndex="11">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="2" GridPane.rowIndex="6">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="2" GridPane.rowIndex="8">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="3" GridPane.rowIndex="7">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="12" GridPane.rowIndex="6">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="12" GridPane.rowIndex="8">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="11" GridPane.rowIndex="7">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="6" GridPane.rowIndex="6">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="8" GridPane.rowIndex="6">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="6" GridPane.rowIndex="8">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="8" GridPane.rowIndex="8">
-                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="5" GridPane.rowIndex="5">
-                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="9" GridPane.rowIndex="5">
-                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="13" GridPane.rowIndex="5">
-                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="1" GridPane.rowIndex="9">
-                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="5" GridPane.rowIndex="9">
-                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="9" GridPane.rowIndex="9">
-                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="13" GridPane.rowIndex="9">
-                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="1" GridPane.rowIndex="0">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="2" GridPane.rowIndex="0">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="4" GridPane.rowIndex="0">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -301,6 +157,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="6" GridPane.rowIndex="0">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="7" GridPane.rowIndex="0">
+                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="8" GridPane.rowIndex="0">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -310,14 +169,23 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="10" GridPane.rowIndex="0">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="11" GridPane.rowIndex="0">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="12" GridPane.rowIndex="0">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="13" GridPane.rowIndex="0">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="14" GridPane.rowIndex="0">
+                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="0" GridPane.rowIndex="1">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="2" GridPane.rowIndex="1">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -352,6 +220,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="12" GridPane.rowIndex="1">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="13" GridPane.rowIndex="1">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="14" GridPane.rowIndex="1">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -361,6 +232,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="3" GridPane.rowIndex="2">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -368,9 +242,6 @@
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="5" GridPane.rowIndex="2">
-                        <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
-                    </StackPane>
-                    <StackPane styleClass="Normal-cell" GridPane.columnIndex="5" GridPane.rowIndex="6">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="6" GridPane.rowIndex="2">
@@ -391,17 +262,26 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="11" GridPane.rowIndex="2">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="12" GridPane.rowIndex="2">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="13" GridPane.rowIndex="2">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="14" GridPane.rowIndex="2">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="1" GridPane.rowIndex="3">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="2" GridPane.rowIndex="3">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="4" GridPane.rowIndex="3">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -424,12 +304,20 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="10" GridPane.rowIndex="3">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="11" GridPane.rowIndex="3">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="12" GridPane.rowIndex="3">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="13" GridPane.rowIndex="3">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+               <StackPane layoutX="595.0" layoutY="142.0" styleClass="Normal-cell" GridPane.columnIndex="14" GridPane.rowIndex="3">
+                  <children>
+                     <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                  </children>
+               </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="0" GridPane.rowIndex="4">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -441,6 +329,9 @@
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="3" GridPane.rowIndex="4">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="5" GridPane.rowIndex="4">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -457,6 +348,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="9" GridPane.rowIndex="4">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="10" GridPane.rowIndex="4">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="11" GridPane.rowIndex="4">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -472,6 +366,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="0" GridPane.rowIndex="5">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="2" GridPane.rowIndex="5">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -480,6 +377,9 @@
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="4" GridPane.rowIndex="5">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="6" GridPane.rowIndex="5">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -490,6 +390,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="8" GridPane.rowIndex="5">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="9" GridPane.rowIndex="5">
+                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="10" GridPane.rowIndex="5">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -499,17 +402,60 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="12" GridPane.rowIndex="5">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="13" GridPane.rowIndex="5">
+                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="14" GridPane.rowIndex="5">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+               <StackPane layoutX="55.0" layoutY="274.0" styleClass="Normal-cell" GridPane.rowIndex="6">
+                  <children>
+                     <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                  </children>
+               </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="1" GridPane.rowIndex="6">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
+               <StackPane layoutX="55.0" layoutY="274.0" styleClass="Normal-cell" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                  <children>
+                     <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                  </children>
+               </StackPane>
+               <StackPane layoutX="145.0" layoutY="274.0" styleClass="Normal-cell" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                  <children>
+                     <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                  </children>
+               </StackPane>
+                    <StackPane styleClass="Normal-cell" GridPane.columnIndex="5" GridPane.rowIndex="6">
+                        <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="6" GridPane.rowIndex="6">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
+               <StackPane layoutX="325.0" layoutY="186.0" styleClass="Normal-cell" GridPane.columnIndex="7" GridPane.rowIndex="6">
+                  <children>
+                     <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                  </children>
+               </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="8" GridPane.rowIndex="6">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
+               <StackPane layoutX="460.0" layoutY="274.0" styleClass="Normal-cell" GridPane.columnIndex="9" GridPane.rowIndex="6">
+                  <children>
+                     <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                  </children>
+               </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="10" GridPane.rowIndex="6">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="11" GridPane.rowIndex="6">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="12" GridPane.rowIndex="6">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
                     </StackPane>
 
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="13" GridPane.rowIndex="6">
@@ -518,11 +464,19 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="14" GridPane.rowIndex="6">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+               <StackPane layoutX="370.0" layoutY="274.0" styleClass="DoubleLetter-cell" GridPane.rowIndex="7">
+                  <children>
+                     <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                  </children>
+               </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="1" GridPane.rowIndex="7">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="2" GridPane.rowIndex="7">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="4" GridPane.rowIndex="7">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -533,6 +487,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="6" GridPane.rowIndex="7">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="center-cell" GridPane.columnIndex="7" GridPane.rowIndex="7">
+                        <Label styleClass="center-cell-text" text="StartPoint" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="8" GridPane.rowIndex="7">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -542,17 +499,26 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="10" GridPane.rowIndex="7">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="11" GridPane.rowIndex="7">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="12" GridPane.rowIndex="7">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="13" GridPane.rowIndex="7">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="14" GridPane.rowIndex="7">
+                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="0" GridPane.rowIndex="8">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="1" GridPane.rowIndex="8">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="3" GridPane.rowIndex="8">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -563,8 +529,14 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="5" GridPane.rowIndex="8">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="6" GridPane.rowIndex="8">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="7" GridPane.rowIndex="8">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="8" GridPane.rowIndex="8">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="9" GridPane.rowIndex="8">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -575,6 +547,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="11" GridPane.rowIndex="8">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="12" GridPane.rowIndex="8">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="13" GridPane.rowIndex="8">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -583,6 +558,9 @@
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="0" GridPane.rowIndex="9">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="2" GridPane.rowIndex="9">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -593,6 +571,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="4" GridPane.rowIndex="9">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="5" GridPane.rowIndex="9">
+                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="6" GridPane.rowIndex="9">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -602,6 +583,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="8" GridPane.rowIndex="9">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="9" GridPane.rowIndex="9">
+                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="10" GridPane.rowIndex="9">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -610,6 +594,9 @@
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="12" GridPane.rowIndex="9">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="TripleLetter-cell" GridPane.columnIndex="13" GridPane.rowIndex="9">
+                        <Label styleClass="TripleLetter-cell-text" text="TL" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="14" GridPane.rowIndex="9">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -626,6 +613,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="3" GridPane.rowIndex="10">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="4" GridPane.rowIndex="10">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="5" GridPane.rowIndex="10">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -641,6 +631,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="9" GridPane.rowIndex="10">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="10" GridPane.rowIndex="10">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="11" GridPane.rowIndex="10">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -653,11 +646,17 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="14" GridPane.rowIndex="10">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="0" GridPane.rowIndex="11">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="1" GridPane.rowIndex="11">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="2" GridPane.rowIndex="11">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="3" GridPane.rowIndex="11">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="4" GridPane.rowIndex="11">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -680,17 +679,26 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="10" GridPane.rowIndex="11">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="11" GridPane.rowIndex="11">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="12" GridPane.rowIndex="11">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="13" GridPane.rowIndex="11">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="14" GridPane.rowIndex="11">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="0" GridPane.rowIndex="12">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="1" GridPane.rowIndex="12">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="2" GridPane.rowIndex="12">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="3" GridPane.rowIndex="12">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -719,6 +727,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="11" GridPane.rowIndex="12">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="12" GridPane.rowIndex="12">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="13" GridPane.rowIndex="12">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -727,6 +738,9 @@
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="0" GridPane.rowIndex="13">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="1" GridPane.rowIndex="13">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="2" GridPane.rowIndex="13">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -761,14 +775,23 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="12" GridPane.rowIndex="13">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleWord-cell" GridPane.columnIndex="13" GridPane.rowIndex="13">
+                        <Label styleClass="DoubleWord-cell-text" text="DW" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="14" GridPane.rowIndex="13">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="0" GridPane.rowIndex="14">
+                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="1" GridPane.rowIndex="14">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="2" GridPane.rowIndex="14">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="3" GridPane.rowIndex="14">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="4" GridPane.rowIndex="14">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
@@ -779,6 +802,9 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="6" GridPane.rowIndex="14">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="7" GridPane.rowIndex="14">
+                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="8" GridPane.rowIndex="14">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
@@ -788,11 +814,17 @@
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="10" GridPane.rowIndex="14">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
+                    <StackPane styleClass="DoubleLetter-cell" GridPane.columnIndex="11" GridPane.rowIndex="14">
+                        <Label styleClass="DoubleLetter-cell-text" text="DL" textAlignment="CENTER" />
+                    </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="12" GridPane.rowIndex="14">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
                     </StackPane>
                     <StackPane styleClass="Normal-cell" GridPane.columnIndex="13" GridPane.rowIndex="14">
                         <Label styleClass="Normal-cell-text" textAlignment="CENTER" />
+                    </StackPane>
+                    <StackPane styleClass="TripleWord-cell" GridPane.columnIndex="14" GridPane.rowIndex="14">
+                        <Label styleClass="Triple-cell-text" text="TP" textAlignment="CENTER" />
                     </StackPane>
                 </GridPane>
                 <HBox alignment="CENTER" spacing="10">

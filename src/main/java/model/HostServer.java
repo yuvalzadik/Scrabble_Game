@@ -35,42 +35,56 @@ public class HostServer extends MyServer {
         try {
             this.serverSocket = new ServerSocket(this.port);
             this.serverSocket.setSoTimeout(1000);
-            while(!gameIsRunning){
-                try{
-                    Socket newSocket = serverSocket.accept();
-                    Scanner fromPlayer = new Scanner(newSocket.getInputStream());
-                    String playerName = fromPlayer.next();
-                    if(playerName.equals("startGame")){
-                        startGame();
-                        newSocket.close();
-                    }
-                    else if(socketMap.size() < 4) {
-                        socketMap.put(socketMap.size() + 1, newSocket);
-                        System.out.println(playerName + " Connected");
-                        GameManager.get_instance().addPlayer(new Player(playerName));
-                        System.out.println("before accept");
-                        Socket clientModelReceiver = serverSocket.accept();
-                        System.out.println("clientModelReceiver (hostServer)");
-                        modelReceivers.put(socketMap.size(), clientModelReceiver);
-                        updateGuestsModel();
-                    }
-                }
-                catch (SocketTimeoutException ignored) {}
-            }
-
-            while(gameIsRunning){
-                if(timerTask == null || timer == null){
-                    System.out.println("Starting new task");
-                    this.timer = new Timer();
-                    this.timerTask = new ManageTurn();
-                    GameManager.get_instance().turnManager.nextTurn();
-                    timer.schedule(timerTask,1000,60000); //after the test will be 5000 and 60,000
-                }
-            }
+            connectingClients();
+            playingGame();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private void playingGame() {
+        if(!gameIsRunning) gameIsRunning = true;
+        while(gameIsRunning){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if(timerTask == null || timer == null){
+                System.out.println("Starting new turn");
+                this.timerTask = new ManageTurn();
+                this.timer = new Timer();
+                GameManager.get_instance().turnManager.nextTurn();
+                GameManager.get_instance().fillHand(GameManager.get_instance().turnManager.getCurrentTurn());
+                timer.schedule(timerTask,1000,60000); //after the test will be 5000 and 60,000
+            }
+        }
+    }
+
+    private void connectingClients() {
+        while(!gameIsRunning){
+            try{
+                Socket newSocket = serverSocket.accept();
+                Scanner fromPlayer = new Scanner(newSocket.getInputStream());
+                PrintWriter outToPlayer = new PrintWriter(newSocket.getOutputStream(), true);
+                String playerName = fromPlayer.next();
+                if(playerName.equals("startGame")){
+                    startGame();
+                    newSocket.close();
+                }
+                else if(socketMap.size() < 4) {
+                    socketMap.put(socketMap.size() + 1, newSocket);
+                    outToPlayer.println(socketMap.size());
+                    System.out.println(playerName + " Connected");
+                    GameManager.get_instance().addPlayer(new Player(playerName));
+                    Socket clientModelReceiver = serverSocket.accept();
+                    modelReceivers.put(socketMap.size(), clientModelReceiver);
+                    updateGuestsModel();
+                }
+            }
+            catch (IOException ignored) {}
+        }
     }
 
     private void updateGuestsModel() {
@@ -107,7 +121,6 @@ public class HostServer extends MyServer {
                 try {
                     ch.handleClient(socketMap.get(turn).getInputStream(), socketMap.get(turn).getOutputStream());
                     this.cancel();
-                    timer = null;
                     resetCurrentTask();
                 } catch (IOException ignored) {}
             }).start();
