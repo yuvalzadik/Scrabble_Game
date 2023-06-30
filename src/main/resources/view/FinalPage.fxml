@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainWindowController">
+    <VBox styleClass="container-N" spacing="30" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" spacing="40">
+        <Label styleClass="title-label" text="Game Over" />
+
+            <HBox alignment="BASELINE_CENTER" spacing="350" styleClass="WinnerPlayerCard">
+                    <Label fx:id="firstPlayerName" styleClass="PlayerNameWinner" text="Nofar" />
+                    <Label fx:id="firstPlayerScore" styleClass="PlayerScoreWinner" text="150" />
+            </HBox>
+              <HBox alignment="BASELINE_CENTER" spacing="350" styleClass="PlayerCard">
+                  <Label fx:id="secondPlayerName" styleClass="PlayerName" text="Nofar" />
+                  <Label fx:id="secondPlayerScore" styleClass="PlayerScore" text="10" />
+              </HBox>
+          <HBox alignment="BASELINE_CENTER" spacing="350" styleClass="PlayerCard">
+              <Label fx:id="thirdPlayerName" styleClass="PlayerName" text="Nofar" />
+              <Label fx:id="thirdPlayerScore" styleClass="PlayerScore" text="1" />
+          </HBox>
+          <HBox alignment="BASELINE_CENTER" spacing="350" styleClass="PlayerCard">
+              <Label fx:id="fourthPlayerName" styleClass="PlayerName" text="Nofar" />
+              <Label fx:id="fourthPlayerScore" styleClass="PlayerScore" text="1" />
+          </HBox>
+            <HBox alignment="CENTER" spacing="20">
+                <Button mnemonicParsing="false" onAction="#BackToHomePage" text="Play Again?" styleClass="option-btn"/>
+            </HBox>
+        </VBox>
+
+    </VBox>
+    <stylesheets>
+        <URL value="@General.css"/>
+        <URL value="@FinalPage.css"/>
+
+    </stylesheets>
+</AnchorPane>

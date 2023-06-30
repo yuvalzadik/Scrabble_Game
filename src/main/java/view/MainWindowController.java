@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ import model.BookScrabbleCommunication;
 import model.GameManager;
 import model.GameMode;
 import model.Model;
+import scrabble_game.Board;
 import scrabble_game.BookScrabbleHandler;
 import scrabble_game.MyServer;
 import view.data.GameManagerReceiver;
@@ -125,7 +127,8 @@ public class MainWindowController {
     StringProperty playerAction;
     StringProperty lastWord;
     Map<String, String> placedTiles;
-
+    Boolean firstTile;
+    private boolean[] tileDragged = new boolean[7];
     public MainWindowController(){
         lastWord = new SimpleStringProperty();
         playerAction = new SimpleStringProperty();
@@ -174,6 +177,7 @@ public class MainWindowController {
         ObjectProperty<String> newCellLabel = viewShareData.getViewModel().getCellLabel();
         cellLabel.bind(newCellLabel);
         newCellLabel.addListener(((observable, oldLabel, newLabel) -> updateBoardCellLabel(newLabel)));
+        firstTile = false;
     }
 
     public void initializeViewModelUpdates(){
@@ -352,6 +356,17 @@ public class MainWindowController {
     public void ReloadTiles(ActionEvent event) throws IOException {
         playerAction.setValue("reset");
         playerAction.setValue("SwapTiles");
+        initializeBoardAction();
+        // Reset tileDragged array
+        Arrays.fill(tileDragged, false);
+
+        // Enable all TileContainers
+        for (Node node : tileContainerHBox.getChildren()) {
+            if (node instanceof VBox) {
+                VBox tileContainer = (VBox) node;
+                tileContainer.setDisable(false);
+            }
+        }
     }
 
     @FXML
@@ -373,9 +388,6 @@ public class MainWindowController {
 
     }
 
-
-
-
     @FXML
     public void SkipTurn(ActionEvent event) throws IOException {
         playerAction.setValue("reset");
@@ -394,7 +406,12 @@ public class MainWindowController {
                 .ifPresent(response -> {
                     if (response == ButtonType.OK) {
                         // User clicked OK, perform the submit action
-                        Platform.exit();
+                        //Platform.exit();
+                        try {
+                            loadScene(event, "FinalPage");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 });
         System.out.println("Resign");
@@ -581,6 +598,7 @@ public class MainWindowController {
             controller.bindPlayerProperties();
             controller.initializeBoardAction();
             controller.initializeViewModelUpdates();
+
             if(viewShareData.getHost()) controller.toggleStartButton();
             stage.setScene(scene);
             stage.setFullScreen(true);
@@ -614,12 +632,16 @@ public class MainWindowController {
                 StackPane square = (StackPane) node;
                 Label squareLabel = (Label) square.getChildren().get(0);
 
+
+
                 square.setOnMouseClicked(event -> {
-                    // Check if the square's background is pink
-                    // If a tile is already present in the square, remove it
+
+                    String deletedValue = squareLabel.getText();
+                    enableTileContainer(deletedValue);
 
                     if (square.getStyleClass().contains("TripleWord-cell")) {
                         squareLabel.setText("TP");
+
                     }
                     if (square.getStyleClass().contains("DoubleWord-cell")) {
                         squareLabel.setText("DW");
@@ -635,6 +657,7 @@ public class MainWindowController {
                     }
                     if (square.getStyleClass().contains("center-cell")) {
                         squareLabel.setText("SP");
+                        firstTile=false;
                     }
                     int index = boardGridPane.getChildren().indexOf(square);
                     int rowIndex = GridPane.getRowIndex(boardGridPane.getChildren().get(index));
@@ -644,17 +667,33 @@ public class MainWindowController {
             }
         }
     }
+    private void enableTileContainer(String value) {
+        for (Node node : tileContainerHBox.getChildren()) {
+            if (node instanceof VBox) {
+                VBox tileContainer = (VBox) node;
+                Label tileLabel = (Label) tileContainer.getChildren().get(0);
+
+                if (tileLabel.getText().equals(value)) {
+                    tileContainer.setDisable(false);
+                    break;
+                }
+            }
+        }
+    }
+
+
     @FXML
     private void handleDragDetected(MouseEvent event) {
 
         VBox sourceTileContainer = (VBox) event.getSource();
 
+        int index = getIndexFromTileContainer(sourceTileContainer);
+        tileDragged[index] = true;
+
         Dragboard db = sourceTileContainer.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.putString(sourceTileContainer.getStyleClass().toString());
         db.setContent(content);
-
-
 
         // Create a snapshot of the dragged content
         WritableImage snapshot = sourceTileContainer.snapshot(null, null);
@@ -681,13 +720,29 @@ public class MainWindowController {
 
             targetSquare.setOnDragDropped(event1 -> {
                 VBox draggedTileContainer = (VBox) event1.getGestureSource();
+
+
                 Label tileLabel = (Label) draggedTileContainer.getChildren().get(0);
-                squareLabel.setText(tileLabel.getText());
+
                 StackPane stackPane = (StackPane) node;
-                int index = boardGridPane.getChildren().indexOf(stackPane);
+
+                if (!targetSquare.getStyleClass().contains("center-cell") && !firstTile ) {
+                    new Alert(Alert.AlertType.INFORMATION, "First word in board must start in middle cell(Starting Point).").showAndWait();
+                    return;
+                }
+                else {
+                    firstTile = true;
+                    squareLabel.setText(tileLabel.getText());
+                    int index = getIndexFromTileContainer(draggedTileContainer);
+                    // Disable the dragged TileContainer
+                    draggedTileContainer.setDisable(true);
+                }
+
+               int  index = boardGridPane.getChildren().indexOf(stackPane);
                 int rowIndex = GridPane.getRowIndex(boardGridPane.getChildren().get(index));
                 int columnIndex = GridPane.getColumnIndex(boardGridPane.getChildren().get(index));
                 placedTiles.put("" + rowIndex + "," + columnIndex, tileLabel.getText());
+
             });
         }
         success = true;
@@ -708,7 +763,16 @@ public class MainWindowController {
     public void setViewShareData(ViewShareData viewShareData){
         this.viewShareData = viewShareData;
     }
-
+    private int getIndexFromTileContainer(VBox tileContainer) {
+        ObservableList<Node> children = tileContainerHBox.getChildren();
+        for (int i = 0; i < children.size(); i++) {
+            Node child = children.get(i);
+            if (child instanceof VBox && child.equals(tileContainer)) {
+                return i;
+            }
+        }
+        return -1; // If the tileContainer is not found
+    }
 }
 
 
