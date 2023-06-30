@@ -178,7 +178,6 @@ public class ViewModel {
     }
 
     private void boardNotLegal() {
-        System.out.println("reach to view model");
         viewModelUpdates.setValue("boardNotLegal");
 
     }

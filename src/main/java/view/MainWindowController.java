@@ -195,7 +195,7 @@ public class MainWindowController {
                 viewShareData.getViewModel().updateView();
             });
             case "boardNotLegal" -> {
-                System.out.println("we reach to view");
+                System.out.println("board Not Legal");
                 initializeBoardAction();
                 // Reset tileDragged array
                 Arrays.fill(tileDragged, false);
