@@ -99,6 +99,10 @@
                     </Button>
 
                 </HBox>
+                <Label styleClass="info-text" textAlignment="CENTER" >Double click on the tile to remove in from the your board  </Label>
+
+                <Button fx:id="startGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGame" styleClass="start-btn" text="StartGame" visible="false" />
+
             </VBox>
             <VBox spacing="5">
                 <GridPane fx:id="boardGridPane" gridLinesVisible="true" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" onMouseClicked="#squareClickHandler" scaleShape="false" styleClass="Game-Board">
@@ -831,12 +835,10 @@
                     <Button fx:id="resign" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Resign" styleClass="option-btn" text="Resign" visible="false" />
                     <Button fx:id="skipTurn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#SkipTurn" styleClass="option-btn" text="Skip Turn" visible="false" />
                     <Button fx:id="submit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Submit" styleClass="option-btn" text="Submit" visible="false" />
-               <Button fx:id="startGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGame" styleClass="option-btn" text="StartGame" visible="false" />
-
                 </HBox>
             </VBox>
 
-            <Button fx:id="ExitButton" mnemonicParsing="false" onAction="#Exit">
+            <Button fx:id="ExitButton" mnemonicParsing="false" onAction="#Resign">
                 <graphic>
                     <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
                         <image>
