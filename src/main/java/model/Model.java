@@ -61,7 +61,7 @@ public class Model extends Observable {
 
                         //tryPlaceWord
                         case "wordInsertSuccessfully"-> wordInsertSuccessfully();
-                        case "boardNotLegal"-> System.out.println("boardNotLegal");
+                        case "boardNotLegal"-> boardNotLegal();
                         case "dictionaryNotLegal"-> dictionaryNotLegal();
 
 //                      TODO: handle end game- log out succeeded, handle try place word- boardLegal/ wordLegal,
@@ -72,6 +72,8 @@ public class Model extends Observable {
             }
         }).start();
     }
+
+    private void boardNotLegal() { messageFromHost.setValue("boardNotLegal");}
 
     private void bindButtons() {
         messageFromHost.setValue("bindButtons");
