@@ -7,6 +7,16 @@ public class LFU implements CacheReplacementPolicy {
     // key for the word , value for the nuber of times it asked.
     private final LinkedHashMap<String,Integer> LFUwords = new LinkedHashMap<>();
 
+    /**
+     * The add function adds a word to the cache.
+     * If the word is already in the cache, it increments its frequency by 1.
+     * If not, it adds it to the cache with a frequency of 1.
+
+     *
+     * @param word Find the word in the cache
+     *
+     * @docauthor Trelent
+     */
     public void add(String word) {
         String key = null;
         // Checking if thw word we want to add already in the cache
@@ -20,6 +30,15 @@ public class LFU implements CacheReplacementPolicy {
         if (key == null)
             LFUwords.put(word, 1);
     }
+    /**
+     * The remove function removes the least frequently used word from the cache.
+     * <p>
+     *
+     *
+     * @return The least frequently used word
+     *
+     * @docauthor Trelent
+     */
     public String remove() {
         int least_used_word =1000000 ;
         String word_key_remove = null ;

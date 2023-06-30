@@ -13,13 +13,21 @@ public class Board implements Serializable {
     public Tile[][] tiles_board;
     private int[][] bonus;
 
-    //public Object[][] Board_matrix;
+
+    /**
+     * The Board function is a constructor that creates the board and initializes it with all of its bonuses:
+     * 1 -normal ,2 - double letter score , 3 - triple letter score, 22 - double word score , 33- triple word score
+     * It also sets the tiles_board to null, so that there are no tiles on the board at first.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private Board() {
         this.tiles_board = new Tile[15][15];
         for (Tile[]a : this.tiles_board) {
             Arrays.fill(a, null);
         }
-        // 1 -normal ,2 - double letter score , 3 - triple letter score, 22 - double word score , 33- triple word score
         this.bonus = new int[15][15];
         for (int[]b : this.bonus) {
             Arrays.fill(b, 1);
@@ -53,10 +61,28 @@ public class Board implements Serializable {
         bonus[13][5]= 3; bonus[13][9]= 3;
 
     }
+    /**
+     * The getTiles function returns a copy of the tiles_board array.
+     * <p>
+     *
+     *
+     * @return A copy of the tiles_board array
+     *
+     * @docauthor Trelent
+     */
     public Tile[][] getTiles() {
         return this.tiles_board.clone();
 
     }
+    /**
+     * The getBoard function is a static function that returns the board object.
+     * <p>
+     *
+     *
+     * @return A board object
+     *
+     * @docauthor Trelent
+     */
     public static Board getBoard() {
         if (b == null) {
             b = new Board();
@@ -64,6 +90,17 @@ public class Board implements Serializable {
         return b;
     }
 
+    /**
+     * The boardLegal function checks if the word is legal to be placed on the board.
+     * It checks if it is not out of bounds, and that it does not overlap with other tiles.
+     * <p>
+     *
+     * @param word Get the row and column of the word
+     *
+     * @return True if the word is legal
+     *
+     * @docauthor Trelent
+     */
     public boolean boardLegal( Word word) {
         // check if it is the first word - one tile have to be on the star position
         // notfirstword will be true automatic. if it is the first word will be changed to false.
@@ -125,8 +162,15 @@ public class Board implements Serializable {
         return notfirstword && near_tile;
     }
 
-    /*
-    TODO - Query ServerSide using this function
+    /**
+     * The dictionaryLegal function takes a Word object as an argument and returns true if the word is legal according to the dictionary, false otherwise.
+     *
+     *
+     * @param word Get the tiles from the word and then check if it is a valid word
+     *
+     * @return True if the word is legal, false otherwise
+     *
+     * @docauthor Trelent
      */
     public boolean dictionaryLegal(Word word){
         BookScrabbleCommunication BScommunication = BookScrabbleCommunication.get_instance();
@@ -141,6 +185,19 @@ public class Board implements Serializable {
         return Boolean.parseBoolean(resBSH);
     }
 
+    /**
+     * The check_boundaries_up function checks if the tile is at the top of the board.
+     * If it is not, then it will check if there are any tiles above it.
+     * If there are no tiles above, then we return that row number as a valid move for that column.
+
+     *
+     * @param row Represent the row number of the tile that is being moved
+     * @param col Check the column of the tile that is being moved
+     *
+     * @return The row number of the first tile above the given tile
+     *
+     * @docauthor Trelent
+     */
     private static  int  check_boundaries_up (int row, int col){
         while (row != 0) {
             if (b.tiles_board[row -1][col] != null)
@@ -150,6 +207,17 @@ public class Board implements Serializable {
         }
         return row;
     }
+    /**
+     * The check_boundaries_down function checks if the tile can be placed in the down direction.
+     *
+     *
+     * @param row Keep track of the row number
+     * @param col Check the column of the tile that is being placed
+     *
+     * @return The row number of the tile that is below the current one
+     *
+     * @docauthor Trelent
+     */
     private static  int  check_boundaries_down (int row, int col){
         while (row != 14) {
             if (b.tiles_board[row +1][col] != null)
@@ -160,6 +228,17 @@ public class Board implements Serializable {
         return row;
 
     }
+    /**
+     * The check_boundaries_left function checks if the left side of the board is empty.
+     *
+     *
+     * @param row Determine the row that the tile is in
+     * @param col Keep track of the column number
+     *
+     * @return The column number of the leftmost tile in a row
+     *
+     * @docauthor Trelent
+     */
     private static  int  check_boundaries_left (int row, int col){
         while (col != 0) {
             if (b.tiles_board[row][col -1] != null)
@@ -169,6 +248,19 @@ public class Board implements Serializable {
         }
         return col;
     }
+    /**
+     * The check_boundaries_right function checks the boundaries of the board to make sure that
+     * there are no null tiles in between two non-null tiles. If there is a null tile, then it will return
+     * the column number of that tile. Otherwise, it will return 14 (the last column).
+
+     *
+     * @param row Check the row of the tile that is being placed
+     * @param col Specify the column of the tile that is being placed
+     *
+     * @return The column number of the last tile in the row
+     *
+     * @docauthor Trelent
+     */
     private static  int  check_boundaries_right (int row, int col){
         while (col != 14) {
             if (b.tiles_board[row][col +1] != null)
@@ -179,6 +271,20 @@ public class Board implements Serializable {
         return col;
 
     }
+    /**
+     * The create_Tilearr_tocheck_word function creates an array of tiles to check the word.
+     * <p>
+     *
+     * @param length Determine the length of the array
+     * @param first_row Determine the row of the first tile in a word
+     * @param  first_col Get the first column of the word to be checked
+     * @param isvertical Determine if the word is vertical or horizontal
+     * @param tile Create a tile array of the same length as the word being checked
+     *
+     * @return An array of tile objects
+     *
+     * @docauthor Trelent
+     */
     private static Tile[] create_Tilearr_tocheck_word( int length, int first_row, int first_col, boolean isvertical, Tile tile){
         Tile[] checktiles = new Tile[length];
         for (int i = 0 ; i< length; i++){
@@ -197,6 +303,18 @@ public class Board implements Serializable {
         }
         return  checktiles;
     }
+    /**
+     * The getWords function returns an ArrayList of Word objects that are formed by the tiles in the
+     * given word. The function always gets a legal word, and it checks if there is any other words
+     * that can be created from this move. If so, it adds them to the list as well.
+
+     *
+     * @param word Get the row, col and tiles of the word
+     *
+     * @return An arraylist of word objects
+     *
+     * @docauthor Trelent
+     */
     private ArrayList<Word> getWords(Word word){
         // the function always get legal word
         ArrayList<Word> words = new ArrayList<>();
@@ -225,10 +343,6 @@ public class Board implements Serializable {
             System.arraycopy(lefttiles, 0, checktiles11, 0, lefttilesL);
             System.arraycopy(the_word, 0, checktiles11, lefttilesL, middleL);
             System.arraycopy(righttiles, 0, checktiles11, lefttilesL+middleL, righttilesL);
-            /*System.out.println("checktiles11");
-            for (Tile t: checktiles11)
-                System.out.println(t.letter);
-            System.out.println("theword");*/
             Word check =  new Word(checktiles11, row,left_col,false );
             if(dictionaryLegal(word))
                 words.add( check);
@@ -294,6 +408,16 @@ public class Board implements Serializable {
         }
         return words;
     }
+    /**
+     * The getScore function calculates the score of a word.
+     * <p>
+     *
+     * @param word Get the row and column of the word
+     *
+     * @return The score of the word
+     *
+     * @docauthor Trelent
+     */
     private int getScore(Word word){
         int row = word.getRow();
         int col = word.getCol();
@@ -319,6 +443,18 @@ public class Board implements Serializable {
         return  score;
     }
 
+    /**
+     * The tryPlaceWord function takes a Word object as input and attempts to place it on the board.
+     * If the word can be placed, then it is placed and its score is returned.
+     * If the word cannot be placed, then 0 is returned.
+
+     *
+     * @param word Get the row and col of the word
+     *
+     * @return -1 if the word is not legal - dictionaryLegal. 0 if the word is not legal - boardLegal. if the word is legal returns the score.
+     *
+     * @docauthor Trelent
+     */
     public int tryPlaceWord(Word word){
         if (!(boardLegal(word))) {
             return 0;
@@ -332,13 +468,7 @@ public class Board implements Serializable {
 
         boolean firstword = b.tiles_board[7][7] ==null;
         ArrayList<Word> Total_words = getWords(word);
-        /*int count = 0;
-        for (Word word1: Total_words){
-            System.out.println(word1);
-            count++;
-        }
-        System.out.println("words count");
-        System.out.println(count);*/
+
         //insert word
         int row = word.getRow();
         int col = word.getCol();
@@ -361,6 +491,17 @@ public class Board implements Serializable {
             return Total_score;
     }
 
+    /**
+     * The serialize function takes a Board object and returns a byte array.
+     * The serialize function is used to convert the board into an array of bytes, which can be stored in the database.
+
+     *
+     * @param board Pass in the board object that is to be serialized
+     *
+     * @return A byte array
+     *
+     * @docauthor Trelent
+     */
     static public byte[] serialize(Board board){
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream out = null;
@@ -380,6 +521,21 @@ public class Board implements Serializable {
         }
     }
 
+    /**
+     * The deserialize function takes a byte array and returns the Board object that it represents.
+     * <p>
+     *
+     * @param bytes Convert the byte array into an object
+    static public board deserialize(byte[] bytes){
+            bytearrayinputstream bis = new bytearrayinputstream(bytes);
+            objectinput in = null;
+            try {
+                in = new objectinputstream(bis);
+     *
+     * @return A board object, but I need to get the byte array from that
+     *
+     * @docauthor Trelent
+     */
     static public Board deserialize(byte[] bytes){
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         ObjectInput in = null;
@@ -399,6 +555,14 @@ public class Board implements Serializable {
         }
     }
 
+    /**
+     * The printBoard function prints the current state of the board to the console.
+     * <p>
+     *
+     * @param board Access the tiles on the board
+     *
+     * @docauthor Trelent
+     */
     public static void printBoard(Board board){
         Tile[][] currentTiles = board.getTiles();
         for(int row=0; row < 15; row++){

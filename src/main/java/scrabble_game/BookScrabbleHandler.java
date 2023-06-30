@@ -4,6 +4,16 @@ import java.io.*;
 public class BookScrabbleHandler implements ClientHandler {
     DictionaryManager dm=DictionaryManager.get();
 
+    /**
+     * The handleClient function is responsible for handling the client's request.
+     * It reads the input from the client and sends back a response to it.
+     * <p>
+     *
+     * @param  inFromclient Read the input from the client
+     * @param outToClient Send data back to the client
+     *
+     * @docauthor Trelent
+     */
     @Override
     public void handleClient(InputStream inFromclient, OutputStream outToClient) {
         try {
@@ -33,6 +43,14 @@ public class BookScrabbleHandler implements ClientHandler {
         }
     }
 
+    /**
+     * The close function is used to close the connection between the client and server.
+     * This function is called when a user logs out of their account or closes the program.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     @Override
     public void close() {
 
