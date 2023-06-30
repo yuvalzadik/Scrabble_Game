@@ -8,13 +8,11 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
@@ -113,7 +111,16 @@ public class MainWindowController {
     @FXML
     private Label sevenTileScore;
 
+    @FXML
+    private Button submit;
+    @FXML
+    private Button resign;
+    @FXML
+    private Button skipTurn;
+    @FXML
+    private Button startGame;
 
+    StringProperty viewModelUpdates;
     StringProperty cellLabel;
     StringProperty playerAction;
     StringProperty lastWord;
@@ -123,6 +130,7 @@ public class MainWindowController {
         lastWord = new SimpleStringProperty();
         playerAction = new SimpleStringProperty();
         placedTiles = new HashMap<>();
+        startGame = new Button();
 
         initializeTileProperties();
         initializeNameProperties();
@@ -168,6 +176,55 @@ public class MainWindowController {
         newCellLabel.addListener(((observable, oldLabel, newLabel) -> updateBoardCellLabel(newLabel)));
     }
 
+    public void initializeViewModelUpdates(){
+        viewModelUpdates = new SimpleStringProperty();
+        StringProperty newViewModelUpdates = viewShareData.getViewModel().getViewModelUpdates();
+        viewModelUpdates.bind(newViewModelUpdates);
+        newViewModelUpdates.addListener(((observable, oldAction, newAction) -> {
+            handleViewModelUpdates(newAction);
+        }));
+    }
+
+    private void handleViewModelUpdates(String newAction) {
+        switch(newAction){
+            case "dictionaryNotLegal" -> Platform.runLater(this::showChallengeWindow);
+            case "bindButtons" -> Platform.runLater(() -> {
+                bindButtonsProperties();
+                viewShareData.getViewModel().updateView();
+            });
+        }
+    }
+
+    private void showChallengeWindow() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Dictionary Challenge");
+        alert.setHeaderText(null);
+        alert.setContentText("Would you like to challenge the dictionary?");
+
+        Button yesButton = (Button) alert.getDialogPane().lookupButton(javafx.scene.control.ButtonType.OK);
+        yesButton.setText("Yes");
+
+        Button noButton = (Button) alert.getDialogPane().lookupButton(javafx.scene.control.ButtonType.CANCEL);
+        noButton.setText("No");
+
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+
+        alert.getDialogPane().setExpandableContent(vbox);
+        alert.getDialogPane().setExpanded(true);
+
+        alert.showAndWait().ifPresent(response -> {
+            if(response == ButtonType.OK){
+                playerAction.set("Challenge" + "," + lastWord);
+                resetWordParameters();
+            }
+            else{
+                viewShareData.getViewModel().updateView();
+            }
+            alert.close();
+        });
+    }
+
     private void updateBoardCellLabel(String newLabel) {
         String[] splitted = newLabel.split(",");
         StackPane square = (StackPane) boardGridPane.getChildren().get(Integer.parseInt(splitted[0]));
@@ -195,6 +252,13 @@ public class MainWindowController {
             else squareLabel.setText("");
         }
         else squareLabel.setText(splitted[1]);
+    }
+
+    public void bindButtonsProperties(){
+        submit.visibleProperty().bind(viewShareData.getViewModel().submit.get().visibleProperty());
+        resign.visibleProperty().bind(viewShareData.getViewModel().resign.get().visibleProperty());
+        skipTurn.visibleProperty().bind(viewShareData.getViewModel().skipTurn.get().visibleProperty());
+        startGame.visibleProperty().bind(viewShareData.getViewModel().startGame.get().visibleProperty());
     }
 
     public void bindPlayerProperties(){
@@ -275,18 +339,18 @@ public class MainWindowController {
         }
 
         playerWord = stringBuilder.toString();
-        placedTiles.clear();
         lastWord.setValue(playerWord+","+startRow+","+startCol+","+vertical);
+        resetWordParameters();
+    }
+
+    public void resetWordParameters(){
+        placedTiles.clear();
         playerWord = "";
     }
 
     @FXML
-    public void Challenge(ActionEvent event) throws IOException {
-        playerAction.setValue("Challenge");
-    }
-
-    @FXML
     public void ReloadTiles(ActionEvent event) throws IOException {
+        playerAction.setValue("reset");
         playerAction.setValue("SwapTiles");
     }
 
@@ -314,6 +378,7 @@ public class MainWindowController {
 
     @FXML
     public void SkipTurn(ActionEvent event) throws IOException {
+        playerAction.setValue("reset");
         playerAction.setValue("SkipTurn");
     }
 
@@ -370,6 +435,10 @@ public class MainWindowController {
         }
     }
 
+    public void toggleStartButton(){
+        startGame.setVisible(true);
+    }
+
     private void connectOrLaunchBookScrabbleCommunication() {
         boolean connectionSucceeded = false;
         try{
@@ -420,7 +489,7 @@ public class MainWindowController {
         if(gameMode == GameMode.Host){
             ArrayList<String> dictionaries = new ArrayList<>();
             dictionaries.add("alice_in_wonderland.txt");
-            dictionaries.add("Frank Herbert - Dune.txt");
+            //dictionaries.add("Frank Herbert - Dune.txt");
             BookScrabbleCommunication.get_instance().setGameDictionaries(dictionaries);
         }
         GameManagerReceiver clientModelReceiver = new GameManagerReceiver(ipField.getText(), Integer.parseInt(portField.getText()));
@@ -512,6 +581,8 @@ public class MainWindowController {
             controller.bindTilesProperties();
             controller.bindPlayerProperties();
             controller.initializeBoardAction();
+            controller.initializeViewModelUpdates();
+            if(viewShareData.getHost()) controller.toggleStartButton();
             stage.setScene(scene);
             stage.setFullScreen(true);
         } else {

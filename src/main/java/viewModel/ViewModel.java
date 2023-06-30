@@ -5,6 +5,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Button;
 import model.GameManager;
 import model.Model;
 import model.Player;
@@ -50,6 +51,13 @@ public class ViewModel {
 
     public ObjectProperty<String> cellLabel;
 
+    public ObjectProperty<Button> submit;
+    public ObjectProperty<Button> resign;
+    public ObjectProperty<Button> startGame;
+    public ObjectProperty<Button> skipTurn;
+
+    public StringProperty viewModelUpdates;
+
     List<StringProperty> tileLetters;
     List<StringProperty> tileScores;
 
@@ -61,6 +69,7 @@ public class ViewModel {
         messageFromHost = new SimpleStringProperty();
         playerAction = new SimpleStringProperty();
         playerAction.addListener(((observable, oldAction, newAction) -> {
+            if(newAction.equals("reset")) return;
             managePlayerAction(newAction);
         }));
         lastWord = new SimpleStringProperty();
@@ -68,6 +77,7 @@ public class ViewModel {
         tileScores = new ArrayList<>();
         playersNames = new ArrayList<>();
         playersScores = new ArrayList<>();
+        initializeButtons();
         initializeTileProperty();
         initializePlayerProperties();
     }
@@ -127,6 +137,18 @@ public class ViewModel {
         tileScores.add(sevenTileScore);
     }
 
+    public void initializeButtons(){
+        submit = new SimpleObjectProperty<>();
+        resign = new SimpleObjectProperty<>();
+        skipTurn = new SimpleObjectProperty<>();
+        startGame = new SimpleObjectProperty<>();
+
+        submit.set(new Button());
+        resign.set(new Button());
+        startGame.set(new Button());
+        skipTurn.set(new Button());
+    }
+
     public StringProperty getMessageFromHost() {
         return messageFromHost;
     }
@@ -146,22 +168,27 @@ public class ViewModel {
     public void manageHostMessage(String newAction){
         switch(newAction){
             case "wordInsertSuccessfully" -> System.out.println("Your turn has ended!");
+            case "dictionaryNotLegal" -> dictionaryNotLegal();
             case "updateView" -> updateView();
             case "playTurn" -> playTurn();
+            case "bindButtons" -> bindButtons();
             default -> System.out.println("default");
         }
     }
 
+    private void bindButtons() {
+        viewModelUpdates.setValue("bindButtons");
+    }
+
     private void playTurn() {
         updateButtons();
-        resetWordParameters();
     }
 
-    private void resetWordParameters() {
-
+    private void dictionaryNotLegal(){
+        viewModelUpdates.setValue("dictionaryNotLegal");
     }
 
-    private void updateView() {
+    public void updateView() {
         Platform.runLater(() -> {
             updateTiles();
             updateButtons();
@@ -198,6 +225,19 @@ public class ViewModel {
     }
 
     private void updateButtons() {
+        if(!getGameManager().gameStarted || getGameManager().turnManager.getCurrentTurnIndex() == -1) return;
+        if(getGameManager().turnManager.getCurrentTurn() == model.getPlayerId()){
+            submit.get().setVisible(true);
+            skipTurn.get().setVisible(true);
+            resign.get().setVisible(true);
+            startGame.get().setVisible(false);
+        }
+        else{
+            submit.get().setVisible(false);
+            skipTurn.get().setVisible(false);
+            resign.get().setVisible(false);
+            startGame.get().setVisible(false);
+        }
     }
 
     private void updateTiles() {
@@ -216,8 +256,25 @@ public class ViewModel {
                 System.out.println("managePlayerAction -> Submit");
                 tryPlaceWord();
             }
+            case "Challenge" -> challenge();
+            case "SkipTurn" -> skipTurn();
+            case "SwapTiles" -> swapTiles();
             default -> System.out.println("default");
         }
+    }
+
+    private void swapTiles() {
+        model.swapTiles();
+    }
+
+    private void skipTurn() {
+        model.skipTurn();
+    }
+
+    public void challenge(){
+        String[] splittedStr = lastWord.get().split(",");
+        model.challenge(splittedStr[0], Integer.parseInt(splittedStr[1])
+                , Integer.parseInt(splittedStr[2]), Boolean.parseBoolean(splittedStr[3]));
     }
 
     public void tryPlaceWord(){
@@ -225,6 +282,8 @@ public class ViewModel {
         model.tryPlaceWord(splittedStr[0], Integer.parseInt(splittedStr[1])
                 , Integer.parseInt(splittedStr[2]), Boolean.parseBoolean(splittedStr[3]));
     }
+
+
 
     public void setGameManager(GameManager gameManager) {
         model.setGameManager(gameManager);
@@ -251,5 +310,10 @@ public class ViewModel {
     public ObjectProperty<String> getCellLabel() {
         cellLabel = new SimpleObjectProperty<>();
         return cellLabel;
+    }
+
+    public StringProperty getViewModelUpdates() {
+        viewModelUpdates = new SimpleStringProperty();
+        return viewModelUpdates;
     }
 }

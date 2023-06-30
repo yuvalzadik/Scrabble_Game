@@ -89,6 +89,11 @@ public class GameClientHandler implements ClientHandler {
                 stillPlaying = false;
                 return "challengeFailed";
 
+            case SkipTurn: return "true";
+            case SwapTiles:
+                gameManager.clearHand(playerId);
+                gameManager.fillHand(playerId);
+                return "true";
             case GetRandTile: // return rand tile
                 byte[] bagBytes = Tile.serialize(Tile.Bag.getBag().getRand());
                 return Arrays.toString(bagBytes);

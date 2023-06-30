@@ -13,7 +13,7 @@ public class Dictionary {
     public Dictionary(String...FileNames)  {
         this.exist_words = new CacheManager(400, new LRU());
         this.not_exist_words = new CacheManager(100, new LFU());;
-        this.bloomFilter = new BloomFilter(8192,"MD5","SHA1","SHA256","SHA512","MD2");
+        this.bloomFilter = new BloomFilter(16384,"MD5","SHA1","SHA256","SHA512","MD2");
         this.files = FileNames ;
         Scanner myScaner= null;
         for ( String file: FileNames) {

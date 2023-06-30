@@ -4,6 +4,7 @@ import scrabble_game.Board;
 import scrabble_game.Tile;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameManager implements Serializable {
@@ -58,4 +59,7 @@ public class GameManager implements Serializable {
         while(players.get(id).getTiles().size() < 7) addTile(id);
     }
 
+    public void clearHand(int playerId) {
+        players.get(playerId).setTiles(new ArrayList<>());
+    }
 }

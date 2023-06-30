@@ -2,14 +2,11 @@ package model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import scrabble_game.Board;
-import scrabble_game.MyServer;
 import scrabble_game.Tile;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Scanner;
@@ -25,7 +22,7 @@ public class Model extends Observable {
 
     GameManager gameManager;
     int playerId;
-    private StringProperty messageFromHost = new SimpleStringProperty();;
+    private StringProperty messageFromHost = new SimpleStringProperty();
 
 
     public Model(GameMode mode, String ip, int port, String name) {
@@ -57,6 +54,7 @@ public class Model extends Observable {
                     String messageFromHost = fgin.next();
                     switch(messageFromHost){ //action according to server response
                         case "playTurn"-> playTurn();
+                        case "bindButtons" -> bindButtons();
                         //challenge
                         case "challengeSucceeded"-> System.out.println("trueMeyuhad");
                         case "challengeFailed"-> System.out.println("trueMeyuhad");
@@ -64,7 +62,7 @@ public class Model extends Observable {
                         //tryPlaceWord
                         case "wordInsertSuccessfully"-> wordInsertSuccessfully();
                         case "boardNotLegal"-> System.out.println("boardNotLegal");
-                        case "dictionaryNotLegal"-> System.out.println("dictionaryNotLegal");
+                        case "dictionaryNotLegal"-> dictionaryNotLegal();
 
 //                      TODO: handle end game- log out succeeded, handle try place word- boardLegal/ wordLegal,
 //                       handle challenge- word not found, , its your turn
@@ -73,6 +71,14 @@ public class Model extends Observable {
                 }
             }
         }).start();
+    }
+
+    private void bindButtons() {
+        messageFromHost.setValue("bindButtons");
+    }
+
+    private void dictionaryNotLegal() {
+        messageFromHost.setValue("dictionaryNotLegal");
     }
 
     private void playTurn() {
@@ -86,7 +92,6 @@ public class Model extends Observable {
         messageFromHost.setValue("wordInsertSuccessfully");
         System.out.println("word insert successfully");
     }
-
 
     // TODO: Change below code after adding thread, also remove prints
     private String runCommand(String commandString) {
@@ -172,5 +177,15 @@ public class Model extends Observable {
     public StringProperty getMessageFromHost() {
         messageFromHost = new SimpleStringProperty();
         return messageFromHost;
+    }
+
+    public void skipTurn() {
+        String skipTurnString =  GameCommandsFactory.getSkipTurnString(playerId);
+        runCommand(skipTurnString);
+    }
+
+    public void swapTiles(){
+        String swapTilesString =  GameCommandsFactory.getSwapTilesString(playerId);
+        runCommand(swapTilesString);
     }
 }

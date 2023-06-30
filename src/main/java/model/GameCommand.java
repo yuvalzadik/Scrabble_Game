@@ -8,5 +8,6 @@ public enum GameCommand {
     GetBoard,
     GetRandTile,
     SetGameDictionaries,
+    SkipTurn, SwapTiles,
 
 }

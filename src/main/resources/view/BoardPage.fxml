@@ -828,11 +828,10 @@
                     </StackPane>
                 </GridPane>
                 <HBox alignment="CENTER" spacing="10">
-                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Resign" styleClass="option-btn" text="Resign" />
-                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#SkipTurn" styleClass="option-btn" text="Skip Turn" />
-                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Submit" styleClass="option-btn" text="Submit" />
-                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Challenge" styleClass="option-btn" text="Challenge" />
-               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGame" styleClass="option-btn" text="StartGame" />
+                    <Button fx:id="resign" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Resign" styleClass="option-btn" text="Resign" visible="false" />
+                    <Button fx:id="skipTurn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#SkipTurn" styleClass="option-btn" text="Skip Turn" visible="false" />
+                    <Button fx:id="submit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Submit" styleClass="option-btn" text="Submit" visible="false" />
+               <Button fx:id="startGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGame" styleClass="option-btn" text="StartGame" visible="false" />
 
                 </HBox>
             </VBox>

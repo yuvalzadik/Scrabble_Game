@@ -33,4 +33,8 @@ public class TurnManager implements Serializable {
     public List<Integer> getTurns() {
         return turns;
     }
+
+    public int getCurrentTurnIndex() {
+        return currentTurnIndex;
+    }
 }

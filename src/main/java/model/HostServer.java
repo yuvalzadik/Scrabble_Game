@@ -106,6 +106,17 @@ public class HostServer extends MyServer {
         this.gameIsRunning = true;
     }
 
+    private void broadcastUpdate(String message) {
+        try{
+            for(Socket s : socketMap.values()){
+                PrintWriter printWriter = new PrintWriter(s.getOutputStream(), true);
+                printWriter.println("bindButtons");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public boolean getServerStatus(){
         return this.gameIsRunning;
     }
@@ -114,6 +125,7 @@ public class HostServer extends MyServer {
         @Override
         public void run() {
             new Thread (()-> {
+                broadcastUpdate("bindButtons");
                 updateGuestsModel();
                 GameManager gameManager = GameManager.get_instance();
                 int turn = gameManager.turnManager.getCurrentTurn();

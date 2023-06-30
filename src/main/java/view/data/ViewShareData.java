@@ -40,6 +40,10 @@ public class ViewShareData implements Observer {
         isHost = host;
     }
 
+    public boolean getHost(){
+        return isHost;
+    }
+
     public void setBookScrabbleServer(MyServer bookScrabbleServer) {
         this.bookScrabbleServer = bookScrabbleServer;
     }
@@ -64,6 +68,7 @@ public class ViewShareData implements Observer {
     public void update(Observable o, Object arg) {
         this.getViewModel().setGameManager(this.gameManagerReceiver.getUpdatedGameManager());
     }
+
 }
 
 

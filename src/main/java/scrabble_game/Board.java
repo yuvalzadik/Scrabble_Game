@@ -87,7 +87,6 @@ public class Board implements Serializable {
                 // if we want to put tile on occupied spot we have to check it is the same one
                 if (b.tiles_board[row][col]!= null){
                     Board.printBoard(this);
-                    System.out.println("tile is already placed in this spot -> Trying to place letter over : " + b.tiles_board[row][col].letter);
                     if (word.getTiles()[i]!= null) {
                         if (b.tiles_board[row][col] != word.getTiles()[i]) {
                             return false;
@@ -134,6 +133,7 @@ public class Board implements Serializable {
         StringBuilder sb = new StringBuilder();
         StringBuilder wordString = new StringBuilder();
         for(Tile tile : word.getTiles()){
+            System.out.println("Test Inside for -> " + tile.letter);
             wordString.append(tile.letter);
         }
         sb.append("Q,").append(BScommunication.getDictionaries()).append(",").append(wordString);
