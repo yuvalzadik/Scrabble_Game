@@ -1,0 +1,7 @@
+module:com.example.scrabble_game
+model
+scrabble_game
+test
+view
+view.data
+viewmodel

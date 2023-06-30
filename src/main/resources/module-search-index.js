@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"com.example.scrabble_game"}];updateSearchResults();

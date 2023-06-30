@@ -66,11 +66,8 @@ public class ViewModel {
 
     /**
      * The ViewModel function is the constructor for the ViewModel class.
-     * It initializes all of the properties that are used in this class, and sets up listeners to handle changes in those properties.
+     * It initializes all the properties that are used in this class, and sets up listeners to handle changes in those properties.
 
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public ViewModel(){
         model = null;
@@ -123,10 +120,6 @@ public class ViewModel {
     /**
      * The initializeTileProperty function initializes the tile properties for each of the seven tiles.
      * The function also adds these properties to two ArrayLists, one for letters and one for scores.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void initializeTileProperty(){
         firstTileLetter = new SimpleStringProperty();
@@ -165,10 +158,6 @@ public class ViewModel {
     /**
      * The initializeButtons function initializes the buttons that are used in the game.
      * It sets up a new button for each of the four buttons that are used in this game.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void initializeButtons(){
         submit = new SimpleObjectProperty<>();
@@ -188,8 +177,6 @@ public class ViewModel {
      *
      *
      * @return The messagefromhost property
-     *
-     * @docauthor Trelent
      */
     public StringProperty getMessageFromHost() {
         return messageFromHost;
@@ -201,8 +188,6 @@ public class ViewModel {
      *
      *
      * @return A stringproperty object
-     *
-     * @docauthor Trelent
      */
     public StringProperty getPlayerAction() {
         return playerAction;
@@ -212,9 +197,6 @@ public class ViewModel {
      * The initializeHostAction function is called by the initialize function in the Controller class.
      * It sets up a listener for changes to the messageFromHost property of the model, and calls manageHostMessage when it detects a change.
 
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void initializeHostAction(){
         messageFromHost = new SimpleStringProperty();
@@ -233,8 +215,6 @@ public class ViewModel {
      * playTurn - calls playTurn which allows us to make a move by clicking on
      *
      * @param  newAction Determine which action to perform
-     *
-     * @docauthor Trelent
      */
     public void manageHostMessage(String newAction){
         switch(newAction){
@@ -286,10 +266,6 @@ public class ViewModel {
     /**
      * The updateView function is called by the controller whenever a change in the model occurs.
      * It updates all the GUI elements to reflect this change.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void updateView() {
         Platform.runLater(() -> {
@@ -391,8 +367,6 @@ public class ViewModel {
 
      *
      * @param  newAction Determine what the player wants to do
-     *
-     * @docauthor Trelent
      */
     public void managePlayerAction(String newAction){
         String[] splitted = newAction.split(",");
