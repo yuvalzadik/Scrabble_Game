@@ -43,7 +43,7 @@ public class GameClientHandlerTest {
         }
 
         //check start game
-        scrabbleModel.startGame();
+        //scrabbleModel.startGame();
         GameManager gameManager = GameManager.get_instance();
         if(!gameManager.gameStarted)
             System.out.println("problem with start game");

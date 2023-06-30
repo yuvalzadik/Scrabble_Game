@@ -12,6 +12,8 @@ public class GameCommandsFactory {
         put(GameCommand.GetBoard, 'B');
         put(GameCommand.GetRandTile, 'T');
         put(GameCommand.SetGameDictionaries, 'D');
+        put(GameCommand.SkipTurn, 'E');
+        put(GameCommand.SwapTiles, 'P');
     }};
 
     static public GameCommand getCommandEnumFromChar(char ch){
@@ -58,4 +60,11 @@ public class GameCommandsFactory {
         return setGameDictionariesString;
     }
 
+    public static String getSkipTurnString(int playerId) {
+        return playerId + "," + commandToChar.get(GameCommand.SkipTurn);
+    }
+
+    public static String getSwapTilesString(int playerId) {
+        return playerId + "," + commandToChar.get(GameCommand.SwapTiles);
+    }
 }

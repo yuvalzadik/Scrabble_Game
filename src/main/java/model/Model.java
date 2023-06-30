@@ -1,12 +1,12 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import scrabble_game.Board;
-import scrabble_game.MyServer;
 import scrabble_game.Tile;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Scanner;
@@ -20,14 +20,18 @@ public class Model extends Observable {
     Scanner fgin;
     HostServer gameServer;
 
-    static int currentId = 0;
+    GameManager gameManager;
     int playerId;
+    private StringProperty messageFromHost = new SimpleStringProperty();
+
 
     public Model(GameMode mode, String ip, int port, String name) {
         //this.ip = ip;
         //this.port = port;
+        gameManager = null;
         if (mode.equals(GameMode.Host)) {
-            gameServer = new HostServer(port, new GameClientHandler()); //TODO - Change to hostServer
+            gameManager = GameManager.get_instance();
+            gameServer = new HostServer(port, new GameClientHandler());
             gameServer.start();
         }
         try {
@@ -35,8 +39,8 @@ public class Model extends Observable {
             out2fg = new PrintWriter(fg.getOutputStream(), true);
             fgin = new Scanner(fg.getInputStream());
             out2fg.println(name);
-            currentId++;
-            this.playerId = currentId;
+            String givenId = fgin.next();
+            this.playerId = Integer.parseInt(givenId);
             listenToHost();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -49,15 +53,16 @@ public class Model extends Observable {
                 if(fgin.hasNext()){
                     String messageFromHost = fgin.next();
                     switch(messageFromHost){ //action according to server response
-//                        case "playTurn"-> playTurn();
+                        case "playTurn"-> playTurn();
+                        case "bindButtons" -> bindButtons();
                         //challenge
-                        case "challengeSucceeded"-> System.out.println("trueMeyuhad");
-                        case "challengeFailed"-> System.out.println("trueMeyuhad");
+                        case "challengeSucceeded"-> System.out.println("Challenge Succeeded - Word is placed on board.");
+                        case "challengeFailed"-> System.out.println("Challenge Failed - You lost 10 points!");
 
                         //tryPlaceWord
-                        case "wordInsertSuccessfully"-> System.out.println("falseMeyuhad");
+                        case "wordInsertSuccessfully"-> wordInsertSuccessfully();
                         case "boardNotLegal"-> System.out.println("boardNotLegal");
-                        case "wordNotInDictionary"-> System.out.println("boardNotLegal");
+                        case "dictionaryNotLegal"-> dictionaryNotLegal();
 
 //                      TODO: handle end game- log out succeeded, handle try place word- boardLegal/ wordLegal,
 //                       handle challenge- word not found, , its your turn
@@ -68,16 +73,25 @@ public class Model extends Observable {
         }).start();
     }
 
+    private void bindButtons() {
+        messageFromHost.setValue("bindButtons");
+    }
+
+    private void dictionaryNotLegal() {
+        messageFromHost.setValue("dictionaryNotLegal");
+    }
+
     private void playTurn() {
-        //String word, int row, int col, boolean vertical
-        tryPlaceWord("NAL", 7,7,true);
-        //System.out.println("this is the answer from play turn - "+ tryPlaceWord("NAL", 7,7,true));
+        /*
+        Show buttons for current player.
+         */
+        messageFromHost.setValue("playTurn");
     }
 
     private  void wordInsertSuccessfully(){
-
+        messageFromHost.setValue("wordInsertSuccessfully");
+        System.out.println("word insert successfully");
     }
-
 
     // TODO: Change below code after adding thread, also remove prints
     private String runCommand(String commandString) {
@@ -85,7 +99,8 @@ public class Model extends Observable {
 //            fg = new Socket(ip, port);
 //            out2fg = new PrintWriter(fg.getOutputStream());
 //            fgin = new Scanner(fg.getInputStream());
-            out2fg.println(commandString);
+        System.out.println("runCommand");
+        out2fg.println(commandString);
 //            String res = fgin.next();
 //            System.out.println("Recieved from server: " + res);
 //            fgin.close();
@@ -107,17 +122,6 @@ public class Model extends Observable {
             return true;
         }
         return false;
-    }
-
-//    public boolean startGame() {
-//        String startGameString = GameCommandsFactory.getStartGameCommandString(playerId);
-//        String res = runCommand(startGameString);
-//        return Boolean.parseBoolean(res);
-//    }
-
-    public void startGame(){
-        GameManager.get_instance().startGame();
-        gameServer.startGame();
     }
 
     public void tryPlaceWord(String word, int row, int col, boolean vertical) {
@@ -142,6 +146,14 @@ public class Model extends Observable {
         return Board.deserialize(bytes);
     }
 
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
+    public void setGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
+
     public Tile getRand() {
         String getBagString = GameCommandsFactory.getGetRandTileString(playerId);
         String res = runCommand(getBagString);
@@ -158,5 +170,22 @@ public class Model extends Observable {
         runCommand(getSetGameDictionariesString);
     }
 
+    public int getPlayerId() {
+        return playerId;
+    }
 
+    public StringProperty getMessageFromHost() {
+        messageFromHost = new SimpleStringProperty();
+        return messageFromHost;
+    }
+
+    public void skipTurn() {
+        String skipTurnString =  GameCommandsFactory.getSkipTurnString(playerId);
+        runCommand(skipTurnString);
+    }
+
+    public void swapTiles(){
+        String swapTilesString =  GameCommandsFactory.getSwapTilesString(playerId);
+        runCommand(swapTilesString);
+    }
 }

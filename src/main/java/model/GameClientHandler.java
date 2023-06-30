@@ -3,12 +3,9 @@ package model;
 import scrabble_game.*;
 
 import java.io.*;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class GameClientHandler implements ClientHandler {
     PrintWriter out;
@@ -27,20 +24,13 @@ public class GameClientHandler implements ClientHandler {
 
     @Override
     public void handleClient(InputStream inFromclient, OutputStream outToClient) {
-        /*
-        init inFromClient and outToClient
-        loop with two break points - when the turn is not ours or when the player succeeded task:
-                         playedId locally - currentPlayer
-                         boolean stillPlaying
-         */
         in = new BufferedReader(new InputStreamReader(inFromclient));
         out = new PrintWriter(new OutputStreamWriter(outToClient), true);
-//        out.println("playTurn");
+        out.println("playTurn");
         int playerId = gameManager.turnManager.getCurrentTurn();
         stillPlaying = true;
-
+        System.out.println("Current player -> " + gameManager.turnManager.getCurrentTurn() + " playerID -> " + playerId);
         while(playerId == gameManager.turnManager.getCurrentTurn() && stillPlaying){
-
             try {
                 if(in.ready()){
                     String line = in.readLine();
@@ -53,6 +43,10 @@ public class GameClientHandler implements ClientHandler {
 
     private String handleInput(String input) {
         int playerId = Integer.parseInt(input.split(",")[0]);
+        Board.printBoard(gameManager.board);
+        System.out.println("tile in [7][7] -> " + gameManager.board.getTiles()[7][7]);
+        System.out.println("tile in [7][8] -> " + gameManager.board.getTiles()[7][8]);
+        System.out.println("tile in [8][7] -> " + gameManager.board.getTiles()[8][7]);
         GameCommand command = GameCommandsFactory.getCommandEnumFromChar(input.split(",")[1].charAt(0));
         System.out.println("Server received command:" + command.name() + " from player:" + playerId);
         switch (command) {
@@ -63,15 +57,14 @@ public class GameClientHandler implements ClientHandler {
                 }
                 break;
             case TryPlaceWord: // try place word
-                int score = this.gameManager.board.tryPlaceWord(buildWordFromInput(input));
+                int score = this.gameManager.board.tryPlaceWord(buildWordFromPlayer(input));
                 if(score == 0){ //board not legal
                     return "boardNotLegal";
                 }
                 else if(score == -1){ //dictionary not legal
-                    return "wordNotInDictionary";
+                    return "dictionaryNotLegal";
                 }
                 else if(score > 0) {//succeeded
-
                     gameManager.addScore(playerId, score);
                     stillPlaying = false;
                     return "wordInsertSuccessfully";
@@ -83,7 +76,7 @@ public class GameClientHandler implements ClientHandler {
                 String resBSH = BScommunication.runChallengeOrQuery(inString);
 
                 if (resBSH.equals("true")){
-                    int score1 = this.gameManager.board.tryPlaceWord(buildWordFromInput(input));
+                    int score1 = this.gameManager.board.tryPlaceWord(buildWordFromPlayer(input));
                     if (score1 > 0) {
                         gameManager.addScore(playerId, score1);
                         stillPlaying = false;
@@ -96,6 +89,11 @@ public class GameClientHandler implements ClientHandler {
                 stillPlaying = false;
                 return "challengeFailed";
 
+            case SkipTurn: return "true";
+            case SwapTiles:
+                gameManager.clearHand(playerId);
+                gameManager.fillHand(playerId);
+                return "true";
             case GetRandTile: // return rand tile
                 byte[] bagBytes = Tile.serialize(Tile.Bag.getBag().getRand());
                 return Arrays.toString(bagBytes);
@@ -121,15 +119,19 @@ public class GameClientHandler implements ClientHandler {
      * @param input
      * @return
      */
-    private Word buildWordFromInput(String input) {
-        String word = input.split(",")[2];
-        int col = Integer.parseInt(input.split(",")[3]);
-        int row = Integer.parseInt(input.split(",")[4]);
-        boolean vertical = Boolean.parseBoolean(input.split(",")[5]);
+    private Word buildWordFromPlayer(String input) {
+        String[] splittedStr = input.split(",");
+        String word = splittedStr[2];
+        int row = Integer.parseInt(splittedStr[3]);
+        int col = Integer.parseInt(splittedStr[4]);
+        boolean vertical = Boolean.parseBoolean(splittedStr[5]);
+        System.out.println("Vertical? -> " + vertical);
 
         Tile[] wordTiles = new Tile[word.length()];
+        Player player = gameManager.getPlayers().get(Integer.parseInt(splittedStr[0]));
         for (int i = 0; i < wordTiles.length; i++) {
-            wordTiles[i] = Tile.Bag.getBag().getTile(word.charAt(i));
+            if(word.charAt(i) == '_') wordTiles[i] = null;
+            else wordTiles[i] = player.getTile(word.charAt(i));
         }
 
         return new Word(wordTiles, row, col, vertical);

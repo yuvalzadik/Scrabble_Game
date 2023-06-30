@@ -1,12 +1,10 @@
 package model;
 
 import scrabble_game.Board;
-import scrabble_game.DictionaryManager;
 import scrabble_game.Tile;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class GameManager implements Serializable {
@@ -17,7 +15,7 @@ public class GameManager implements Serializable {
     private static GameManager _instance = null;
     public TurnManager turnManager;
 
-    public GameManager(){
+    private GameManager(){
         this.gameStarted = false;
         this.players = new HashMap<>();
         this.turnManager = new TurnManager();
@@ -38,8 +36,8 @@ public class GameManager implements Serializable {
 
     public void startGame(){
         this.gameStarted = true;
-        for(int id: players.keySet()){
-            addTile(id);
+        for(Integer playerId : players.keySet()){
+            fillHand(playerId);
         }
         turnManager.setTurns(players);
     }
@@ -57,4 +55,11 @@ public class GameManager implements Serializable {
             players.get(id).getTiles().add(bag.getRand());
     }
 
+    public void fillHand(int id){
+        while(players.get(id).getTiles().size() < 7) addTile(id);
+    }
+
+    public void clearHand(int playerId) {
+        players.get(playerId).setTiles(new ArrayList<>());
+    }
 }
