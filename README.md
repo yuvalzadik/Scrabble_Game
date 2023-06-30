@@ -103,7 +103,9 @@ To ensure that the project is managed correctly and completed in the required ti
 
 ###### **[Jira URL](https://scrabble-ptm2.atlassian.net/jira/software/projects/SCRAB/boards/1/roadmap)**
 <br />
-###### **[Java Doc URL](https://yuvalzadik.github.io/Scrabble_Game/src/main/resources/com.example.scrabble_game/module-summary.html)**
+
+###### [Java Doc URL](https://yuvalzadik.github.io/Scrabble_Game/src/main/resources/com.example.scrabble_game/module-summary.html)
+
 <br />
 ###### Demonstration:
 ###### **[Demo](will be added later)**
