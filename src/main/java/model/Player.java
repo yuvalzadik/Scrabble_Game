@@ -18,8 +18,6 @@ public class Player implements Serializable {
 
      *
      * @param name String  Set the name of the player
-     *
-     * @docauthor Trelent
      */
     public Player(String name){
         this.name = name;
@@ -33,8 +31,6 @@ public class Player implements Serializable {
      *
      *
      * @return The name of the student
-     *
-     * @docauthor Trelent
      */
     public String getName() {
         return name;
@@ -46,8 +42,6 @@ public class Player implements Serializable {
      *
      *
      * @return The score of the player
-     *
-     * @docauthor Trelent
      */
     public int getScore(){
         return this.score;
@@ -57,8 +51,6 @@ public class Player implements Serializable {
      * <p>
      *
      * @param score int  Add the score to the current score
-     *
-     * @docauthor Trelent
      */
     public void addScore(int score){ this.score += score;}
 
@@ -66,10 +58,7 @@ public class Player implements Serializable {
      * The getTiles function returns a list of the tiles that are currently in the player's hand.
      *
      *
-     *
      * @return A list of the player's tiles
-     *
-     * @docauthor Trelent
      */
     public List<Tile> getTiles() {
         return playerTiles;
@@ -81,9 +70,7 @@ public class Player implements Serializable {
      *
      * @param  letter char Find the tile with that letter
      *
-     * @return A tile with the given letter
-     *
-     * @docauthor Trelent
+
      */
     public Tile getTile(char letter){
         ArrayList<Tile> newTiles = new ArrayList<>(playerTiles);
@@ -101,8 +88,7 @@ public class Player implements Serializable {
      * <p>
      *
      * @param tiles - Set the playertiles variable to the tiles parameter
-     *
-     * @docauthor Trelent
+
      */
     public void setTiles(List<Tile> tiles){
         this.playerTiles = tiles;

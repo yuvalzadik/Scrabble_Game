@@ -39,9 +39,6 @@ public class HomePage extends Application {
 
         private gridpane creategameboard() {
 
-
-     *
-     * @docauthor Trelent
      */
     @Override
     public void start(Stage primaryStage) {
@@ -356,11 +353,8 @@ public class HomePage extends Application {
 
     /**
      * The main function of the program.
-     * <p>
-     *
      * @param  args Pass command line arguments to the application
      *
-     * @docauthor Trelent
      */
     public static void main(String[] args) {
         launch(args);

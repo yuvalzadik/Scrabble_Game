@@ -12,11 +12,8 @@ public class Dictionary {
 
     /**
      * The Dictionary function checks if the word is in the dictionary.
-     * <p>
      *
      * @param FileNames Pass an array of strings to the function
-     *
-     * @docauthor Trelent
      */
     public Dictionary(String...FileNames)  {
         this.exist_words = new CacheManager(400, new LRU());
@@ -50,7 +47,6 @@ public class Dictionary {
      *
      * @return True if the word is in the data structure
      *
-     * @docauthor Trelent
      */
     public boolean query(String word){
         // This method check for a word input if it exist on the exist_words CacheManager
@@ -80,8 +76,6 @@ public class Dictionary {
      * @param word Search for the word in the files
      *
      * @return True if the word is found in the files and false otherwise
-     *
-     * @docauthor Trelent
      */
     public boolean challenge(String word) {
        boolean findword= IOSearcher.search(word,files);

@@ -20,7 +20,6 @@ public class GameManagerReceiver extends Observable implements Serializable {
      * @param  ip Specify the ip address of the server
      * @param port Specify which port the socket will be listening on
      *
-     * @docauthor Trelent
      */
     public GameManagerReceiver(String ip, int port){
         try {
@@ -41,8 +40,6 @@ public class GameManagerReceiver extends Observable implements Serializable {
 
      *
      * @param newModel Set the updatedgamemanager variable
-     *
-     * @docauthor Trelent
      */
     public void setUpdatedGameManager(GameManager newModel){
         this.updatedGameManager = newModel;
@@ -52,12 +49,9 @@ public class GameManagerReceiver extends Observable implements Serializable {
 
     /**
      * The getServer function returns the server socket.
-     * <p>
-     *
      *
      * @return The server socket
      *
-     * @docauthor Trelent
      */
     public MySocket getServer(){
         return server;
@@ -65,12 +59,8 @@ public class GameManagerReceiver extends Observable implements Serializable {
 
     /**
      * The getUpdatedGameManager function returns the updatedGameManager variable.
-     * <p>
-     *
      *
      * @return The updatedgamemanager variable
-     *
-     * @docauthor Trelent
      */
     public GameManager getUpdatedGameManager() {
         return updatedGameManager;
@@ -107,7 +97,6 @@ public class GameManagerReceiver extends Observable implements Serializable {
          *
          * @param  playerSocket Socket  Create a new socket for the client
          *
-         * @docauthor Trelent
          */
         public MySocket(Socket playerSocket) {
             this.playerSocket = playerSocket;
@@ -125,7 +114,6 @@ public class GameManagerReceiver extends Observable implements Serializable {
          *
          * @param  out ObjectOutputStream  Write the object to a file
          *
-         * @docauthor Trelent
          */
         @Serial
         private void writeObject(ObjectOutputStream out) throws IOException {
@@ -137,8 +125,6 @@ public class GameManagerReceiver extends Observable implements Serializable {
          * <p>
          *
          * @param in ObjectInputStream  Read the object from the stream
-         *
-         * @docauthor Trelent
          */
         @Serial
         private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -148,12 +134,8 @@ public class GameManagerReceiver extends Observable implements Serializable {
 
         /**
          * The getPlayerSocket function returns the playerSocket variable.
-         * <p>
-         *
          *
          * @return The playersocket variable
-         *
-         * @docauthor Trelent
          */
         public Socket getPlayerSocket() {
             return playerSocket;

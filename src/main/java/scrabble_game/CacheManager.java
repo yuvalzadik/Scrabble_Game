@@ -19,8 +19,6 @@ public class CacheManager {
      *
      * @param maxsize Set the maximum number of words that can be stored in the cache
      * @param crptype Determine which replacement policy to use
-     *
-     * @docauthor Trelent
      */
     public CacheManager(int maxsize, CacheReplacementPolicy crptype) {
         this.maxsize = maxsize;
@@ -36,7 +34,6 @@ public class CacheManager {
      *
      * @param word Add a word to the cache
      *
-     * @docauthor Trelent
      */
     public void add(String word) {
         if (cachedwords.size() == maxsize){
@@ -49,13 +46,11 @@ public class CacheManager {
     }
     /**
      * The query function takes a string as input and returns true if the word is in the dictionary, false otherwise.
-     * <p>
      *
      * @param word Check if the word is in the cachedwords arraylist
      *
      * @return True if the word is in the dictionary, and false otherwise
      *
-     * @docauthor Trelent
      */
     public  boolean query ( String word){
         return cachedwords.contains(word);

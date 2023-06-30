@@ -32,7 +32,6 @@ public class HostServer extends MyServer {
      * @param port int Set the port number for the server
      * @param ch ClientHandler  Create a new thread for each client that connects to the server
      *
-     * @docauthor Trelent
      */
     public HostServer(int port, ClientHandler ch) {
         super(port, ch);
@@ -152,10 +151,6 @@ public class HostServer extends MyServer {
     /**
      * The startGame function is responsible for starting the game.
      * It does this by calling the startGame function in GameManager, which sets up all of the necessary variables and starts a new thread to run the game loop.
-
-     *
-     *
-     * @docauthor Trelent
      */
     public void startGame(){
         GameManager gameManager = GameManager.get_instance();
@@ -165,7 +160,6 @@ public class HostServer extends MyServer {
 
     /**
      * The broadcastUpdate function is used to send a message to all connected clients.
-     * <p>
      *
      * @param message String  Send a message to all the connected clients
      *
@@ -186,8 +180,6 @@ public class HostServer extends MyServer {
      * The getServerStatus function returns the boolean value of gameIsRunning.
      *
      * @return A boolean value
-     *
-     * @docauthor Trelent
      */
     public boolean getServerStatus(){
         return this.gameIsRunning;
@@ -198,7 +190,6 @@ public class HostServer extends MyServer {
          * The run function is the main function of this class. It creates a new thread that handles the client's turn,
          * and then updates the GUI to reflect that it is now their turn.
          *
-         * @docauthor Trelent
          */
         @Override
         public void run() {
@@ -231,7 +222,6 @@ public class HostServer extends MyServer {
      * It cancels any running timers, resets the current task to null, and then calls super.close()
 
      *
-     * @docauthor Trelent
      */
     @Override
     public void close() {

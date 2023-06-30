@@ -19,7 +19,6 @@ public class GameClientHandler implements ClientHandler {
     /**
      * The GameClientHandler function is responsible for handling the client's requests.
      * It receives a request from the client, and sends back an appropriate response.
-     * @docauthor Trelent
      */
     public GameClientHandler() {
         this.gameManager = GameManager.get_instance();

@@ -14,8 +14,6 @@ public class LFU implements CacheReplacementPolicy {
 
      *
      * @param word Find the word in the cache
-     *
-     * @docauthor Trelent
      */
     public void add(String word) {
         String key = null;
@@ -37,7 +35,6 @@ public class LFU implements CacheReplacementPolicy {
      *
      * @return The least frequently used word
      *
-     * @docauthor Trelent
      */
     public String remove() {
         int least_used_word =1000000 ;

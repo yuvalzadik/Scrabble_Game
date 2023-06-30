@@ -18,7 +18,6 @@ public class BloomFilter {
      *
      * @param size int  Set the size of the bitset b
      * @param algo String...algo  in an array of strings. array of bits that grow as needed until size
-     * @docauthor Trelent
      */
     public BloomFilter(int size, String...algo) {
         Collections.addAll(algs,algo);
@@ -65,7 +64,6 @@ public class BloomFilter {
      *
      * @param word Get the hash value of a word
      *
-     * @docauthor Trelent
      */
     public void add(String word)  {
         for(String s: algs){
@@ -76,13 +74,11 @@ public class BloomFilter {
         }
     /**
      * The contains function checks if the given word is in the Bloom Filter.
-     * <p>
      *
      * @param word String Generate the hash value
      *
      * @return A boolean value
      *
-     * @docauthor Trelent
      */
     public Boolean contains(String word)  {
         for(String s: algs) {
@@ -96,11 +92,8 @@ public class BloomFilter {
     /**
      * The toString function is used to print the BitSet in a readable format.
      *
-     *
-     *
      * @return a string of {0,1} according to the bits that have been set on the BitSet b
      *
-     * @docauthor Trelent
      */
     public String toString() {
         StringBuilder bits = new StringBuilder();

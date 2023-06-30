@@ -53,7 +53,6 @@ public class GameCommandsFactory {
      *
      * @return A string that contains the player id and a startgame command
      *
-     * @docauthor Trelent
      */
     static public String getStartGameCommandString(int playerId) {
         return playerId + "," + commandToChar.get(GameCommand.StartGame);
@@ -76,8 +75,6 @@ public class GameCommandsFactory {
 
      *
      * @return A string in the following format:
-     *
-     * @docauthor Trelent
      */
     static public String getTryPlaceWordCommandString(int playerId, String word, int row, int col, boolean vertical) {
         return playerId + "," + commandToChar.get(GameCommand.TryPlaceWord) + "," + word + "," + row + "," + col + "," + vertical;
@@ -100,7 +97,6 @@ public class GameCommandsFactory {
      *
      * @return A string in the format:
      *
-     * @docauthor Trelent
      */
     static public String getChallengeCommandString(int playerId, String word, int row, int col, boolean vertical) {
         return playerId + "," + commandToChar.get(GameCommand.Challenge) + "," + word + "," + row + "," + col + "," + vertical;
@@ -112,8 +108,7 @@ public class GameCommandsFactory {
      * @param playerId int  Identify the player that is sending the command
      *
      * @return A string of the form &quot;playerid,command&quot;
-     *
-     * @docauthor Trelent
+
      */
     static public String getGetBoardCommandString(int playerId) {
         return playerId + "," + commandToChar.get(GameCommand.GetBoard);
@@ -127,7 +122,6 @@ public class GameCommandsFactory {
      *
      * @return A string that is composed of the playerid and a character representing the getrandtile command
      *
-     * @docauthor Trelent
      */
     static public String getGetRandTileString(int playerId) {
         return playerId + "," + commandToChar.get(GameCommand.GetRandTile);
@@ -143,8 +137,6 @@ public class GameCommandsFactory {
      * @param dictionaries String[]  Pass the dictionaries to be used in the game
      *
      * @return A string that contains the playerid and a list of dictionaries
-     *
-     * @docauthor Trelent
      */
     static public String getSetGameDictionariesString(int playerId, String[] dictionaries) {
         String setGameDictionariesString = playerId + "," + commandToChar.get(GameCommand.SetGameDictionaries) + ",";
@@ -164,7 +156,6 @@ public class GameCommandsFactory {
      *
      * @return A string that is a comma-separated list of the player id and the character representation of gamecommand
      *
-     * @docauthor Trelent
      */
     public static String getSkipTurnString(int playerId) {
         return playerId + "," + commandToChar.get(GameCommand.SkipTurn);

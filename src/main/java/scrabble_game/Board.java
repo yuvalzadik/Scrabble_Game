@@ -63,12 +63,10 @@ public class Board implements Serializable {
     }
     /**
      * The getTiles function returns a copy of the tiles_board array.
-     * <p>
      *
      *
      * @return A copy of the tiles_board array
      *
-     * @docauthor Trelent
      */
     public Tile[][] getTiles() {
         return this.tiles_board.clone();
@@ -76,12 +74,10 @@ public class Board implements Serializable {
     }
     /**
      * The getBoard function is a static function that returns the board object.
-     * <p>
      *
      *
      * @return A board object
      *
-     * @docauthor Trelent
      */
     public static Board getBoard() {
         if (b == null) {
@@ -93,13 +89,11 @@ public class Board implements Serializable {
     /**
      * The boardLegal function checks if the word is legal to be placed on the board.
      * It checks if it is not out of bounds, and that it does not overlap with other tiles.
-     * <p>
      *
      * @param word Get the row and column of the word
      *
      * @return True if the word is legal
      *
-     * @docauthor Trelent
      */
     public boolean boardLegal( Word word) {
         // check if it is the first word - one tile have to be on the star position
@@ -170,7 +164,6 @@ public class Board implements Serializable {
      *
      * @return True if the word is legal, false otherwise
      *
-     * @docauthor Trelent
      */
     public boolean dictionaryLegal(Word word){
         BookScrabbleCommunication BScommunication = BookScrabbleCommunication.get_instance();
@@ -453,7 +446,6 @@ public class Board implements Serializable {
      *
      * @return -1 if the word is not legal - dictionaryLegal. 0 if the word is not legal - boardLegal. if the word is legal returns the score.
      *
-     * @docauthor Trelent
      */
     public int tryPlaceWord(Word word){
         if (!(boardLegal(word))) {
@@ -500,7 +492,6 @@ public class Board implements Serializable {
      *
      * @return A byte array
      *
-     * @docauthor Trelent
      */
     static public byte[] serialize(Board board){
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -523,7 +514,6 @@ public class Board implements Serializable {
 
     /**
      * The deserialize function takes a byte array and returns the Board object that it represents.
-     * <p>
      *
      * @param bytes Convert the byte array into an object
     static public board deserialize(byte[] bytes){
@@ -534,7 +524,6 @@ public class Board implements Serializable {
      *
      * @return A board object, but I need to get the byte array from that
      *
-     * @docauthor Trelent
      */
     static public Board deserialize(byte[] bytes){
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
@@ -557,11 +546,9 @@ public class Board implements Serializable {
 
     /**
      * The printBoard function prints the current state of the board to the console.
-     * <p>
      *
      * @param board Access the tiles on the board
      *
-     * @docauthor Trelent
      */
     public static void printBoard(Board board){
         Tile[][] currentTiles = board.getTiles();

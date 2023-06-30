@@ -132,7 +132,6 @@ public class MainWindowController {
      * lastWord, playerAction, placedTiles and startGame. It also calls two other functions to initialize more properties:
      * initializeTileProperties() and initializeNameProperties(). These functions are explained below.
      *
-     * @docauthor Trelent
      */
     public MainWindowController(){
         lastWord = new SimpleStringProperty();
@@ -177,9 +176,6 @@ public class MainWindowController {
      * The initializeTileProperties function initializes the tile properties for each of the seven tiles.
      * It sets their text to be blank and their score to be 0.
 
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void initializeTileProperties(){
         firstTileLetter = new Label();
@@ -203,10 +199,6 @@ public class MainWindowController {
      * The initializeBoardAction function is responsible for initializing the board action.
      * It does this by creating a new SimpleStringProperty and binding it to the cellLabel property of the viewModel.
      * The function then adds a listener to that property, which updates the boardCellLabel whenever there is an update in that property.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void initializeBoardAction(){
         cellLabel = new SimpleStringProperty();
@@ -221,9 +213,6 @@ public class MainWindowController {
      * This function binds this StringProperty to a new SimpleStringProperty, which in turn is bound to another
      * SimpleStringProperty held by the View Share Data object. This second SimpleStringProperty holds all       * the updates from our View Model and will be updated whenever there are changes made to it by our Controller class.
 
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void initializeViewModelUpdates(){
         viewModelUpdates = new SimpleStringProperty();
@@ -333,10 +322,6 @@ public class MainWindowController {
     /**
      * The bindButtonsProperties function binds the visibility of the buttons to their respective properties in
      * viewShareData.getViewModel().submit, viewShareData.getViewModel().resign, and viewShareData.getViewModel().skipTurn
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void bindButtonsProperties(){
         submit.visibleProperty().bind(viewShareData.getViewModel().submit.get().visibleProperty());
@@ -348,10 +333,6 @@ public class MainWindowController {
     /**
      * The bindPlayerProperties function binds the player names and scores to their respective text fields.
      * This allows for the view to be updated when a player's name or score changes.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void bindPlayerProperties(){
         firstPlayerName.textProperty().bind(viewShareData.getViewModel().firstPlayerName);
@@ -369,10 +350,6 @@ public class MainWindowController {
      * The bindTilesProperties function binds the text properties of each tile to the corresponding
      * property in the view model. This allows for changes made to these properties in the view model
      * to be reflected on screen.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void bindTilesProperties(){
         firstTileLetter.textProperty().bind(viewShareData.getViewModel().firstTileLetter);
@@ -395,10 +372,6 @@ public class MainWindowController {
     /**
      * The initializeHostAction function is called when the user clicks on the &quot;Host&quot; button.
      * It sets up a new game, and then calls initializeGameAction to start it.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void initializeHostAction(){
         viewShareData.getViewModel().initializeHostAction();
@@ -407,10 +380,6 @@ public class MainWindowController {
     /**
      * The initializePlayerAction function is used to bind the playerAction and lastWord properties of the viewShareData's ViewModel
      * to their respective properties in this class. This allows for changes made in either property to be reflected on both sides.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void initializePlayerAction(){
         viewShareData.getViewModel().getPlayerAction().bind(playerAction);
@@ -426,7 +395,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the event
      *
-     * @docauthor Trelent
      */
     @FXML
     public void Submit(ActionEvent event) throws IOException {
@@ -485,9 +453,6 @@ public class MainWindowController {
      * The resetWordParameters function clears the placedTiles ArrayList and sets playerWord to an empty string.
      * This function is called after a word has been successfully played, so that the next word can be played.
 
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void resetWordParameters(){
         placedTiles.clear();
@@ -502,7 +467,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the event
      *
-     * @docauthor Trelent
      */
     @FXML
     public void ReloadTiles(ActionEvent event) throws IOException {
@@ -517,7 +481,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the event
      *
-     * @docauthor Trelent
      */
     @FXML
     public void ShuffleTiles(ActionEvent event) throws IOException {
@@ -552,8 +515,6 @@ public class MainWindowController {
 
      *
      * @param  event Get the source of the event
-     *
-     * @docauthor Trelent
      */
     @FXML
     public void SkipTurn(ActionEvent event) throws IOException {
@@ -568,8 +529,6 @@ public class MainWindowController {
 
      *
      * @param  event Get the source of the action
-     *
-     * @docauthor Trelent
      */
     @FXML
     public void Resign(ActionEvent event) throws IOException {
@@ -597,7 +556,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the event
      *
-     * @docauthor Trelent
      */
     @FXML
     public void StartTutorial(ActionEvent event) throws IOException {
@@ -613,7 +571,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the event
      *
-     * @docauthor Trelent
      */
     @FXML
     public void StartAsHost(ActionEvent event) throws IOException {
@@ -647,10 +604,6 @@ public class MainWindowController {
     /**
      * The toggleStartButton function is used to toggle the visibility of the startGame button.
      * This function is called when a game has ended, and it allows for another game to be started.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void toggleStartButton(){
         startGame.setVisible(true);
@@ -689,7 +642,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the event
      *
-     * @docauthor Trelent
      */
     @FXML
     public void StartAsGuest(ActionEvent event) throws IOException {
@@ -728,7 +680,6 @@ public class MainWindowController {
      *
      * @param  gameMode Determine whether the client is a host or not
      *
-     * @docauthor Trelent
      */
     public void connectToServer(GameMode gameMode){
         Model newModel = new Model(gameMode, ipField.getText(), Integer.parseInt(portField.getText()), nameField.getText());
@@ -749,10 +700,6 @@ public class MainWindowController {
     /**
      * The startGame function is called when the host presses the start game button.
      * It sends a message to all clients that they should begin playing.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     @FXML
     public void startGame(){
@@ -779,7 +726,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the event
      *
-     * @docauthor Trelent
      */
     @FXML
     public void loadHostForm(ActionEvent event) throws IOException {
@@ -793,7 +739,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the event
      *
-     * @docauthor Trelent
      */
     @FXML
     public void loadHomePage(ActionEvent event) throws IOException {
@@ -807,7 +752,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the action
      *
-     * @docauthor Trelent
      */
     @FXML
     public void loadGuestForm(ActionEvent event) throws IOException {
@@ -825,7 +769,6 @@ public class MainWindowController {
         private void loadscene(actionevent event, string scenename) throws ioexception {
             parent root = fxmlloader
      *
-     * @docauthor Trelent
      */
     @FXML
     public void loadBoard(ActionEvent event) throws IOException {
@@ -840,7 +783,6 @@ public class MainWindowController {
      *
      * @param  event Get the source of the action
      *
-     * @docauthor Trelent
      */
     @FXML
     public void Exit(ActionEvent event) throws IOException {
@@ -866,7 +808,6 @@ public class MainWindowController {
      *
      * @param  event Handle the event when the button is clicked
      *
-     * @docauthor Trelent
      */
     @FXML
     public void BackToHomePage(ActionEvent event) throws IOException {
@@ -882,7 +823,6 @@ public class MainWindowController {
         public void loadscene(string scenename) throws ioexception {
             parent root = fxmlloader
      *
-     * @docauthor Trelent
      */
     @FXML
     public void loadScene(ActionEvent event, String sceneName) throws IOException {
@@ -926,7 +866,6 @@ public class MainWindowController {
      *
      * @return True if the port is a valid port number, and false otherwise
      *
-     * @docauthor Trelent
      */
     public boolean validPort(String port) {
         return port.matches("(1000[1-9]|100[1-9]\\d|10[1-9]\\d{2}|1[1-9]\\d{3}|19999)");
@@ -940,7 +879,6 @@ public class MainWindowController {
      *
      * @return True if the string is a valid ip address
      *
-     * @docauthor Trelent
      */
     public boolean validIp(String ip) {
         return ip.matches("(\\b25[0-5]|\\b2[0-4][0-9]|\\b[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}") || ip.matches("localhost");
@@ -954,7 +892,6 @@ public class MainWindowController {
      *
      * @return True if the name is valid
      *
-     * @docauthor Trelent
      */
     public boolean validName(String name) {
         return name.matches("^[A-Za-z]+$");
@@ -963,9 +900,7 @@ public class MainWindowController {
      * The squareClickHandler function is used to make the tiles draggable.
      * It also removes a tile from the board if it is clicked on.
 
-     * <p>
      *
-     * @docauthor Trelent
      */
     @FXML
     /*make the tile draggable*/
@@ -1112,7 +1047,6 @@ public class MainWindowController {
      *
      * @param  viewShareData Pass data from the viewsharedata class to this class
      *
-     * @docauthor Trelent
      */
     public void setViewShareData(ViewShareData viewShareData){
         this.viewShareData = viewShareData;

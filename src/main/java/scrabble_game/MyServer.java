@@ -19,7 +19,6 @@ public class MyServer {
      * @param port Set the port number that the server will listen on
      * @param ch Pass the clienthandler object to the myserver constructor
      *
-     * @docauthor Trelent
      */
     public MyServer(int port, ClientHandler ch) {
         this.port = port;
@@ -28,10 +27,6 @@ public class MyServer {
 
     /**
      * The start function starts the server.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void start() {
         stop = false;
@@ -78,10 +73,6 @@ public class MyServer {
 
     /**
      * The close function stops the thread from running.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public void close(){
         stop = true;

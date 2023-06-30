@@ -34,7 +34,6 @@ public class GameManager implements Serializable {
      *
      * @return The singleton instance of the gamemanager class
      *
-     * @docauthor Trelent
      */
     public static GameManager get_instance() {
         if (_instance == null) {
@@ -49,7 +48,6 @@ public class GameManager implements Serializable {
      *
      * @param  player Add a new player to the game
      *
-     * @docauthor Trelent
      */
     public void addPlayer(Player player){
         int newPlayerId = players.size()+1;
@@ -59,7 +57,6 @@ public class GameManager implements Serializable {
     /**
      * The startGame function is called when the game is ready to begin.
      * It sets the gameStarted boolean to true, and then fills each player's hand with 7 cards.
-     * @docauthor Trelent
      */
     public void startGame(){
         this.gameStarted = true;
@@ -75,7 +72,6 @@ public class GameManager implements Serializable {
      * @param playerId int  Identify which player to add the score to
      * @param score int  Add a score to the player's total score
      *
-     * @docauthor Trelent
      */
     public void addScore(int playerId, int score){
         players.get(playerId).addScore(score);
@@ -85,7 +81,6 @@ public class GameManager implements Serializable {
      * The getPlayers function returns a HashMap of all the players in the game.
      * @return A hashmap of type integer and player
      *
-     * @docauthor Trelent
      */
     public HashMap<Integer, Player> getPlayers() {
         return players;
@@ -95,8 +90,6 @@ public class GameManager implements Serializable {
      * The addTile function adds a tile to the player's hand.
      *
      * @param id int  Identify the player who is adding a tile to their hand
-     *
-     * @docauthor Trelent
      */
     public void addTile(int id){
         if(players.get(id).getTiles().size() < 7)
@@ -108,7 +101,6 @@ public class GameManager implements Serializable {
      *
      * @param id int  Identify which player's hand is being filled
      *
-     * @docauthor Trelent
      */
     public void fillHand(int id){
         while(players.get(id).getTiles().size() < 7) addTile(id);
@@ -119,7 +111,6 @@ public class GameManager implements Serializable {
      *
      * @param  playerId int Identify which player's hand is being cleared
      *
-     * @docauthor Trelent
      */
     public void clearHand(int playerId) {
         players.get(playerId).setTiles(new ArrayList<>());

@@ -16,8 +16,6 @@ public class Word {
      * @param  row Store the row number of the word
      * @param col Set the column of the word
      * @param vertical Determine whether the word is vertical or horizontal
-     *
-     * @docauthor Trelent
      */
     public Word(Tile[] tiles, int row, int col, boolean vertical) {
         this.tiles = tiles;
@@ -32,8 +30,6 @@ public class Word {
      *
      *
      * @return An array of tile objects
-     *
-     * @docauthor Trelent
      */
     public Tile[] getTiles() {
         return tiles;
@@ -46,7 +42,6 @@ public class Word {
      *
      * @return The row of the cell
      *
-     * @docauthor Trelent
      */
     public int getRow() {
         return row;
@@ -59,7 +54,6 @@ public class Word {
      *
      * @return The column of the cell
      *
-     * @docauthor Trelent
      */
     public int getCol() {
         return col;
@@ -73,7 +67,6 @@ public class Word {
      *
      * @return A boolean value that is true if the line segment is vertical
      *
-     * @docauthor Trelent
      */
     public boolean isVertical() {
         return vertical;
@@ -86,7 +79,6 @@ public class Word {
      *
      * @return True if the two words are equal
      *
-     * @docauthor Trelent
      */
     @Override
     public boolean equals(Object o) {

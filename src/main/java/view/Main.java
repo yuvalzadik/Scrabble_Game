@@ -5,18 +5,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.data.ViewShareData;
-import viewModel.ViewModel;
+import viewmodel.ViewModel;
 
 import java.io.IOException;
 public class Main extends Application {
     /**
      * The start function is the main function of the program.
      * It loads an FXML file and sets it as a scene in a stage.
-     * <p>
      *
      * @param  stage Set the scene
      *
-     * @docauthor Trelent
      */
     @Override
     public void start(Stage stage) throws IOException {
@@ -39,7 +37,6 @@ public class Main extends Application {
      *
      * @param  args Pass command line arguments to the main function
      *
-     * @docauthor Trelent
      */
     public static void main(String[] args) {
         launch();

@@ -46,7 +46,6 @@ public class Model extends Observable {
             thread t = new thread(new runnable() {
 
      *
-     * @docauthor Trelent
      */
     public Model(GameMode mode, String ip, int port, String name) {
         gameManager = null;
@@ -165,7 +164,6 @@ public class Model extends Observable {
      *
      * @return A boolean value
      *
-     * @docauthor Trelent
      */
     public boolean joinGame(String name) {
         String joinString = GameCommandsFactory.getJoinGameCommandString(name);
@@ -189,7 +187,6 @@ public class Model extends Observable {
      * @param col int  Determine the column where the word is to be placed
      * @param vertical boolean  Determine if the word is placed vertically or horizontally
      *
-     * @docauthor Trelent
      */
     public void tryPlaceWord(String word, int row, int col, boolean vertical) {
         String tryPlaceWordQuery = GameCommandsFactory.getTryPlaceWordCommandString(playerId, word, row, col, vertical);
@@ -208,7 +205,6 @@ public class Model extends Observable {
      *
      * @return A boolean
      *
-     * @docauthor Trelent
      */
     public boolean challenge(String word, int row, int col, boolean vertical) {
         String challengeWordQuery =  GameCommandsFactory.getChallengeCommandString(playerId, word, row, col, vertical);
@@ -223,7 +219,6 @@ public class Model extends Observable {
      *
      * @return The board as a byte array
      *
-     * @docauthor Trelent
      */
     public Board getBoard() {
         String getBoardString = GameCommandsFactory.getGetBoardCommandString(playerId);
@@ -241,7 +236,6 @@ public class Model extends Observable {
      *
      * @return The gamemanager object
      *
-     * @docauthor Trelent
      */
     public GameManager getGameManager() {
         return gameManager;
@@ -252,7 +246,6 @@ public class Model extends Observable {
      *
      * @param gameManager Set the gamemanager variable
      *
-     * @docauthor Trelent
      */
     public void setGameManager(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -263,7 +256,6 @@ public class Model extends Observable {
      *
      * @return A tile object
      *
-     * @docauthor Trelent
      */
     public Tile getRand() {
         String getBagString = GameCommandsFactory.getGetRandTileString(playerId);
@@ -281,7 +273,6 @@ public class Model extends Observable {
      *
      * @param dictionaries Pass in a variable number of arguments
      *
-     * @docauthor Trelent
      */
     public void setGameDictionaries(String... dictionaries){
         String getSetGameDictionariesString = GameCommandsFactory.getSetGameDictionariesString(playerId, dictionaries);
@@ -292,8 +283,6 @@ public class Model extends Observable {
      * The getPlayerId function returns the playerId of the Player object.
      *
      * @return The playerid of the current player object
-     *
-     * @docauthor Trelent
      */
     public int getPlayerId() {
         return playerId;
@@ -303,8 +292,6 @@ public class Model extends Observable {
      * The getMessageFromHost function is a getter function that returns the messageFromHost property.
      *
      * @return A string property
-     *
-     * @docauthor Trelent
      */
     public StringProperty getMessageFromHost() {
         messageFromHost = new SimpleStringProperty();
@@ -314,7 +301,6 @@ public class Model extends Observable {
     /**
      * The skipTurn function is used to skip a player's turn.
      * It takes no arguments and returns nothing.
-     * @docauthor Trelent
      */
     public void skipTurn() {
         String skipTurnString =  GameCommandsFactory.getSkipTurnString(playerId);
@@ -325,8 +311,7 @@ public class Model extends Observable {
      * The swapTiles function is used to swap the tiles in a player's hand with new tiles from the bag.
      * The function takes no parameters and returns nothing. It simply sends a command to the server,
      * which then updates all the clients' games accordingly.
-     *
-     * @docauthor Trelent
+
      */
     public void swapTiles(){
         String swapTilesString =  GameCommandsFactory.getSwapTilesString(playerId);

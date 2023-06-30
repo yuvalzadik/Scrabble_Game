@@ -14,10 +14,6 @@ public class TurnManager implements Serializable {
     /**
      * The TurnManager function is used to keep track of the turns in a game.
      * It keeps track of the current turn, and also allows for adding new turns.
-
-     * <p>
-     *
-     * @docauthor Trelent
      */
     public TurnManager(){
         turns = new ArrayList<>();
@@ -32,8 +28,6 @@ public class TurnManager implements Serializable {
      * least once before calling getNextPlayer(). If this function isn't used, then there's no way to know who goes next!
      *
      * @param players Sort the players in order of the highest score to lowest
-     *
-     * @docauthor Trelent
      */
     public void setTurns(Map<Integer, Player> players){
         turns = players.keySet().stream().sorted(
@@ -48,8 +42,6 @@ public class TurnManager implements Serializable {
      *
      *
      * @return The current turn
-     *
-     * @docauthor Trelent
      */
     public int getCurrentTurn() {
         return turns.get(currentTurnIndex);
@@ -57,10 +49,6 @@ public class TurnManager implements Serializable {
 
     /**
      * The nextTurn function increments the currentTurnIndex by 1, and then uses the modulus operator to ensure that it is within bounds.
-     * <p>
-     *
-     *
-     * @docauthor Trelent
      */
     public void nextTurn() {
         currentTurnIndex = (currentTurnIndex+1) % turns.size();
@@ -68,12 +56,9 @@ public class TurnManager implements Serializable {
 
     /**
      * The getTurns function returns the list of turns that have been made in the game.
-     * <p>
      *
      *
      * @return A list of integers that represents the turns taken by the player
-     *
-     * @docauthor Trelent
      */
     public List<Integer> getTurns() {
         return turns;
@@ -85,8 +70,6 @@ public class TurnManager implements Serializable {
      *
      *
      * @return The index of the current turn
-     *
-     * @docauthor Trelent
      */
     public int getCurrentTurnIndex() {
         return currentTurnIndex;

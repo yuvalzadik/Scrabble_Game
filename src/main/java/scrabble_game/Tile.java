@@ -24,8 +24,6 @@ public class Tile implements Serializable{
      * @param o Object  Compare the current object with another object
      *
      * @return True if the letter and score of two tiles are equal
-     *
-     * @docauthor Trelent
      */
     @Override
     public boolean equals(Object o) {
@@ -43,8 +41,7 @@ public class Tile implements Serializable{
      * <p>
      *
      * @return The hashcode of the letter and score
-     *
-     * @docauthor Trelent
+
      */
     @Override
     public int hashCode() {
@@ -87,8 +84,7 @@ public class Tile implements Serializable{
          *
          *
          * @return A random tile from the bag
-         *
-         * @docauthor Trelent
+
          */
         public Tile getRand() {
             if (current_amount_bag ==0)
@@ -115,7 +111,6 @@ public class Tile implements Serializable{
          *
          * @return A tile from the bag
          *
-         * @docauthor Trelent
          */
         public Tile getTile(char letter){
             //if (letter.matches("[A-Z]{1}"))
@@ -132,11 +127,9 @@ public class Tile implements Serializable{
         }
         /**
          * The put function adds a tile to the bag.
-         * <p>
          *
          * @param t Tile  Determine which tile to put back into the bag
-         *
-         * @docauthor Trelent
+
          */
         public void put(Tile t){
             int tile_location = t.letter - 'A';
@@ -151,8 +144,6 @@ public class Tile implements Serializable{
          *
          *
          * @return The current amount of items in the bag
-         *
-         * @docauthor Trelent
          */
         public int size() {
             return current_amount_bag;
@@ -163,8 +154,6 @@ public class Tile implements Serializable{
          *
          *
          * @return A copy of the letter_amount array
-         *
-         * @docauthor Trelent
          */
         public int[] getQuantities() {
             return this.letter_amount.clone();
@@ -175,8 +164,6 @@ public class Tile implements Serializable{
          *
          *
          * @return The instance of the bag class
-         *
-         * @docauthor Trelent
          */
         public static Bag getBag() {
             if (_instance ==null) {
@@ -197,8 +184,7 @@ public class Tile implements Serializable{
      * @param tile Pass the tile object to the function
      *
      * @return A byte array
-     *
-     * @docauthor Trelent
+
      */
     static public byte[] serialize(Tile tile){
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -226,8 +212,7 @@ public class Tile implements Serializable{
      * @param bytes Convert the byte array to a bytearrayinputstream object
      *
      * @return An object of type tile
-     *
-     * @docauthor Trelent
+
      */
     static public Tile deserialize(byte[] bytes){
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);

@@ -3,7 +3,7 @@ package view.data;
 import model.GameManager;
 import model.Model;
 import scrabble_game.MyServer;
-import viewModel.ViewModel;
+import viewmodel.ViewModel;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -23,8 +23,6 @@ public class ViewShareData implements Observer {
 
      *
      * @param  viewModel Get the data from the viewmodel
-     *
-     * @docauthor Trelent
      */
     public ViewShareData(ViewModel viewModel) {
 
@@ -42,8 +40,6 @@ public class ViewShareData implements Observer {
      *
      *
      * @return The viewmodel object
-     *
-     * @docauthor Trelent
      */
     public ViewModel getViewModel() {
         return viewModel;
@@ -54,8 +50,6 @@ public class ViewShareData implements Observer {
      * <p>
      *
      * @param  gameModelReceiver Set the gamemanagerreceiver variable
-     *
-     * @docauthor Trelent
      */
     public void setGameManagerReceiver(GameManagerReceiver gameModelReceiver) {
         this.gameManagerReceiver = gameModelReceiver;
@@ -67,8 +61,6 @@ public class ViewShareData implements Observer {
      * <p>
      *
      * @param  host Set the ishost variable to true or false
-     *
-     * @docauthor Trelent
      */
     public void setHost(boolean host) {
         isHost = host;
@@ -80,8 +72,6 @@ public class ViewShareData implements Observer {
      *
      *
      * @return The value of the ishost variable
-     *
-     * @docauthor Trelent
      */
     public boolean getHost(){
         return isHost;
@@ -92,8 +82,6 @@ public class ViewShareData implements Observer {
      * <p>
      *
      * @param  bookScrabbleServer Set the bookscrabbleserver variable to the value of bookscrabbleserver
-     *
-     * @docauthor Trelent
      */
     public void setBookScrabbleServer(MyServer bookScrabbleServer) {
         this.bookScrabbleServer = bookScrabbleServer;
@@ -105,7 +93,6 @@ public class ViewShareData implements Observer {
      *
      * @param  hostIp Set the host ip address
      *
-     * @docauthor Trelent
      */
     public void setHostIp(String hostIp) {
         this.hostIp = hostIp;
@@ -117,8 +104,6 @@ public class ViewShareData implements Observer {
      *
      *
      * @return The hostip variable
-     *
-     * @docauthor Trelent
      */
     public String getHostIp() {
         return hostIp;
@@ -129,8 +114,6 @@ public class ViewShareData implements Observer {
      * <p>
      *
      * @param  hostPort Set the hostport variable
-     *
-     * @docauthor Trelent
      */
     public void setHostPort(int hostPort) {
         this.hostPort = hostPort;
@@ -142,8 +125,6 @@ public class ViewShareData implements Observer {
      *
      *
      * @return The hostport variable
-     *
-     * @docauthor Trelent
      */
     public int getHostPort() {
         return hostPort;
@@ -156,7 +137,6 @@ public class ViewShareData implements Observer {
      * @param o Observable  Identify the observable object that has changed
      * @param arg Object  Pass data to the observer
      *
-     * @docauthor Trelent
      */
     @Override
     public void update(Observable o, Object arg) {

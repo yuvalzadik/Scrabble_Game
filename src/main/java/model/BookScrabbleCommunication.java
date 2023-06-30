@@ -24,12 +24,9 @@ public class BookScrabbleCommunication {
 
     /**
      * The get_instance function is a singleton function that returns the instance of the BookScrabbleCommunication class.
-     * <p>
-     *
      *
      * @return The instance of the class
      *
-     * @docauthor Trelent
      */
     public static BookScrabbleCommunication get_instance() {
         if (_instance == null) {
@@ -46,8 +43,6 @@ public class BookScrabbleCommunication {
      * @param inString inString Send the challenge to bookscrabblehandler
      *
      * @return A string
-     *
-     * @docauthor Trelent
      */
     public String runChallengeOrQuery(String inString){
         try{
@@ -70,9 +65,8 @@ public class BookScrabbleCommunication {
 
     /**
      * The setGameDictionaries function takes in an ArrayList of Strings and sets the dictionaries variable to that ArrayList.
-     * <p>
      *
-     * @param dictionaries<String> - Set the dictionaries arraylist in the class
+     * @param dictionaries - Set the dictionaries arraylist in the class
      *
      */
     public void setGameDictionaries(ArrayList<String> dictionaries) {
@@ -84,7 +78,6 @@ public class BookScrabbleCommunication {
      *
      * @return A string that contains all the dictionaries in the array
      *
-     * @docauthor Trelent
      */
     public String getDictionaries() {
         return String.join(",", dictionaries);

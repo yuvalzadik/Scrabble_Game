@@ -52,7 +52,6 @@ public class DictionaryManager {
      *
      * @return A boolean value
      *
-     * @docauthor Trelent
      */
     public boolean query(String... args) {
         return challengequery("query", args);
@@ -60,13 +59,10 @@ public class DictionaryManager {
 
     /**
      * The challenge function is used to challenge a player.
-     * <p>
      *
      * @param args Pass in an array of strings
      *
      * @return A boolean value
-     *
-     * @docauthor Trelent
      */
     public boolean challenge(String... args) {
         return challengequery("challenge", args);
@@ -76,11 +72,9 @@ public class DictionaryManager {
      * The get function is a static function that returns the singleton instance of
      * DictionaryManager. If no instance exists, it creates one and then returns it.
 
-     * <p>
      *
      * @return The singletone instance of the class
-     *
-     * @docauthor Trelent
+
      */
     public static DictionaryManager get() {
         if (singletone == null)
@@ -90,12 +84,10 @@ public class DictionaryManager {
 
     /**
      * The getSize function returns the size of the ArrayList Books.
-     * <p>
      *
      *
      * @return The size of the arraylist
      *
-     * @docauthor Trelent
      */
     public int getSize() {
         return Books.size();

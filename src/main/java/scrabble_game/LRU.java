@@ -7,11 +7,8 @@ public class LRU implements CacheReplacementPolicy {
 
     /**
      * The add function adds a word to the cache.
-     * <p>
      *
      * @param word Add a word to the cache
-     *
-     * @docauthor Trelent
      */
     public void add(String word) {
         if (wordcache.contains(word))
@@ -25,8 +22,6 @@ public class LRU implements CacheReplacementPolicy {
      *
      *
      * @return and remove the last word of the hashset
-     *
-     * @docauthor Trelent
      */
     public String remove() {
         if (wordcache.isEmpty())
