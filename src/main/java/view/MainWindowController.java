@@ -126,6 +126,14 @@ public class MainWindowController {
     StringProperty lastWord;
     Map<String, String> placedTiles;
 
+    /**    
+     * The MainWindowController function is the constructor for the MainWindowController class.
+     * It initializes all the properties that are used in this class, including:
+     * lastWord, playerAction, placedTiles and startGame. It also calls two other functions to initialize more properties:
+     * initializeTileProperties() and initializeNameProperties(). These functions are explained below.
+     *
+     * @docauthor Trelent
+     */
     public MainWindowController(){
         lastWord = new SimpleStringProperty();
         playerAction = new SimpleStringProperty();
@@ -137,6 +145,13 @@ public class MainWindowController {
         initializeScoreProperties();
     }
 
+    /**    
+     * The initializeScoreProperties function initializes the score properties of each player.
+    
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void initializeScoreProperties() {
         firstPlayerScore = new Label();
         secondPlayerScore = new Label();
@@ -144,6 +159,13 @@ public class MainWindowController {
         fourthPlayerScore = new Label();
     }
 
+    /**
+     * The initializeNameProperties function initializes the name properties of each player.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void initializeNameProperties() {
         firstPlayerName = new Label();
         secondPlayerName = new Label();
@@ -151,6 +173,14 @@ public class MainWindowController {
         fourthPlayerName = new Label();
     }
 
+    /**
+     * The initializeTileProperties function initializes the tile properties for each of the seven tiles.
+     * It sets their text to be blank and their score to be 0.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void initializeTileProperties(){
         firstTileLetter = new Label();
         secondTileLetter = new Label();
@@ -169,6 +199,15 @@ public class MainWindowController {
         sevenTileScore = new Label();
     }
 
+    /**
+     * The initializeBoardAction function is responsible for initializing the board action.
+     * It does this by creating a new SimpleStringProperty and binding it to the cellLabel property of the viewModel.
+     * The function then adds a listener to that property, which updates the boardCellLabel whenever there is an update in that property.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void initializeBoardAction(){
         cellLabel = new SimpleStringProperty();
         ObjectProperty<String> newCellLabel = viewShareData.getViewModel().getCellLabel();
@@ -176,6 +215,16 @@ public class MainWindowController {
         newCellLabel.addListener(((observable, oldLabel, newLabel) -> updateBoardCellLabel(newLabel)));
     }
 
+    /**
+     * The initializeViewModelUpdates function is responsible for initializing the viewModelUpdates property.
+     * The viewModelUpdates property is a StringProperty that holds the current state of the View Model's updates.
+     * This function binds this StringProperty to a new SimpleStringProperty, which in turn is bound to another
+     * SimpleStringProperty held by the View Share Data object. This second SimpleStringProperty holds all       * the updates from our View Model and will be updated whenever there are changes made to it by our Controller class.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void initializeViewModelUpdates(){
         viewModelUpdates = new SimpleStringProperty();
         StringProperty newViewModelUpdates = viewShareData.getViewModel().getViewModelUpdates();
@@ -185,6 +234,16 @@ public class MainWindowController {
         }));
     }
 
+    /**
+     * The handleViewModelUpdates function is a helper function that handles the updates from the view model.
+     * It takes in a string, which represents an action to be performed by this function.
+     * The switch statement then performs different actions based on what string was passed into it.
+
+     *
+     * @param  newAction Determine which action to take
+     *
+     * @docauthor Trelent
+     */
     private void handleViewModelUpdates(String newAction) {
         switch(newAction){
             case "dictionaryNotLegal" -> Platform.runLater(this::showChallengeWindow);
@@ -195,6 +254,15 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * The showChallengeWindow function is called when the user clicks on the &quot;Challenge&quot; button.
+     * It displays a confirmation window asking if they would like to challenge the dictionary.
+     * If yes, it sets playerAction to &quot;Challenge&quot; and resets word parameters. Otherwise, it updates view model data in ViewShareData class.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void showChallengeWindow() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Dictionary Challenge");
@@ -225,6 +293,14 @@ public class MainWindowController {
         });
     }
 
+    /**
+     * The updateBoardCellLabel function is used to update the label of a cell on the board.
+     * <p>
+     *
+     * @param  newLabel Update the board cell label
+     *
+     * @docauthor Trelent
+     */
     private void updateBoardCellLabel(String newLabel) {
         String[] splitted = newLabel.split(",");
         StackPane square = (StackPane) boardGridPane.getChildren().get(Integer.parseInt(splitted[0]));
@@ -254,6 +330,14 @@ public class MainWindowController {
         else squareLabel.setText(splitted[1]);
     }
 
+    /**
+     * The bindButtonsProperties function binds the visibility of the buttons to their respective properties in
+     * viewShareData.getViewModel().submit, viewShareData.getViewModel().resign, and viewShareData.getViewModel().skipTurn
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void bindButtonsProperties(){
         submit.visibleProperty().bind(viewShareData.getViewModel().submit.get().visibleProperty());
         resign.visibleProperty().bind(viewShareData.getViewModel().resign.get().visibleProperty());
@@ -261,6 +345,14 @@ public class MainWindowController {
         startGame.visibleProperty().bind(viewShareData.getViewModel().startGame.get().visibleProperty());
     }
 
+    /**
+     * The bindPlayerProperties function binds the player names and scores to their respective text fields.
+     * This allows for the view to be updated when a player's name or score changes.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void bindPlayerProperties(){
         firstPlayerName.textProperty().bind(viewShareData.getViewModel().firstPlayerName);
         secondPlayerName.textProperty().bind(viewShareData.getViewModel().secondPlayerName);
@@ -273,6 +365,15 @@ public class MainWindowController {
         fourthPlayerScore.textProperty().bind(viewShareData.getViewModel().fourthPlayerScore);
     }
 
+    /**
+     * The bindTilesProperties function binds the text properties of each tile to the corresponding
+     * property in the view model. This allows for changes made to these properties in the view model
+     * to be reflected on screen.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void bindTilesProperties(){
         firstTileLetter.textProperty().bind(viewShareData.getViewModel().firstTileLetter);
         secondTileLetter.textProperty().bind(viewShareData.getViewModel().secondTileLetter);
@@ -291,15 +392,42 @@ public class MainWindowController {
         sevenTileScore.textProperty().bind(viewShareData.getViewModel().sevenTileScore);
     }
 
+    /**
+     * The initializeHostAction function is called when the user clicks on the &quot;Host&quot; button.
+     * It sets up a new game, and then calls initializeGameAction to start it.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void initializeHostAction(){
         viewShareData.getViewModel().initializeHostAction();
     }
 
+    /**
+     * The initializePlayerAction function is used to bind the playerAction and lastWord properties of the viewShareData's ViewModel
+     * to their respective properties in this class. This allows for changes made in either property to be reflected on both sides.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void initializePlayerAction(){
         viewShareData.getViewModel().getPlayerAction().bind(playerAction);
         viewShareData.getViewModel().getLastWord().bind(lastWord);
     }
 
+    /**
+     * The Submit function is called when the user clicks on the Submit button.
+     * It calls buildWord() to create a string of all letters in the word, then
+     * sets playerAction to &quot;Submit,&quot; + lastWord. This will be read by GameController,
+     * which will check if it's a valid word and update scores accordingly.
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void Submit(ActionEvent event) throws IOException {
         buildWord();
@@ -307,6 +435,16 @@ public class MainWindowController {
         playerAction.set("Submit," + lastWord);
     }
 
+    /**
+     * The buildWord function is used to build the word that the player has placed on the board.
+     * It does this by first finding where in the grid of tiles it should start building from, and then
+     * iterating through each tile until it reaches a null value (which means there are no more letters).
+     * The function also determines whether or not a word is vertical or horizontal based on how many rows/columns away from each other they are.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void buildWord() {
         StringBuilder stringBuilder = new StringBuilder();
         startRow = 14;
@@ -343,17 +481,44 @@ public class MainWindowController {
         resetWordParameters();
     }
 
+    /**
+     * The resetWordParameters function clears the placedTiles ArrayList and sets playerWord to an empty string.
+     * This function is called after a word has been successfully played, so that the next word can be played.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void resetWordParameters(){
         placedTiles.clear();
         playerWord = "";
     }
 
+    /**
+     * The ReloadTiles function is called when the user clicks on the &quot;Reload Tiles&quot; button.
+     * It sets playerAction to &quot;reset&quot;, which resets all of the tiles in play, and then it sets
+     * playerAction to &quot;SwapTiles&quot;, which swaps out any tiles that are not currently in play.
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void ReloadTiles(ActionEvent event) throws IOException {
         playerAction.setValue("reset");
         playerAction.setValue("SwapTiles");
     }
 
+    /**
+     * The ShuffleTiles function is used to shuffle the tiles in a random order.
+     * It does this by collecting all the VBox elements from the HBox, shuffling them, and then adding them back to the HBox.
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void ShuffleTiles(ActionEvent event) throws IOException {
         List<VBox> tileContainers = new ArrayList<>();
@@ -376,12 +541,36 @@ public class MainWindowController {
 
 
 
+    /**
+     * The SkipTurn function is called when the user clicks on the Skip Turn button.
+     * It sets playerAction to &quot;reset&quot; and then to &quot;SkipTurn&quot;. This allows for a
+     * reset of any previous action that was set, and then it sets playerAction to
+     * &quot;SkipTurn&quot;, which will be read by the game engine in order for it to skip
+     * over this players turn. The function also closes out of this window after
+     * setting playerAction so that we can return into our main game window.
+
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void SkipTurn(ActionEvent event) throws IOException {
         playerAction.setValue("reset");
         playerAction.setValue("SkipTurn");
     }
 
+    /**
+     * The Resign function is called when the user clicks on the Resign button.
+     * It displays a confirmation alert to make sure that the user wants to resign,
+     * and if they do, it exits out of the game.
+
+     *
+     * @param  event Get the source of the action
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void Resign(ActionEvent event) throws IOException {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -401,11 +590,31 @@ public class MainWindowController {
     }
 
 
+    /**
+     * The StartTutorial function is called when the user clicks on the &quot;Tutorial&quot; button.
+     * It loads a new scene, which displays a tutorial for how to play the game.
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void StartTutorial(ActionEvent event) throws IOException {
         loadScene(event, "Tutorial");
     }
 
+    /**
+     * The StartAsHost function is called when the user clicks on the &quot;Start as Host&quot; button.
+     * It checks if all the fields are valid, and if they are, it sets up a connection to
+     * localhost (the host's own computer) and launches BookScrabbleCommunication. If any of
+     * the fields aren't valid, an error message appears next to that field.
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void StartAsHost(ActionEvent event) throws IOException {
         boolean allValid = true;
@@ -435,10 +644,26 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * The toggleStartButton function is used to toggle the visibility of the startGame button.
+     * This function is called when a game has ended, and it allows for another game to be started.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void toggleStartButton(){
         startGame.setVisible(true);
     }
 
+    /**
+     * The connectOrLaunchBookScrabbleCommunication function is used to connect the BookScrabble game to a server.
+     * If there is no server, it will launch one.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void connectOrLaunchBookScrabbleCommunication() {
         boolean connectionSucceeded = false;
         try{
@@ -455,6 +680,17 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * The StartAsGuest function is called when the user clicks on the &quot;Start as Guest&quot; button.
+     * It checks if all the fields are valid, and if they are, it connects to a server with
+     * GameMode.Guest (which means that this client will be a guest). If any of the fields aren't valid,
+     * then an error message appears next to each invalid field. The function also loads up BoardViewController's FXML file and sets viewShareData's host variable to false (since this client is not hosting).
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void StartAsGuest(ActionEvent event) throws IOException {
         boolean allValid = true;
@@ -484,6 +720,16 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * The connectToServer function is responsible for creating a new model and setting it to the viewModel.
+     * It also creates a new GameManagerReceiver, which will be used by the client to receive messages from the server.
+     * The function then initializes both hostAction and playerAction, which are used in order to send messages from client to server.
+
+     *
+     * @param  gameMode Determine whether the client is a host or not
+     *
+     * @docauthor Trelent
+     */
     public void connectToServer(GameMode gameMode){
         Model newModel = new Model(gameMode, ipField.getText(), Integer.parseInt(portField.getText()), nameField.getText());
         if(gameMode == GameMode.Host){
@@ -500,6 +746,14 @@ public class MainWindowController {
         initializePlayerAction();
         System.out.println("Created new model -> " + gameMode);
     }
+    /**
+     * The startGame function is called when the host presses the start game button.
+     * It sends a message to all clients that they should begin playing.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void startGame(){
         Socket server = null;
@@ -518,26 +772,76 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * The loadHostForm function is called when the user clicks on the &quot;Host&quot; button.
+     * It loads a new scene, which is the HostPage.fxml file, and displays it to the user.
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void loadHostForm(ActionEvent event) throws IOException {
         loadScene(event, "HostPage");
     }
 
+    /**
+     * The loadHomePage function is used to load the HomePage scene when the user clicks on
+     * the &quot;Home&quot; button. It takes an ActionEvent as a parameter, and returns nothing.
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void loadHomePage(ActionEvent event) throws IOException {
         loadScene(event, "HomePage");
     }
 
+    /**
+     * The loadGuestForm function is called when the user clicks on the &quot;Guest&quot; button.
+     * It loads a new scene, which is the GuestPage.fxml file, and displays it to the user.
+
+     *
+     * @param  event Get the source of the action
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void loadGuestForm(ActionEvent event) throws IOException {
         loadScene(event, "GuestPage");
     }
 
+    /**
+     * The loadBoard function is called when the user clicks on the &quot;Board&quot; button.
+     * It loads a new scene, which displays all of the boards that are currently
+     * available to be viewed by this user. The BoardPageController class handles
+     * all of these actions.
+
+     *
+     * @param  event Get the source of the action
+        private void loadscene(actionevent event, string scenename) throws ioexception {
+            parent root = fxmlloader
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void loadBoard(ActionEvent event) throws IOException {
         loadScene(event, "BoardPage");
     }
 
+    /**
+     * The Exit function is called when the user clicks on the Exit button.
+     * It displays a confirmation alert to make sure that the user wants to exit,
+     * and if they do, it exits out of the game.
+
+     *
+     * @param  event Get the source of the action
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void Exit(ActionEvent event) throws IOException {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -556,11 +860,30 @@ public class MainWindowController {
     }
 
 
+    /**
+     * The BackToHomePage function is a function that allows the user to go back to the home page.
+     *
+     *
+     * @param  event Handle the event when the button is clicked
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void BackToHomePage(ActionEvent event) throws IOException {
         loadHomePage(event);
     }
 
+    /**
+     * The loadScene function is used to load a new scene into the window.
+     * <p>
+     *
+     * @param  event Get the source of the event
+     * @param  sceneName Load the correct scene
+        public void loadscene(string scenename) throws ioexception {
+            parent root = fxmlloader
+     *
+     * @docauthor Trelent
+     */
     @FXML
     public void loadScene(ActionEvent event, String sceneName) throws IOException {
         /*Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(sceneName + ".fxml")));*/
@@ -595,17 +918,55 @@ public class MainWindowController {
 
         stage.show();
     }
+    /**
+     * The validPort function checks to see if the port number is valid.
+     * <p>
+     *
+     * @param  port Check if the port number is valid
+     *
+     * @return True if the port is a valid port number, and false otherwise
+     *
+     * @docauthor Trelent
+     */
     public boolean validPort(String port) {
         return port.matches("(1000[1-9]|100[1-9]\\d|10[1-9]\\d{2}|1[1-9]\\d{3}|19999)");
     }
 
+    /**
+     * The validIp function takes a String as an argument and returns true if the string is a valid IP address.
+     * <p>
+     *
+     * @param  ip Check if the ip address is valid
+     *
+     * @return True if the string is a valid ip address
+     *
+     * @docauthor Trelent
+     */
     public boolean validIp(String ip) {
         return ip.matches("(\\b25[0-5]|\\b2[0-4][0-9]|\\b[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}") || ip.matches("localhost");
     }
 
+    /**
+     * The validName function checks to see if the name entered by the user is valid.
+     * <p>
+     *
+     * @param  name Check if the string contains only letters
+     *
+     * @return True if the name is valid
+     *
+     * @docauthor Trelent
+     */
     public boolean validName(String name) {
         return name.matches("^[A-Za-z]+$");
     }
+    /**
+     * The squareClickHandler function is used to make the tiles draggable.
+     * It also removes a tile from the board if it is clicked on.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     @FXML
     /*make the tile draggable*/
     public void squareClickHandler() {
@@ -644,6 +1005,16 @@ public class MainWindowController {
             }
         }
     }
+    /**
+     * The handleDragDetected function is called when the user clicks on a tile and drags it.
+     * It creates a Dragboard object, which contains information about the drag-and-drop gesture.
+     * The function then sets up the content of this Dragboard to be an empty string, and calls setDragView() to specify that no image should be used for dragging (the default).
+
+     *
+     * @param  event Get the source of the event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     private void handleDragDetected(MouseEvent event) {
 
@@ -663,6 +1034,16 @@ public class MainWindowController {
         event.consume();
     }
 
+    /**
+     * The handleDragOver function is called when the user drags a piece over the board.
+     * It checks to see if the source of the drag event is not from another cell in this grid pane, and that there is a string on
+     * 	the dragboard (which will be true if it's coming from one of our cells). If both are true, then we accept transfer modes for moving.
+
+     *
+     * @param  event Determine the source of the drag event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     private void handleDragOver(DragEvent event) {
         if (event.getGestureSource() != boardGridPane && event.getDragboard().hasString()) {
@@ -672,6 +1053,16 @@ public class MainWindowController {
         event.consume();
     }
 
+    /**
+     * The handleDragDropped function is called when a drag and drop operation has been completed.
+     * It sets the success variable to true, which indicates that the drag and drop operation was successful.
+     * The event is consumed so that it does not propagate further up in the scene graph hierarchy.
+
+     *
+     * @param  event Get the source of the drag event
+     *
+     * @docauthor Trelent
+     */
     @FXML
     private void handleDragDropped(DragEvent event) {
         boolean success = false;
@@ -696,15 +1087,33 @@ public class MainWindowController {
     }
 
 
+    /**
+     * The handleDragDone function is called when the user drags a card from the deck to
+     * either of the two piles. It checks if there are any cards in either pile, and if not,
+     * it adds a card to that pile. If there are cards in both piles, then it checks which
+     * one was dragged onto and adds a card to that pile. If neither of these conditions
+     * apply (i.e., both piles have cards), then nothing happens because you cannot add more than one
+     * card at once from the deck into each of those two piles (this is how solitaire works).
+
+
+     *
+     * @param  event Get the dragboard of the source
+     *
+     * @docauthor Trelent
+     */
     @FXML
     private void handleDragDone(DragEvent event) {
-//        if (event.getTransferMode() == TransferMode.MOVE) {
-//
-//        }
-//
-//        event.consume();
+
     }
 
+    /**
+     * The setViewShareData function is used to set the viewShareData variable in this class.
+     * <p>
+     *
+     * @param  viewShareData Pass data from the viewsharedata class to this class
+     *
+     * @docauthor Trelent
+     */
     public void setViewShareData(ViewShareData viewShareData){
         this.viewShareData = viewShareData;
     }

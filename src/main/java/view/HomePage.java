@@ -23,6 +23,26 @@ public class HomePage extends Application {
     private static final int SQUARE_SIZE = 30;
     private static final String[] names = {"null", "Nofar", "Yuvi", "Tamar", "Romi"};
 
+    /**
+     * The start function is the main function of the program. It creates a new
+     * GridPane object called gameBoard, which will be used to display all the
+     * tiles in our Scrabble board. The start function also creates a new HBox
+     * object called buttonBox, which will be used to display all of our buttons at
+     * the bottom of our window. Finally, it creates a VBox object called leftTabs,
+     * which will be used to display information about each player on their own tab
+
+     *
+     * @param  primaryStage Stage Set the title of the window
+        public static void main(string[] args) {
+            launch(args);
+        }
+
+        private gridpane creategameboard() {
+
+
+     *
+     * @docauthor Trelent
+     */
     @Override
     public void start(Stage primaryStage) {
         GridPane gameBoard = createGameBoard();
@@ -54,6 +74,15 @@ public class HomePage extends Application {
         primaryStage.show();
     }
 
+    /**
+     * The createGameBoard function creates a grid of squares that will be used to play the game.
+     * <p>
+     *
+     *
+     * @return A gridpane object
+     *
+     * @docauthor Trelent
+     */
     private GridPane createGameBoard() {
         GridPane gridPane = new GridPane();
 
@@ -67,6 +96,16 @@ public class HomePage extends Application {
         return gridPane;
     }
 
+    /**
+     * The createSquare function creates a square with the size of SQUARE_SIZE and fills it with white color.
+     * It also sets the stroke to black.
+
+     * <p>
+     *
+     * @return A rectangle object
+     *
+     * @docauthor Trelent
+     */
     private Rectangle createSquare() {
         Rectangle square = new Rectangle(SQUARE_SIZE, SQUARE_SIZE);
         square.setFill(Color.WHITE);
@@ -74,6 +113,15 @@ public class HomePage extends Application {
         return square;
     }
 
+    /**
+     * The createButtonBox function creates a HBox containing the buttons for the game.
+     * <p>
+     *
+     *
+     * @return A hbox
+     *
+     * @docauthor Trelent
+     */
     private HBox createButtonBox() {
         Button b_skip = new Button("Skip");
         Button b_swap = new Button("Swap");
@@ -87,6 +135,15 @@ public class HomePage extends Application {
         return buttonBox;
     }
 
+    /**
+     * The createTileBox function creates a HBox containing the buttons for each tile.
+     * <p>
+     *
+     *
+     * @return An hbox object
+     *
+     * @docauthor Trelent
+     */
     private HBox createTileBox() {
         Button b_tile1 = new Button("A");
         Button b_tile2 = new Button("B");
@@ -137,54 +194,16 @@ public class HomePage extends Application {
 
         return tileBox;
     }
-    /*
-        private VBox createLeftTabs() {
-            VBox leftTabs = new VBox();
-            leftTabs.getStyleClass().add("left-tabs");
-            leftTabs.setSpacing(10);
 
-            for (int i = 1; i <= 4; i++) {
-                Rectangle tab = createTab();
-                String player_name = names[i];
-                char firstChar = player_name.charAt(1);
-                String firstCharString = Character.toString(firstChar);
-                Label label = createLabel(player_name);
-                Label numberLabel = createNumberLabel("5");
-                /* Circle circle = createCircle("N"firstCharString);*/
-/*
-            tab.getStyleClass().add("tab");
-            numberLabel.getStyleClass().add("number-label");
-            label.getStyleClass().add("label");
-
-            VBox tabContent = new VBox(label, numberLabel);
-            tabContent.setSpacing(5);
-            tabContent.setAlignment(Pos.CENTER);
-
-            StackPane stackPane = new StackPane(tab, tabContent);
-            stackPane.setPadding(new Insets(10));
-
-            leftTabs.getChildren().add(stackPane);
-        }
-
-        Rectangle largerTab = createLargerTab();
-        Label largerLabel = createLabel("Tile Bag");
-        Label largerNumberLabel = createNumberLabel("10");
-        largerTab.getStyleClass().add("larger-tab");
-        largerLabel.getStyleClass().add("larger-label");
-
-
-        VBox largerTabContent = new VBox(largerLabel, largerNumberLabel);
-        largerTabContent.setSpacing(5);
-        largerTabContent.setAlignment(Pos.CENTER);
-
-        StackPane largerStackPane = new StackPane(largerTab, largerTabContent);
-        largerStackPane.setPadding(new Insets(10));
-
-        leftTabs.getChildren().add(largerStackPane);
-
-        return leftTabs;
-    }
-*/
+    /**
+     * The createLeftTabs function creates the left tabs that are displayed on the screen.
+     * <p>
+     *
+     *
+     * @return A vbox
+     *
+     * @docauthor Trelent
+     */
     private VBox createLeftTabs() {
         VBox leftTabs = new VBox();
         leftTabs.getStyleClass().add("left-tabs");
@@ -237,6 +256,16 @@ public class HomePage extends Application {
 
         return leftTabs;
     }
+    /**
+     * The createCircle function creates a circle with the given text in it.
+     * <p>
+     *
+     * @param  text Set the text of the text object
+     *
+     * @return A stackpane object
+     *
+     * @docauthor Trelent
+     */
     private StackPane createCircle(String text) {
         Circle circle = new Circle(25, Color.PINK);
         Text circleText = new Text(text);
@@ -248,12 +277,34 @@ public class HomePage extends Application {
 
         return circlePane;
     }
+    /**
+     * The createLargerTab function creates a larger tab that is used to display the
+     * information of the selected tab. It returns a rectangle with dimensions 300x120,
+     * filled with white and outlined in black.
+
+     * <p>
+     *
+     * @return A rectangle object
+     *
+     * @docauthor Trelent
+     */
     private Rectangle createLargerTab() {
         Rectangle largerTab = new Rectangle(300, 120);
         largerTab.setFill(Color.WHITE);
         largerTab.setStroke(Color.BLACK);
         return largerTab;
     }
+    /**
+     * The createTab function creates a rectangle with the dimensions of 150 by 80.
+     * It then sets up an array of stops, which are used to create a linear gradient.
+     * The linear gradient is set as the fill for the rectangle and it's stroke is set to black.
+
+     * <p>
+     *
+     * @return A rectangle
+     *
+     * @docauthor Trelent
+     */
     private Rectangle createTab() {
         Rectangle tab = new Rectangle(150, 80);
 
@@ -271,18 +322,46 @@ public class HomePage extends Application {
         return tab;
     }
 
+    /**
+     * The createLabel function creates a label with the given text and sets its style to bold.
+     * <p>
+     *
+     * @param  text Set the text of the label
+     *
+     * @return A label object
+     *
+     * @docauthor Trelent
+     */
     private Label createLabel(String text) {
         Label label = new Label(text);
         label.setStyle("-fx-font-weight: bold");
         return label;
     }
 
+    /**
+     * The createNumberLabel function creates a Label object with the given number as its text.
+     *
+     *
+     * @param  number Create the label
+     *
+     * @return A label object that contains a number
+     *
+     * @docauthor Trelent
+     */
     private Label createNumberLabel(String number) {
         Label numberLabel = new Label(number);
         numberLabel.setStyle("-fx-font-size: 20px");
         return numberLabel;
     }
 
+    /**
+     * The main function of the program.
+     * <p>
+     *
+     * @param  args Pass command line arguments to the application
+     *
+     * @docauthor Trelent
+     */
     public static void main(String[] args) {
         launch(args);
     }

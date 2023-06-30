@@ -9,6 +9,15 @@ import viewModel.ViewModel;
 
 import java.io.IOException;
 public class Main extends Application {
+    /**
+     * The start function is the main function of the program.
+     * It loads an FXML file and sets it as a scene in a stage.
+     * <p>
+     *
+     * @param  stage Set the scene
+     *
+     * @docauthor Trelent
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
@@ -24,6 +33,14 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * The main function of the program.
+     * <p>
+     *
+     * @param  args Pass command line arguments to the main function
+     *
+     * @docauthor Trelent
+     */
     public static void main(String[] args) {
         launch();
     }
