@@ -1,4 +1,4 @@
-package viewModel;
+package viewmodel;
 
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -64,6 +64,14 @@ public class ViewModel {
     List<StringProperty> playersNames;
     List<StringProperty> playersScores;
 
+    /**
+     * The ViewModel function is the constructor for the ViewModel class.
+     * It initializes all of the properties that are used in this class, and sets up listeners to handle changes in those properties.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public ViewModel(){
         model = null;
         messageFromHost = new SimpleStringProperty();
@@ -82,6 +90,15 @@ public class ViewModel {
         initializePlayerProperties();
     }
 
+    /**
+     * The initializePlayerProperties function initializes the player properties.
+     * It creates a new SimpleStringProperty for each of the four players' names and scores,
+     * then adds them to their respective ArrayLists.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void initializePlayerProperties() {
         firstPlayerName = new SimpleStringProperty();
         secondPlayerName = new SimpleStringProperty();
@@ -103,6 +120,14 @@ public class ViewModel {
         playersScores.add(fourthPlayerScore);
     }
 
+    /**
+     * The initializeTileProperty function initializes the tile properties for each of the seven tiles.
+     * The function also adds these properties to two ArrayLists, one for letters and one for scores.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void initializeTileProperty(){
         firstTileLetter = new SimpleStringProperty();
         secondTileLetter = new SimpleStringProperty();
@@ -137,6 +162,14 @@ public class ViewModel {
         tileScores.add(sevenTileScore);
     }
 
+    /**
+     * The initializeButtons function initializes the buttons that are used in the game.
+     * It sets up a new button for each of the four buttons that are used in this game.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void initializeButtons(){
         submit = new SimpleObjectProperty<>();
         resign = new SimpleObjectProperty<>();
@@ -149,14 +182,40 @@ public class ViewModel {
         skipTurn.set(new Button());
     }
 
+    /**
+     * The getMessageFromHost function returns the messageFromHost property.
+     * <p>
+     *
+     *
+     * @return The messagefromhost property
+     *
+     * @docauthor Trelent
+     */
     public StringProperty getMessageFromHost() {
         return messageFromHost;
     }
 
+    /**
+     * The getPlayerAction function returns the playerAction property.
+     * <p>
+     *
+     *
+     * @return A stringproperty object
+     *
+     * @docauthor Trelent
+     */
     public StringProperty getPlayerAction() {
         return playerAction;
     }
 
+    /**
+     * The initializeHostAction function is called by the initialize function in the Controller class.
+     * It sets up a listener for changes to the messageFromHost property of the model, and calls manageHostMessage when it detects a change.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void initializeHostAction(){
         messageFromHost = new SimpleStringProperty();
         messageFromHost.bind(model.getMessageFromHost());
@@ -165,6 +224,18 @@ public class ViewModel {
         }));
     }
 
+    /**
+     * The manageHostMessage function is a switch statement that takes in the action string from the server and performs
+     * an action based on what it receives. The actions are as follows:
+     * wordInsertSuccessfully - prints out &quot;Your turn has ended!&quot; to let the user know their turn is over.
+     * dictionaryNotLegal - calls the dictionaryNotLegal function which displays an alert box telling them their word was not legal.
+     * updateView - calls updateView which updates all of our views with new information from our model (the board, score, etc.)
+     * playTurn - calls playTurn which allows us to make a move by clicking on
+     *
+     * @param  newAction Determine which action to perform
+     *
+     * @docauthor Trelent
+     */
     public void manageHostMessage(String newAction){
         switch(newAction){
             case "wordInsertSuccessfully" -> System.out.println("Your turn has ended!");
@@ -176,18 +247,50 @@ public class ViewModel {
         }
     }
 
+    /**
+     * The bindButtons function binds the buttons to their respective functions.
+     * The bindButtons function is called in the onCreate method of MainActivity.java
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void bindButtons() {
         viewModelUpdates.setValue("bindButtons");
     }
 
+    /**
+     * The playTurn function is the main function of the game. It updates all buttons,
+     * checks if a player has won, and switches turns.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void playTurn() {
         updateButtons();
     }
 
+    /**
+     * The dictionaryNotLegal function is called when the user attempts to load a dictionary that does not exist.
+     * It sets the value of viewModelUpdates to &quot;dictionaryNotLegal&quot; so that the View can display an error message.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void dictionaryNotLegal(){
         viewModelUpdates.setValue("dictionaryNotLegal");
     }
 
+    /**
+     * The updateView function is called by the controller whenever a change in the model occurs.
+     * It updates all the GUI elements to reflect this change.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     public void updateView() {
         Platform.runLater(() -> {
             updateTiles();
@@ -198,6 +301,15 @@ public class ViewModel {
         Board.printBoard(model.getGameManager().board);
     }
 
+    /**
+     * The updateBoard function is called by the update function in order to update the board.
+     * It iterates through each tile on the gameboard and updates its corresponding label with
+     * either a letter or &quot;default&quot; if there is no tile on that space.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void updateBoard() {
         int current = 0;
         Tile[][] gameBoard = getGameManager().board.getTiles();
@@ -210,6 +322,13 @@ public class ViewModel {
         }
     }
 
+    /**
+     * The updatePlayers function updates the players' names and scores in the game.
+     * <p>
+     *
+     *
+     * @docauthor Trelent
+     */
     private void updatePlayers() {
         ArrayList<Player> playersList = new ArrayList<>(model.getGameManager().getPlayers().values());
         for(int i = 0; i < playersNames.size(); i++){
@@ -224,6 +343,15 @@ public class ViewModel {
         }
     }
 
+    /**
+     * The updateButtons function is called whenever the game state changes.
+     * It updates the visibility of buttons based on whether or not it is currently
+     * this player's turn, and if so, whether they have submitted their move yet.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void updateButtons() {
         if(!getGameManager().gameStarted || getGameManager().turnManager.getCurrentTurnIndex() == -1) return;
         if(getGameManager().turnManager.getCurrentTurn() == model.getPlayerId()){
@@ -240,6 +368,13 @@ public class ViewModel {
         }
     }
 
+    /**
+     * The updateTiles function updates the tiles in the player's hand.
+     * <p>
+     *
+     *
+     * @docauthor Trelent
+     */
     private void updateTiles() {
         Player player = model.getGameManager().getPlayers().get(model.getPlayerId());
         List<Tile> tiles = player.getTiles();
@@ -249,6 +384,16 @@ public class ViewModel {
         }
     }
 
+    /**
+     * The managePlayerAction function is responsible for managing the actions of a player.
+     * It takes in a string that represents an action and then performs the appropriate action.
+     * The function will call tryPlaceWord, challenge, skipTurn or swapTiles depending on what it receives as input.
+
+     *
+     * @param  newAction Determine what the player wants to do
+     *
+     * @docauthor Trelent
+     */
     public void managePlayerAction(String newAction){
         String[] splitted = newAction.split(",");
         switch(splitted[0]){
