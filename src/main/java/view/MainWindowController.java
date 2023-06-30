@@ -502,7 +502,6 @@ public class MainWindowController {
     }
     @FXML
     public void startGame(){
-        //viewShareData.getViewModel().getGameManager().turnManager.setTurns(viewShareData.getViewModel().getGameManager().getPlayers());
         Socket server = null;
         try{
             server = new Socket(viewShareData.getHostIp(), viewShareData.getHostPort());

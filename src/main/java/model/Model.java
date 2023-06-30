@@ -56,8 +56,8 @@ public class Model extends Observable {
                         case "playTurn"-> playTurn();
                         case "bindButtons" -> bindButtons();
                         //challenge
-                        case "challengeSucceeded"-> System.out.println("trueMeyuhad");
-                        case "challengeFailed"-> System.out.println("trueMeyuhad");
+                        case "challengeSucceeded"-> System.out.println("Challenge Succeeded - Word is placed on board.");
+                        case "challengeFailed"-> System.out.println("Challenge Failed - You lost 10 points!");
 
                         //tryPlaceWord
                         case "wordInsertSuccessfully"-> wordInsertSuccessfully();
