@@ -1,11 +1,10 @@
 package model;
 
 import scrabble_game.*;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
+
 
 public class GameClientHandler implements ClientHandler {
     PrintWriter out;
@@ -17,11 +16,24 @@ public class GameClientHandler implements ClientHandler {
 
 
 
+    /**
+     * The GameClientHandler function is responsible for handling the client's requests.
+     * It receives a request from the client, and sends back an appropriate response.
+     * @docauthor Trelent
+     */
     public GameClientHandler() {
         this.gameManager = GameManager.get_instance();
         this.stillPlaying = true;
     }
 
+    /**
+     * The handleClient function is the main function of the ClientHandler class.
+     * It handles all communication between a client and server, and it also calls
+     * other functions in order to handle specific tasks. The function takes two parameters:
+     * an InputStream from which it reads data sent by the client, and an OutputStream to which it writes data that will be sent back to the client.
+     * @param  inFromclient - InputStream  Read the input from the client
+     * @param outToClient - OutputStream  Send data to the client
+     */
     @Override
     public void handleClient(InputStream inFromclient, OutputStream outToClient) {
         in = new BufferedReader(new InputStreamReader(inFromclient));
@@ -41,6 +53,18 @@ public class GameClientHandler implements ClientHandler {
         }
     }
 
+    /**
+     * The handleInput function is responsible for handling the input from the client.
+     * It receives a string, which represents an action that was performed by one of the players.
+     * The function then parses this string and performs all necessary actions in order to update
+     * both clients' boards accordingly. After performing these actions, it returns a response to be sent back to the client who sent this request.
+
+     *
+     * @param input String  Get the player id and command from the client
+     *
+     * @return  a string value according the specific command  switch case result;
+
+     */
     private String handleInput(String input) {
         int playerId = Integer.parseInt(input.split(",")[0]);
         Board.printBoard(gameManager.board);
@@ -115,9 +139,18 @@ public class GameClientHandler implements ClientHandler {
     }
 
     /**
-     * TODO: chnge this function that will remove from the player tile array and not from the game bag
-     * @param input
-     * @return
+     * The buildWordFromPlayer function takes in a string input from the client and parses it into a Word object.
+     * The function first splits the input string by commas, which separates each piece of information about the word.
+     * It then assigns each piece of information to its respective variable (word, row, col, vertical).
+     * Next it creates an array of Tiles that will be used to create our Word object. This is done by looping through
+     * every character in our word String and creating a Tile for each one using player's getTile method (which returns
+     * null if there is no tile at that index).
+     *
+     * @param input String  Get the word, row, column and vertical orientation of the word
+     *
+     * @return A word object
+     *
+     * @docauthor Trelent
      */
     private Word buildWordFromPlayer(String input) {
         String[] splittedStr = input.split(",");
@@ -137,6 +170,9 @@ public class GameClientHandler implements ClientHandler {
         return new Word(wordTiles, row, col, vertical);
     }
 
+    /**
+     * The close function closes the input and output streams.
+     */
     @Override
     public void close() {
         try {

@@ -21,6 +21,19 @@ public class HostServer extends MyServer {
     Timer timer;
     TimerTask timerTask;
 
+    /**
+     * The HostServer function is the constructor for the HostServer class.
+     * It takes in a port number and a ClientHandler object, and initializes
+     * its serverSocket to null, as well as creating new HashMaps for socketMap
+     * and modelReceivers. The gameIsRunning boolean is set to false by default,
+     * while timerTask is initialized to null.
+
+     *
+     * @param port int Set the port number for the server
+     * @param ch ClientHandler  Create a new thread for each client that connects to the server
+     *
+     * @docauthor Trelent
+     */
     public HostServer(int port, ClientHandler ch) {
         super(port, ch);
         this.serverSocket = null;
@@ -30,6 +43,14 @@ public class HostServer extends MyServer {
         timerTask = null;
     }
 
+    /**
+     * The startServer function creates a new server socket and sets the timeout to 1000 milliseconds.
+     * It then calls the connectingClients function, which waits for two clients to connect before calling playingGame.
+
+     *
+     *
+     * @docauthor Trelent
+     */
     @Override
     protected void startServer() {
         try {
@@ -43,6 +64,15 @@ public class HostServer extends MyServer {
 
     }
 
+    /**
+     * The playingGame function is the main game loop. It runs until the gameIsRunning boolean is set to false, which happens when a player wins or loses.
+     * The function starts by checking if the timerTask and timer are null, and if they are it creates new instances of them (this only happens on turn 1).
+     * Then it calls nextTurn() in TurnManager to advance turns, fills each players hand with cards from their deck using fillHand(), then schedules a task for every minute that will check for win conditions using ManageTurn().
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void playingGame() {
         if(!gameIsRunning) gameIsRunning = true;
         while(gameIsRunning){
@@ -62,6 +92,16 @@ public class HostServer extends MyServer {
         }
     }
 
+    /**
+     * The connectingClients function is responsible for accepting new connections from clients.
+     * It will accept a connection, and then check if the client has sent a &quot;startGame&quot; message.
+     * If so, it will start the game by calling the startGame function. Otherwise, it will add
+     * that player to its list of players and send them their player number (which is just their index in this list).
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void connectingClients() {
         while(!gameIsRunning){
             try{
@@ -87,6 +127,15 @@ public class HostServer extends MyServer {
         }
     }
 
+    /**
+     * The updateGuestsModel function is called whenever the game model changes.
+     * It sends a serialized version of the GameManager to all connected clients,
+     * so that they can update their views accordingly.
+
+     * <p>
+     *
+     * @docauthor Trelent
+     */
     private void updateGuestsModel() {
         new Thread(() -> {
             for(Socket s : modelReceivers.values()){
@@ -100,12 +149,28 @@ public class HostServer extends MyServer {
         }).start();
     }
 
+    /**
+     * The startGame function is responsible for starting the game.
+     * It does this by calling the startGame function in GameManager, which sets up all of the necessary variables and starts a new thread to run the game loop.
+
+     *
+     *
+     * @docauthor Trelent
+     */
     public void startGame(){
         GameManager gameManager = GameManager.get_instance();
         gameManager.startGame();
         this.gameIsRunning = true;
     }
 
+    /**
+     * The broadcastUpdate function is used to send a message to all connected clients.
+     * <p>
+     *
+     * @param message String  Send a message to all the connected clients
+     *
+     * @docauthor Trelent
+     */
     private void broadcastUpdate(String message) {
         try{
             for(Socket s : socketMap.values()){
@@ -117,11 +182,24 @@ public class HostServer extends MyServer {
         }
     }
 
+    /**
+     * The getServerStatus function returns the boolean value of gameIsRunning.
+     *
+     * @return A boolean value
+     *
+     * @docauthor Trelent
+     */
     public boolean getServerStatus(){
         return this.gameIsRunning;
     }
 
     public class ManageTurn extends TimerTask{
+        /**
+         * The run function is the main function of this class. It creates a new thread that handles the client's turn,
+         * and then updates the GUI to reflect that it is now their turn.
+         *
+         * @docauthor Trelent
+         */
         @Override
         public void run() {
             new Thread (()-> {
@@ -139,10 +217,22 @@ public class HostServer extends MyServer {
         }
     }
 
+    /**
+     * The resetCurrentTask function sets the timerTask variable to null.
+     *
+     * @docauthor Trelent
+     */
     private void resetCurrentTask(){
         timerTask = null;
     }
 
+    /**
+     * The close function is called when the user closes the window.
+     * It cancels any running timers, resets the current task to null, and then calls super.close()
+
+     *
+     * @docauthor Trelent
+     */
     @Override
     public void close() {
         timer.cancel();
