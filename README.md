@@ -107,7 +107,7 @@ To ensure that the project is managed correctly and completed in the required ti
 ###### [Java Doc URL](https://yuvalzadik.github.io/Scrabble_Game/src/main/resources/com.example.scrabble_game/module-summary.html)
 
 <br />
-###### Demonstration Video:
 
+## Demo Video
 [Link to Demo video](https://drive.google.com/drive/folders/1-36u5oP6EYYRVRwRAMFi8k3Ej38h41Oo?hl=he/view)
  
