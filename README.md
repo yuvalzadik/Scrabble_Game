@@ -109,5 +109,5 @@ To ensure that the project is managed correctly and completed in the required ti
 <br />
 
 ## Demo Video
-[Link to Demo video](https://drive.google.com/drive/folders/1-36u5oP6EYYRVRwRAMFi8k3Ej38h41Oo?hl=he/view)
+[Link to Demo video](https://drive.google.com/file/d/1Yt7SvtBEaMmL3VvYvMRnusUgassQoNgT/view?usp=sharing)
  
