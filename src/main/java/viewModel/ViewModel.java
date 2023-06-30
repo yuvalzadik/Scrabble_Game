@@ -172,8 +172,15 @@ public class ViewModel {
             case "updateView" -> updateView();
             case "playTurn" -> playTurn();
             case "bindButtons" -> bindButtons();
+            case "boardNotLegal" -> boardNotLegal();
             default -> System.out.println("default");
         }
+    }
+
+    private void boardNotLegal() {
+        System.out.println("reach to view model");
+        viewModelUpdates.setValue("boardNotLegal");
+
     }
 
     private void bindButtons() {

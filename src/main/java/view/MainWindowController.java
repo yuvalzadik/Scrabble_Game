@@ -127,7 +127,6 @@ public class MainWindowController {
     StringProperty playerAction;
     StringProperty lastWord;
     Map<String, String> placedTiles;
-    Boolean firstTile;
     private boolean[] tileDragged = new boolean[7];
     public MainWindowController(){
         lastWord = new SimpleStringProperty();
@@ -177,7 +176,6 @@ public class MainWindowController {
         ObjectProperty<String> newCellLabel = viewShareData.getViewModel().getCellLabel();
         cellLabel.bind(newCellLabel);
         newCellLabel.addListener(((observable, oldLabel, newLabel) -> updateBoardCellLabel(newLabel)));
-        firstTile = false;
     }
 
     public void initializeViewModelUpdates(){
@@ -196,6 +194,20 @@ public class MainWindowController {
                 bindButtonsProperties();
                 viewShareData.getViewModel().updateView();
             });
+            case "boardNotLegal" -> {
+                System.out.println("we reach to view");
+                initializeBoardAction();
+                // Reset tileDragged array
+                Arrays.fill(tileDragged, false);
+
+                // Enable all TileContainers
+                for (Node node : tileContainerHBox.getChildren()) {
+                    if (node instanceof VBox) {
+                        VBox tileContainer = (VBox) node;
+                        tileContainer.setDisable(false);
+                    }
+                }
+            }
         }
     }
 
@@ -657,7 +669,6 @@ public class MainWindowController {
                     }
                     if (square.getStyleClass().contains("center-cell")) {
                         squareLabel.setText("SP");
-                        firstTile=false;
                     }
                     int index = boardGridPane.getChildren().indexOf(square);
                     int rowIndex = GridPane.getRowIndex(boardGridPane.getChildren().get(index));
@@ -726,19 +737,14 @@ public class MainWindowController {
 
                 StackPane stackPane = (StackPane) node;
 
-                if (!targetSquare.getStyleClass().contains("center-cell") && !firstTile ) {
-                    new Alert(Alert.AlertType.INFORMATION, "First word in board must start in middle cell(Starting Point).").showAndWait();
-                    return;
-                }
-                else {
-                    firstTile = true;
-                    squareLabel.setText(tileLabel.getText());
-                    int index = getIndexFromTileContainer(draggedTileContainer);
-                    // Disable the dragged TileContainer
-                    draggedTileContainer.setDisable(true);
-                }
 
-               int  index = boardGridPane.getChildren().indexOf(stackPane);
+                squareLabel.setText(tileLabel.getText());
+                int index = getIndexFromTileContainer(draggedTileContainer);
+                // Disable the dragged TileContainer
+                draggedTileContainer.setDisable(true);
+
+
+                index = boardGridPane.getChildren().indexOf(stackPane);
                 int rowIndex = GridPane.getRowIndex(boardGridPane.getChildren().get(index));
                 int columnIndex = GridPane.getColumnIndex(boardGridPane.getChildren().get(index));
                 placedTiles.put("" + rowIndex + "," + columnIndex, tileLabel.getText());

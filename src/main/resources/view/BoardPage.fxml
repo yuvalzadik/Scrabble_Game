@@ -832,13 +832,13 @@
                     </StackPane>
                 </GridPane>
                 <HBox alignment="CENTER" spacing="10">
-                    <Button fx:id="resign" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Resign" styleClass="option-btn" text="Resign" visible="false" />
+                    <Button fx:id="resign" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Resign" styleClass="option-btn" text="End Game" visible="false" />
                     <Button fx:id="skipTurn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#SkipTurn" styleClass="option-btn" text="Skip Turn" visible="false" />
                     <Button fx:id="submit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Submit" styleClass="option-btn" text="Submit" visible="false" />
                 </HBox>
             </VBox>
 
-            <Button fx:id="ExitButton" mnemonicParsing="false" onAction="#Resign">
+            <Button fx:id="ExitButton" mnemonicParsing="false" onAction="#Exit">
                 <graphic>
                     <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
                         <image>
