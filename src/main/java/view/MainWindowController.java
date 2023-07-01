@@ -19,10 +19,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import model.BookScrabbleCommunication;
-import model.GameManager;
-import model.GameMode;
-import model.Model;
+import model.*;
 import scrabble_game.Board;
 import scrabble_game.BookScrabbleHandler;
 import scrabble_game.MyServer;
@@ -33,6 +30,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class MainWindowController {
@@ -64,6 +62,24 @@ public class MainWindowController {
     private Label thirdPlayerScore;
     @FXML
     private Label fourthPlayerScore;
+
+    @FXML
+    Label firstFinalPlayerName;
+    @FXML
+    Label secondFinalPlayerName;
+    @FXML
+    Label thirdFinalPlayerName;
+    @FXML
+    Label fourthFinalPlayerName;
+
+    @FXML
+    private Label firstFinalPlayerScore;
+    @FXML
+    private Label secondFinalPlayerScore;
+    @FXML
+    private Label thirdFinalPlayerScore;
+    @FXML
+    private Label fourthFinalPlayerScore;
 
     @FXML
     private Label nameLabelError;
@@ -121,6 +137,12 @@ public class MainWindowController {
     private Button skipTurn;
     @FXML
     private Button startGame;
+
+    @FXML
+    Label scoreBoardWinnerName;
+
+    List<Label> scoreBoardNames;
+    List<Label> scoreBoardScores;
 
     StringProperty viewModelUpdates;
     StringProperty cellLabel;
@@ -614,7 +636,15 @@ public class MainWindowController {
             if(viewShareData.getHost()) controller.toggleStartButton();
             stage.setScene(scene);
             stage.setFullScreen(true);
-        } else {
+        } else if (Objects.equals(sceneName, "FinalPage")) {
+            //Tamarsh function
+//            controller.initFinalPageLabels();
+            controller.activeFinalGameFunctions();
+            System.out.println("reach to end game");
+            scene = new Scene(root);
+            stage.setScene(scene);
+        }
+        else {
             scene = new Scene(root);
             stage.setScene(scene);
         }
@@ -625,6 +655,8 @@ public class MainWindowController {
 
         stage.show();
     }
+
+
     public boolean validPort(String port) {
         return port.matches("(1000[1-9]|100[1-9]\\d|10[1-9]\\d{2}|1[1-9]\\d{3}|19999)");
     }
@@ -778,6 +810,52 @@ public class MainWindowController {
             }
         }
         return -1; // If the tileContainer is not found
+    }
+
+    /*handle final page!*/
+    public void initializeLabels() {
+        scoreBoardNames = new ArrayList<>();
+        scoreBoardScores = new ArrayList<>();
+
+        scoreBoardNames.add(firstFinalPlayerName);
+        scoreBoardNames.add(secondFinalPlayerName);
+        scoreBoardNames.add(thirdFinalPlayerName);
+        scoreBoardNames.add(fourthFinalPlayerName);
+
+        scoreBoardScores.add(firstFinalPlayerScore);
+        scoreBoardScores.add(secondFinalPlayerScore);
+        scoreBoardScores.add(thirdFinalPlayerScore);
+        scoreBoardScores.add(fourthFinalPlayerScore);
+    }
+
+    public void updateScoreBoardPage() {
+        Map<Integer, Player> players = viewShareData.getViewModel().getGameManager().getPlayers();
+        List<Integer> sortedKeys = players.keySet().stream()
+                .sorted((firstKey, secondKey) -> players.get(secondKey).getScore() - players.get(firstKey).getScore())
+                .collect(Collectors.toCollection(ArrayList::new));
+        int currentIndex;
+        for(int i = 0; i < 4; i++) {
+            if (i < sortedKeys.size()) {
+
+                currentIndex = sortedKeys.get(i);
+                scoreBoardNames.get(i).setText(players.get(currentIndex).getName());
+                scoreBoardScores.get(i).setText(String.valueOf(players.get(currentIndex).getScore()));
+
+                System.out.println("final lebal name is - " + players.get(currentIndex).getName());
+                System.out.println("final lebal is - " + scoreBoardNames.get(i));
+
+            }
+            else{
+                scoreBoardNames.get(i).setText("");
+                scoreBoardScores.get(i).setText("");
+            }
+        }
+//        scoreBoardWinnerName.setText(scoreBoardNames.get(0).getText());
+    }
+
+    public void activeFinalGameFunctions() {
+        initializeLabels();
+        updateScoreBoardPage();
     }
 }
 
