@@ -12,9 +12,9 @@
       <VBox alignment="CENTER" spacing="40">
         <Label styleClass="title-label" text="Game Over" />
 
-            <HBox alignment="BASELINE_CENTER" spacing="350" styleClass="PlayerCard">
-            <Label fx:id="firstFinalPlayerName" styleClass="PlayerName" text="FX" />
-            <Label fx:id="firstFinalPlayerScore" styleClass="PlayerScore" text="FX" />
+            <HBox alignment="BASELINE_CENTER" spacing="350" styleClass="WinnerPlayerCard">
+            <Label fx:id="firstFinalPlayerName" styleClass="PlayerName" text="FX" textFill="#f7f3f3" />
+            <Label fx:id="firstFinalPlayerScore" styleClass="PlayerScore" text="FX" textFill="#f2efef" />
 
             </HBox>
               <HBox alignment="BASELINE_CENTER" spacing="350" styleClass="PlayerCard">
